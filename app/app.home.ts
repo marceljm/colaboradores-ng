@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VwColabSituacaoQtdeOper} from './charts/vwColabSituacaoQtdeOper';
 import {VwColabSituacaoQtdeOperService} from './charts/vwColabSituacaoQtdeOperService';
 
@@ -10,15 +10,23 @@ class VwColabSituacaoQtdeOperChart implements VwColabSituacaoQtdeOper {
     templateUrl: 'app/app.home.html',
     selector: 'home-app'
 })
-export class AppHome {
+export class AppHome implements OnInit {
+    errorMessage: string;
 
     vwColabSituacaoQtdeOper: VwColabSituacaoQtdeOper = new VwColabSituacaoQtdeOperChart();
 
     vwColabSituacaoQtdeOperList: VwColabSituacaoQtdeOper[];
 
-    constructor(private vwColabSituacaoQtdeOperService: VwColabSituacaoQtdeOperService) { }
+    constructor(
+        private vwColabSituacaoQtdeOperService: VwColabSituacaoQtdeOperService) { }
 
     ngOnInit() {
-        this.vwColabSituacaoQtdeOperService.getVwColabSituacaoQtdeOper().then(vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList);
+        this.getVwColabSituacaoQtdeOperList();
+    }
+
+    getVwColabSituacaoQtdeOperList() {
+        this.vwColabSituacaoQtdeOperService.getVwColabSituacaoQtdeOper().subscribe(
+            vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList,
+            error => this.errorMessage = <any>error);
     }
 }

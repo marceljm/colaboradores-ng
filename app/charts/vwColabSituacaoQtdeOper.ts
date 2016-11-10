@@ -1,4 +1,4 @@
-export interface VwColabSituacaoQtdeOper {
-    quantidade?;
-    situacao?;
+export class VwColabSituacaoQtdeOper {
+    quantidade: number;
+    situacao: string;
 }
