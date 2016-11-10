@@ -1,6 +1,9 @@
 <p-accordion>
     <p-accordionTab header="Situação">
-        Content 1
+        <p-dataTable [value]="vwColabSituacaoQtdeOperList">
+            <p-column field="quantidade" header="quantidade"></p-column>
+            <p-column field="situacao" header="situacao"></p-column>
+        </p-dataTable>
     </p-accordionTab>
     <p-accordionTab header="Header 2">
         Content 2
