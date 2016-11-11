@@ -2,10 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {VwColabSituacaoQtdeOper} from './charts/vwColabSituacaoQtdeOper';
 import {VwColabSituacaoQtdeOperService} from './charts/vwColabSituacaoQtdeOperService';
 
-class VwColabSituacaoQtdeOperChart implements VwColabSituacaoQtdeOper {
-    constructor(public quantidade?, public situacao?) { }
-}
-
 @Component({
     templateUrl: 'app/app.home.html',
     selector: 'home-app'
@@ -13,7 +9,8 @@ class VwColabSituacaoQtdeOperChart implements VwColabSituacaoQtdeOper {
 export class AppHome implements OnInit {
     errorMessage: string;
 
-    vwColabSituacaoQtdeOper: VwColabSituacaoQtdeOper = new VwColabSituacaoQtdeOperChart();
+    vwColabSituacaoQtdeOper: VwColabSituacaoQtdeOper = new VwColabSituacaoQtdeOper();
+    vwColabSituacaoQtdeOperChart: any;
 
     vwColabSituacaoQtdeOperList: VwColabSituacaoQtdeOper[];
 
@@ -22,11 +19,28 @@ export class AppHome implements OnInit {
 
     ngOnInit() {
         this.getVwColabSituacaoQtdeOperList();
+        this.showVwColabSituacaoQtdeOperChart();
     }
 
     getVwColabSituacaoQtdeOperList() {
         this.vwColabSituacaoQtdeOperService.getVwColabSituacaoQtdeOper().subscribe(
             vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList,
             error => this.errorMessage = <any>error);
+    }
+
+    showVwColabSituacaoQtdeOperChart() {
+        this.vwColabSituacaoQtdeOperChart = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'Second Dataset',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        }
     }
 }

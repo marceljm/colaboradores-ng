@@ -12,10 +12,10 @@ import {AppComponent2}  from './app.component2';
 import {CarService} from './cars/carservice';
 import {VwColabSituacaoQtdeOperService} from './charts/vwColabSituacaoQtdeOperService';
 
-import {InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule} from 'primeng/primeng';
+import {InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule} from 'primeng/primeng';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule],
+  imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule],
   declarations: [AppHeader, AppComponent, AppComponent2, AppHome],
   bootstrap: [AppHeader, AppComponent, AppComponent2, AppHome],
   providers: [CarService, VwColabSituacaoQtdeOperService]
