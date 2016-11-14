@@ -13,6 +13,7 @@ export class AppHome implements OnInit {
     vwColabSituacaoQtdeOperChart: any;
 
     vwColabSituacaoQtdeOperList: VwColabSituacaoQtdeOper[];
+    vwColabSituacaoQtdeOperLabel: string[]; 
 
     constructor(
         private vwColabSituacaoQtdeOperService: VwColabSituacaoQtdeOperService) { }
@@ -25,22 +26,28 @@ export class AppHome implements OnInit {
     getVwColabSituacaoQtdeOperList() {
         this.vwColabSituacaoQtdeOperService.getVwColabSituacaoQtdeOper().subscribe(
             vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList,
-            error => this.errorMessage = <any>error);
+            error => this.errorMessage = <any>error,
+            () => console.log(this.vwColabSituacaoQtdeOperList)            
+        );
     }
 
     showVwColabSituacaoQtdeOperChart() {
         this.vwColabSituacaoQtdeOperChart = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['A', 'B', 'C'],
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }]
         }
     }
 }

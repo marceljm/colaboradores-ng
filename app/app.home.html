@@ -1,8 +1,8 @@
 <p-accordion>
     <p-accordionTab header="Situação">
 
-        <p-chart type="line" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
-        
+        <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+
         <p-dataTable [value]="vwColabSituacaoQtdeOperList">
             <p-column field="quantidade" header="quantidade"></p-column>
             <p-column field="situacao" header="situacao"></p-column>
