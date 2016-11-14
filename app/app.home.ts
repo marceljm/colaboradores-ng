@@ -9,11 +9,16 @@ import {VwColabSituacaoQtdeOperService} from './charts/vwColabSituacaoQtdeOperSe
 export class AppHome implements OnInit {
     errorMessage: string;
     colorList: string[] = [
-        "#4BC0C0",
-        "#36A2EB",
-        "#FF6384",
-        "#FFCE56",
-        "#E7E9ED"
+        "#4BB2C5",
+        "#EAA228",
+        "#C5B47F",
+        "#579575",
+        "#839557",
+        "#958C12",
+        "#953579",
+        "#4B5DE4",
+        "#D8B83F",
+        "#FF5800",
     ]
 
     vwColabSituacaoQtdeOper: VwColabSituacaoQtdeOper = new VwColabSituacaoQtdeOper();
