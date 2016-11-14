@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {VwColabSituacaoQtdeOper} from './charts/vwColabSituacaoQtdeOper';
-import {VwColabSituacaoQtdeOperService} from './charts/vwColabSituacaoQtdeOperService';
+import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
+import {VwColabSituacaoQtdeService} from './charts/vwColabSituacaoQtdeService';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -21,23 +21,38 @@ export class AppHome implements OnInit {
         "#FF5800",
     ]
 
-    vwColabSituacaoQtdeOper: VwColabSituacaoQtdeOper = new VwColabSituacaoQtdeOper();
+    vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeOperChart: any;
-
-    vwColabSituacaoQtdeOperList: VwColabSituacaoQtdeOper[];
     vwColabSituacaoQtdeOperLabel: Array<string> = new Array<string>();
     vwColabSituacaoQtdeOperAmount: Array<number> = new Array<number>();
 
-    constructor(
-        private vwColabSituacaoQtdeOperService: VwColabSituacaoQtdeOperService) { }
+    vwColabSituacaoQtdeStaffList: VwColabSituacaoQtde[];
+    vwColabSituacaoQtdeStaffChart: any;
+    vwColabSituacaoQtdeStaffLabel: Array<string> = new Array<string>();
+    vwColabSituacaoQtdeStaffAmount: Array<number> = new Array<number>();
 
-    ngOnInit() {
-        this.getVwColabSituacaoQtdeOperList();
-        this.showVwColabSituacaoQtdeOperChart();
+    vwColabSituacaoQtdeTotalList: VwColabSituacaoQtde[];
+    vwColabSituacaoQtdeTotalChart: any;
+    vwColabSituacaoQtdeTotalLabel: Array<string> = new Array<string>();
+    vwColabSituacaoQtdeTotalAmount: Array<number> = new Array<number>();
+
+    optionsOper: any;
+    optionsStaff: any;
+    optionsTotal: any;
+
+    constructor(
+        private vwColabSituacaoQtdeService: VwColabSituacaoQtdeService) {
+        this.createVwColabSituacaoQtdeOperChart();
+        this.createVwColabSituacaoQtdeStaffChart();
+        this.createVwColabSituacaoQtdeTotalChart();
     }
 
-    getVwColabSituacaoQtdeOperList() {
-        this.vwColabSituacaoQtdeOperService.getVwColabSituacaoQtdeOper().subscribe(
+    ngOnInit() {
+        this.getVwColabSituacaoQtdeList();
+    }
+
+    getVwColabSituacaoQtdeList() {
+        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeOper().subscribe(
             vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList,
             error => this.errorMessage = <any>error,
             () => {
@@ -45,13 +60,44 @@ export class AppHome implements OnInit {
                     this.vwColabSituacaoQtdeOperAmount.push(entry.quantidade);
                     this.vwColabSituacaoQtdeOperLabel.push(entry.situacao);
                 }
-                console.log(this.vwColabSituacaoQtdeOperLabel);
-                this.showVwColabSituacaoQtdeOperChart();
+                this.createVwColabSituacaoQtdeOperChart();
+            }
+        );
+        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
+            vwColabSituacaoQtdeStaffList => this.vwColabSituacaoQtdeStaffList = vwColabSituacaoQtdeStaffList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabSituacaoQtdeStaffList) {
+                    this.vwColabSituacaoQtdeStaffAmount.push(entry.quantidade);
+                    this.vwColabSituacaoQtdeStaffLabel.push(entry.situacao);
+                }
+                this.createVwColabSituacaoQtdeStaffChart();
+            }
+        );
+        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeTotal().subscribe(
+            vwColabSituacaoQtdeTotalList => this.vwColabSituacaoQtdeTotalList = vwColabSituacaoQtdeTotalList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabSituacaoQtdeTotalList) {
+                    this.vwColabSituacaoQtdeTotalAmount.push(entry.quantidade);
+                    this.vwColabSituacaoQtdeTotalLabel.push(entry.situacao);
+                }
+                this.createVwColabSituacaoQtdeTotalChart();
             }
         );
     }
 
-    showVwColabSituacaoQtdeOperChart() {
+    createVwColabSituacaoQtdeOperChart() {
+        this.optionsOper = {
+            title: {
+                display: true,
+                text: 'Operadores',
+                fontSize: 16
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
         this.vwColabSituacaoQtdeOperChart = {
             labels: this.vwColabSituacaoQtdeOperLabel,
             datasets: [
@@ -60,6 +106,51 @@ export class AppHome implements OnInit {
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
                 }]
+        };
+    }
+
+    createVwColabSituacaoQtdeStaffChart() {
+        this.optionsStaff = {
+            title: {
+                display: true,
+                text: 'Staff',
+                fontSize: 16
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
+        this.vwColabSituacaoQtdeStaffChart = {
+            labels: this.vwColabSituacaoQtdeStaffLabel,
+            datasets: [
+                {
+                    data: this.vwColabSituacaoQtdeStaffAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
         }
     }
+
+    createVwColabSituacaoQtdeTotalChart() {
+        this.optionsTotal = {
+            title: {
+                display: true,
+                text: 'Total',
+                fontSize: 16
+            },
+            legend: {
+                position: 'bottom'
+            }
+        };
+        this.vwColabSituacaoQtdeTotalChart = {
+            labels: this.vwColabSituacaoQtdeTotalLabel,
+            datasets: [
+                {
+                    data: this.vwColabSituacaoQtdeTotalAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
+        }
+    }
+
 }

@@ -2,20 +2,17 @@
     <p-accordionTab header="Situação">
 
         <div class="ui-g">
-            <div class="ui-g-4">
-                Operadores
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+            <div class="ui-g-6">
+                <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart" [options]="optionsOper"></p-chart>
             </div>
-            <div class="ui-g-4">
-                Staff
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+            <div class="ui-g-6">
+                <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart" [options]="optionsStaff"></p-chart>
             </div>
-            <div class="ui-g-4">
-                Total
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+            <div class="ui-g-6">
+                <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart" [options]="optionsTotal"></p-chart>
             </div>
         </div>
-        
+
     </p-accordionTab>
     <p-accordionTab header="Header 2">
         <p-dataTable [value]="vwColabSituacaoQtdeOperList">

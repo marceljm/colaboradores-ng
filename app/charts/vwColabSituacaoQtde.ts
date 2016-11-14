@@ -1,4 +1,4 @@
-export class VwColabSituacaoQtdeOper {
+export class VwColabSituacaoQtde {
     quantidade: number;
     situacao: string;
 }
