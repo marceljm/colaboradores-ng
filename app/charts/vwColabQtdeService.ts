@@ -28,7 +28,7 @@ export class VwColabQtdeService {
     private urlDtAdmissao = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabDtAdmissaoQtde';
     private urlDtDesligArea = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabDtDesligAreaQtde';
     private urlGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabGrupoQtde';
-    private urlEntreGrupo = 'http://localhost:8080/ColaboradoresWS/rest/vwColabEntreGrupoQtde';
+    private urlEntreGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabEntreGrupoQtde';
 
     constructor(private http: Http) { }
 
