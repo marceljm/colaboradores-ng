@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {VwColabSituacaoQtde} from '../../app/charts/vwColabSituacaoQtde';
 import {VwColabCargoQtde} from '../../app/charts/vwColabCargoQtde';
+import {VwColabCidadeQtde} from '../../app/charts/vwColabCidadeQtde';
+import {VwColabGerenteQtde} from '../../app/charts/vwColabGerenteQtde';
+import {VwColabCoordenadorQtde} from '../../app/charts/vwColabCoordenadorQtde';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,6 +18,7 @@ export class VwColabQtdeService {
     private urlCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabCargoQtde';
     private urlCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabCidadeQtde';
     private urlGerente = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabGerenteQtde';
+    private urlCoordenador = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabCoordenadorQtde';
 
     constructor(private http: Http) { }
 
@@ -40,6 +44,10 @@ export class VwColabQtdeService {
 
     getVwColabGerenteQtde(): Observable<VwColabGerenteQtde[]> {
         return this.http.get(this.urlGerente).map(this.extractData).catch(this.handleError);
+    }
+
+    getVwColabCoordenadorQtde(): Observable<VwColabCoordenadorQtde[]> {
+        return this.http.get(this.urlCoordenador).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {

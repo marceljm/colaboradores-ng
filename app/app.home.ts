@@ -4,6 +4,7 @@ import {VwColabCargoQtde} from './charts/vwColabCargoQtde';
 import {VwColabCidadeQtde} from './charts/vwColabCidadeQtde';
 import {VwColabQtdeService} from './charts/vwColabQtdeService';
 import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
+import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -54,12 +55,18 @@ export class AppHome implements OnInit {
     private vwColabGerenteQtdeLabel: Array<string> = new Array<string>();
     private vwColabGerenteQtdeAmount: Array<number> = new Array<number>();
 
+    private vwColabCoordenadorQtdeList: VwColabCoordenadorQtde[];
+    vwColabCoordenadorQtdeChart: any;
+    private vwColabCoordenadorQtdeLabel: Array<string> = new Array<string>();
+    private vwColabCoordenadorQtdeAmount: Array<number> = new Array<number>();
+
     displayOperChart: boolean = false;
     displayStaffChart: boolean = false;
     displayTotalChart: boolean = false;
     displayCargoChart: boolean = false;
     displayCidadeChart: boolean = false;
     displayGerenteChart: boolean = false;
+    displayCoordenadorChart: boolean = false;
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -69,6 +76,7 @@ export class AppHome implements OnInit {
         this.createVwColabCargoQtdeChart();
         this.createVwColabCidadeQtdeChart();
         this.createVwColabGerenteQtdeChart();
+        this.createVwColabCoordenadorQtdeChart();
     }
 
     ngOnInit() {
@@ -85,6 +93,7 @@ export class AppHome implements OnInit {
                     this.vwColabSituacaoQtdeOperLabel.push(entry.situacao);
                 }
                 this.createVwColabSituacaoQtdeOperChart();
+                console.log(this.vwColabSituacaoQtdeOperList);
             }
         );
         this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
@@ -140,6 +149,17 @@ export class AppHome implements OnInit {
                     this.vwColabGerenteQtdeLabel.push(entry.gerente);
                 }
                 this.createVwColabGerenteQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabCoordenadorQtde().subscribe(
+            vwColabCoordenadorQtdeList => this.vwColabCoordenadorQtdeList = vwColabCoordenadorQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabCoordenadorQtdeList) {
+                    this.vwColabCoordenadorQtdeAmount.push(entry.quantidade);
+                    this.vwColabCoordenadorQtdeLabel.push(entry.coordenador);
+                }
+                this.createVwColabCoordenadorQtdeChart();
             }
         );
     }
@@ -216,6 +236,18 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabCoordenadorQtdeChart() {
+        this.vwColabCoordenadorQtdeChart = {
+            labels: this.vwColabCoordenadorQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabCoordenadorQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
+        }
+    }
+
     showOperDialog() {
         this.displayOperChart = true;
     }
@@ -238,5 +270,9 @@ export class AppHome implements OnInit {
 
     showGerenteDialog() {
         this.displayGerenteChart = true;
+    }
+
+    showCoordenadorDialog() {
+        this.displayCoordenadorChart = true;
     }
 }

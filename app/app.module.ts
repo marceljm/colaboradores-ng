@@ -16,8 +16,8 @@ import {InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewMod
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule],
-  declarations: [AppHeader, AppComponent, AppComponent2, AppHome],
-  bootstrap: [AppHeader, AppComponent, AppComponent2, AppHome],
+  declarations: [AppHeader, AppComponent, AppHome],
+  bootstrap: [AppHeader, AppComponent, AppHome],
   providers: [CarService, VwColabQtdeService]
 })
 export class AppModule { }
