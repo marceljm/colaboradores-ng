@@ -26,7 +26,10 @@
     <p-tabPanel header="Data Desligamento">
         <p-chart type="bar" [data]="vwColabDtDesligAreaQtdeChart"></p-chart>
     </p-tabPanel>
-    <p-tabPanel header="Grupo">
+    <p-tabPanel header="Grupo e Entre Grupo">
         <p-chart type="pie" [data]="vwColabGrupoQtdeChart" (onDataSelect)="selectData($event)"></p-chart>
+        <p-dialog header="Entre Grupo" [(visible)]="displayEntreGrupo" width="800" height="500" modal=true [resizable]=false>
+            <p-chart type="pie" [data]="vwColabEntreGrupoQtdeChart"></p-chart>
+        </p-dialog>
     </p-tabPanel>
 </p-tabView>

@@ -30,6 +30,9 @@ export class AppHome implements OnInit {
         "#FF5800",
     ]
 
+    displayEntreGrupo: boolean = false;
+    private selectedGrupo: string;
+
     vwColabSituacaoQtdeOperChart: any;
     private vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
     private vwColabSituacaoQtdeOperLabel: Array<string> = new Array<string>();
@@ -89,6 +92,8 @@ export class AppHome implements OnInit {
     private vwColabEntreGrupoQtdeLabel: Array<string> = new Array<string>();
     private vwColabEntreGrupoQtdeAmount: Array<number> = new Array<number>();
     private vwColabEntreGrupoQtdeGrupo: Array<string> = new Array<string>();
+    private selectedVwColabEntreGrupoLabel: Array<string> = new Array<string>();
+    private selectedVwColabEntreGrupoAmount: Array<number> = new Array<number>();
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -386,10 +391,10 @@ export class AppHome implements OnInit {
 
     createVwColabEntreGrupoQtdeChart() {
         this.vwColabEntreGrupoQtdeChart = {
-            labels: this.vwColabEntreGrupoQtdeLabel,
+            labels: this.selectedVwColabEntreGrupoLabel,
             datasets: [
                 {
-                    data: this.vwColabEntreGrupoQtdeAmount,
+                    data: this.selectedVwColabEntreGrupoAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
                 }
@@ -398,6 +403,25 @@ export class AppHome implements OnInit {
     }
 
     selectData(event) {
-        console.log(event.element._model.label);
+        this.selectedGrupo = event.element._model.label;
+
+        while (this.selectedVwColabEntreGrupoAmount.length > 0)
+            this.selectedVwColabEntreGrupoAmount.pop();
+        while (this.selectedVwColabEntreGrupoLabel.length > 0)
+            this.selectedVwColabEntreGrupoLabel.pop();
+
+        for (let entry of this.vwColabEntreGrupoQtdeList) {
+            if (entry.id.grupo == this.selectedGrupo) {
+                this.selectedVwColabEntreGrupoAmount.push(entry.quantidade);
+                this.selectedVwColabEntreGrupoLabel.push(entry.id.entreGrupo);
+                this.vwColabEntreGrupoQtdeGrupo.push(entry.id.grupo);
+            }
+        }
+        this.createVwColabEntreGrupoQtdeChart();
+        this.showEntreGrupoDialog();
+    }
+
+    showEntreGrupoDialog() {
+        this.displayEntreGrupo = true;
     }
 }
