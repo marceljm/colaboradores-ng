@@ -5,6 +5,7 @@ import {VwColabCidadeQtde} from './charts/vwColabCidadeQtde';
 import {VwColabQtdeService} from './charts/vwColabQtdeService';
 import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
 import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
+import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -60,6 +61,11 @@ export class AppHome implements OnInit {
     private vwColabCoordenadorQtdeLabel: Array<string> = new Array<string>();
     private vwColabCoordenadorQtdeAmount: Array<number> = new Array<number>();
 
+    private vwColabDtAdmissaoAreaQtdeList: VwColabDtAdmissaoAreaQtde[];
+    vwColabDtAdmissaoAreaQtdeChart: any;
+    private vwColabDtAdmissaoAreaQtdeLabel: Array<string> = new Array<string>();
+    private vwColabDtAdmissaoAreaQtdeAmount: Array<number> = new Array<number>();
+
     displayOperChart: boolean = false;
     displayStaffChart: boolean = false;
     displayTotalChart: boolean = false;
@@ -67,6 +73,7 @@ export class AppHome implements OnInit {
     displayCidadeChart: boolean = false;
     displayGerenteChart: boolean = false;
     displayCoordenadorChart: boolean = false;
+    displayDtAdmissaoAreaChart: boolean = false;
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -77,6 +84,7 @@ export class AppHome implements OnInit {
         this.createVwColabCidadeQtdeChart();
         this.createVwColabGerenteQtdeChart();
         this.createVwColabCoordenadorQtdeChart();
+        this.createVwColabDtAdmissaoAreaQtdeChart();
     }
 
     ngOnInit() {
@@ -160,6 +168,17 @@ export class AppHome implements OnInit {
                     this.vwColabCoordenadorQtdeLabel.push(entry.coordenador);
                 }
                 this.createVwColabCoordenadorQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabDtAdmissaoAreaQtde().subscribe(
+            vwColabDtAdmissaoAreaQtdeList => this.vwColabDtAdmissaoAreaQtdeList = vwColabDtAdmissaoAreaQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabDtAdmissaoAreaQtdeList) {
+                    this.vwColabDtAdmissaoAreaQtdeAmount.push(entry.quantidade);
+                    this.vwColabDtAdmissaoAreaQtdeLabel.push(entry.dtAdmissaoArea);
+                }
+                this.createVwColabDtAdmissaoAreaQtdeChart();
             }
         );
     }
@@ -248,6 +267,19 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabDtAdmissaoAreaQtdeChart() {
+        this.vwColabDtAdmissaoAreaQtdeChart = {
+            labels: this.vwColabDtAdmissaoAreaQtdeLabel,
+            datasets: [
+                {
+                    label: 'Data Admissão Área',
+                    data: this.vwColabDtAdmissaoAreaQtdeAmount,
+                    backgroundColor: "#4BB2C5",
+                    hoverBackgroundColor: "#4BB2C5"
+                }]
+        }
+    }
+
     showOperDialog() {
         this.displayOperChart = true;
     }
@@ -274,5 +306,9 @@ export class AppHome implements OnInit {
 
     showCoordenadorDialog() {
         this.displayCoordenadorChart = true;
+    }
+
+    showDtAdmissaoAreaDialog() {
+        this.displayDtAdmissaoAreaChart = true;
     }
 }
