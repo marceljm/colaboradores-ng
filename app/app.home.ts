@@ -8,6 +8,7 @@ import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
 import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
 import {VwColabDtAdmissaoQtde} from './charts/vwColabDtAdmissaoQtde';
 import {VwColabDtDesligAreaQtde} from './charts/vwColabDtDesligAreaQtde';
+import {VwColabGrupoQtde} from './charts/vwColabGrupoQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -77,6 +78,11 @@ export class AppHome implements OnInit {
     private vwColabDtDesligAreaQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtDesligAreaQtdeAmount: Array<number> = new Array<number>();
 
+    private vwColabGrupoQtdeList: VwColabGrupoQtde[];
+    vwColabGrupoQtdeChart: any;
+    private vwColabGrupoQtdeLabel: Array<string> = new Array<string>();
+    private vwColabGrupoQtdeAmount: Array<number> = new Array<number>();
+
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
         this.createVwColabSituacaoQtdeOperChart();
@@ -88,6 +94,7 @@ export class AppHome implements OnInit {
         this.createVwColabCoordenadorQtdeChart();
         this.createVwColabDtAdmissaoQtdeChart();
         this.createVwColabDtDesligAreaQtdeChart();
+        this.createVwColabGrupoQtdeChart();
     }
 
     ngOnInit() {
@@ -203,6 +210,17 @@ export class AppHome implements OnInit {
                     this.vwColabDtDesligAreaQtdeLabel.push(entry.ddtdesligamentoarea);
                 }
                 this.createVwColabDtDesligAreaQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabGrupoQtde().subscribe(
+            vwColabGrupoQtdeList => this.vwColabGrupoQtdeList = vwColabGrupoQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabGrupoQtdeList) {
+                    this.vwColabGrupoQtdeAmount.push(entry.quantidade);
+                    this.vwColabGrupoQtdeLabel.push(entry.grupo);
+                }
+                this.createVwColabGrupoQtdeChart();
             }
         );
     }
@@ -330,5 +348,26 @@ export class AppHome implements OnInit {
                 }
             ]
         }
+    }
+
+    createVwColabGrupoQtdeChart() {
+        this.vwColabGrupoQtdeChart = {
+            labels: this.vwColabGrupoQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabGrupoQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }
+            ]
+        }
+    }
+
+    selectData(event) {
+        console.log(event.element._model.label);
+        //event.dataset = Selected dataset
+        //event.element = Selected element
+        //event.element._datasetIndex = Index of the dataset in data
+        //event.element_index = Index of the data in dataset
     }
 }

@@ -26,4 +26,7 @@
     <p-tabPanel header="Data Desligamento">
         <p-chart type="bar" [data]="vwColabDtDesligAreaQtdeChart"></p-chart>
     </p-tabPanel>
+    <p-tabPanel header="Grupo">
+        <p-chart type="pie" [data]="vwColabGrupoQtdeChart" (onDataSelect)="selectData($event)"></p-chart>
+    </p-tabPanel>
 </p-tabView>

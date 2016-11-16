@@ -8,6 +8,7 @@ import {VwColabCoordenadorQtde} from '../../app/charts/vwColabCoordenadorQtde';
 import {VwColabDtAdmissaoAreaQtde} from '../../app/charts/vwColabDtAdmissaoAreaQtde';
 import {VwColabDtAdmissaoQtde} from '../../app/charts/vwColabDtAdmissaoQtde';
 import {VwColabDtDesligAreaQtde} from '../../app/charts/vwColabDtDesligAreaQtde';
+import {VwColabGrupoQtde} from '../../app/charts/vwColabGrupoQtde';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -25,6 +26,7 @@ export class VwColabQtdeService {
     private urlDtAdmissaoArea = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabDtAdmissaoAreaQtde';
     private urlDtAdmissao = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabDtAdmissaoQtde';
     private urlDtDesligArea = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabDtDesligAreaQtde';
+    private urlGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabGrupoQtde';
 
     constructor(private http: Http) { }
 
@@ -66,6 +68,10 @@ export class VwColabQtdeService {
 
     getVwColabDtDesligAreaQtde(): Observable<VwColabDtDesligAreaQtde[]> {
         return this.http.get(this.urlDtDesligArea).map(this.extractData).catch(this.handleError);
+    }
+
+    getVwColabGrupoQtde(): Observable<VwColabGrupoQtde[]> {
+        return this.http.get(this.urlGrupo).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
