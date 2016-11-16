@@ -22,6 +22,12 @@
         </p-dialog>
         <button type="text" (click)="showCargoDialog()" pButton icon="fa-external-link-square" label="Cargo"></button>
     </p-accordionTab>
+    <p-accordionTab header="Cidade">
+        <p-dialog header="Cidade" [(visible)]="displayCidadeChart" width="800" height="500" modal=true [resizable]=false>
+            <p-chart type="pie" [data]="vwColabCidadeQtdeChart"></p-chart>
+        </p-dialog>
+        <button type="text" (click)="showCidadeDialog()" pButton icon="fa-external-link-square" label="Cidade"></button>
+    </p-accordionTab>
     <p-accordionTab header="Header 3">
         <p-dataTable [value]="vwColabSituacaoQtdeOperList">
             <p-column field="quantidade" header="quantidade"></p-column>

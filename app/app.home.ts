@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
 import {VwColabCargoQtde} from './charts/vwColabCargoQtde';
+import {VwColabCidadeQtde} from './charts/vwColabCidadeQtde';
 import {VwColabQtdeService} from './charts/vwColabQtdeService';
 
 @Component({
@@ -42,10 +43,16 @@ export class AppHome implements OnInit {
     private vwColabCargoQtdeLabel: Array<string> = new Array<string>();
     private vwColabCargoQtdeAmount: Array<number> = new Array<number>();
 
+    private vwColabCidadeQtdeList: VwColabCidadeQtde[];
+    vwColabCidadeQtdeChart: any;
+    private vwColabCidadeQtdeLabel: Array<string> = new Array<string>();
+    private vwColabCidadeQtdeAmount: Array<number> = new Array<number>();
+
     displayOperChart: boolean = false;
     displayStaffChart: boolean = false;
     displayTotalChart: boolean = false;
     displayCargoChart: boolean = false;
+    displayCidadeChart: boolean = false;
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -53,6 +60,7 @@ export class AppHome implements OnInit {
         this.createVwColabSituacaoQtdeStaffChart();
         this.createVwColabSituacaoQtdeTotalChart();
         this.createVwColabCargoQtdeChart();
+        this.createVwColabCidadeQtdeChart();
     }
 
     ngOnInit() {
@@ -102,6 +110,17 @@ export class AppHome implements OnInit {
                     this.vwColabCargoQtdeLabel.push(entry.cargo);
                 }
                 this.createVwColabCargoQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabCidadeQtde().subscribe(
+            vwColabCidadeQtdeList => this.vwColabCidadeQtdeList = vwColabCidadeQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabCidadeQtdeList) {
+                    this.vwColabCidadeQtdeAmount.push(entry.quantidade);
+                    this.vwColabCidadeQtdeLabel.push(entry.cidade);
+                }
+                this.createVwColabCidadeQtdeChart();
             }
         );
     }
@@ -154,6 +173,18 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabCidadeQtdeChart() {
+        this.vwColabCidadeQtdeChart = {
+            labels: this.vwColabCidadeQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabCidadeQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
+        }
+    }
+
     showOperDialog() {
         this.displayOperChart = true;
     }
@@ -169,5 +200,8 @@ export class AppHome implements OnInit {
     showCargoDialog() {
         this.displayCargoChart = true;
     }
-
+    
+    showCidadeDialog() {
+        this.displayCidadeChart = true;
+    }
 }

@@ -13,6 +13,7 @@ export class VwColabQtdeService {
     private urlStaff = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabSituacaoQtdeStaff';
     private urlTotal = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabSituacaoQtdeTotal';
     private urlCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabCargoQtde';
+    private urlCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabCidadeQtde';
 
     constructor(private http: Http) { }
 
@@ -30,6 +31,10 @@ export class VwColabQtdeService {
 
     getVwColabCargoQtde(): Observable<VwColabCargoQtde[]> {
         return this.http.get(this.urlCargo).map(this.extractData).catch(this.handleError);
+    }
+
+    getVwColabCidadeQtde(): Observable<VwColabCidadeQtde[]> {
+        return this.http.get(this.urlCidade).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
