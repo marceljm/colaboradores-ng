@@ -9,6 +9,7 @@ import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
 import {VwColabDtAdmissaoQtde} from './charts/vwColabDtAdmissaoQtde';
 import {VwColabDtDesligAreaQtde} from './charts/vwColabDtDesligAreaQtde';
 import {VwColabGrupoQtde} from './charts/vwColabGrupoQtde';
+import {VwColabEntreGrupoQtde} from './charts/vwColabEntreGrupoQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -29,38 +30,38 @@ export class AppHome implements OnInit {
         "#FF5800",
     ]
 
-    private vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeOperChart: any;
+    private vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
     private vwColabSituacaoQtdeOperLabel: Array<string> = new Array<string>();
     private vwColabSituacaoQtdeOperAmount: Array<number> = new Array<number>();
 
-    private vwColabSituacaoQtdeStaffList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeStaffChart: any;
+    private vwColabSituacaoQtdeStaffList: VwColabSituacaoQtde[];
     private vwColabSituacaoQtdeStaffLabel: Array<string> = new Array<string>();
     private vwColabSituacaoQtdeStaffAmount: Array<number> = new Array<number>();
 
-    private vwColabSituacaoQtdeTotalList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeTotalChart: any;
+    private vwColabSituacaoQtdeTotalList: VwColabSituacaoQtde[];
     private vwColabSituacaoQtdeTotalLabel: Array<string> = new Array<string>();
     private vwColabSituacaoQtdeTotalAmount: Array<number> = new Array<number>();
 
-    private vwColabCargoQtdeList: VwColabCargoQtde[];
     vwColabCargoQtdeChart: any;
+    private vwColabCargoQtdeList: VwColabCargoQtde[];
     private vwColabCargoQtdeLabel: Array<string> = new Array<string>();
     private vwColabCargoQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabCidadeQtdeList: VwColabCidadeQtde[];
     vwColabCidadeQtdeChart: any;
+    private vwColabCidadeQtdeList: VwColabCidadeQtde[];
     private vwColabCidadeQtdeLabel: Array<string> = new Array<string>();
     private vwColabCidadeQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabGerenteQtdeList: VwColabGerenteQtde[];
     vwColabGerenteQtdeChart: any;
+    private vwColabGerenteQtdeList: VwColabGerenteQtde[];
     private vwColabGerenteQtdeLabel: Array<string> = new Array<string>();
     private vwColabGerenteQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabCoordenadorQtdeList: VwColabCoordenadorQtde[];
     vwColabCoordenadorQtdeChart: any;
+    private vwColabCoordenadorQtdeList: VwColabCoordenadorQtde[];
     private vwColabCoordenadorQtdeLabel: Array<string> = new Array<string>();
     private vwColabCoordenadorQtdeAmount: Array<number> = new Array<number>();
 
@@ -68,20 +69,26 @@ export class AppHome implements OnInit {
     private vwColabDtAdmissaoAreaQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtAdmissaoAreaQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabDtAdmissaoQtdeList: VwColabDtAdmissaoQtde[];
     vwColabDtAdmissaoQtdeChart: any;
+    private vwColabDtAdmissaoQtdeList: VwColabDtAdmissaoQtde[];
     private vwColabDtAdmissaoQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtAdmissaoQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabDtDesligAreaQtdeList: VwColabDtDesligAreaQtde[];
     vwColabDtDesligAreaQtdeChart: any;
+    private vwColabDtDesligAreaQtdeList: VwColabDtDesligAreaQtde[];
     private vwColabDtDesligAreaQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtDesligAreaQtdeAmount: Array<number> = new Array<number>();
 
-    private vwColabGrupoQtdeList: VwColabGrupoQtde[];
     vwColabGrupoQtdeChart: any;
+    private vwColabGrupoQtdeList: VwColabGrupoQtde[];
     private vwColabGrupoQtdeLabel: Array<string> = new Array<string>();
     private vwColabGrupoQtdeAmount: Array<number> = new Array<number>();
+
+    vwColabEntreGrupoQtdeChart: any;
+    private vwColabEntreGrupoQtdeList: VwColabEntreGrupoQtde[];
+    private vwColabEntreGrupoQtdeLabel: Array<string> = new Array<string>();
+    private vwColabEntreGrupoQtdeAmount: Array<number> = new Array<number>();
+    private vwColabEntreGrupoQtdeGrupo: Array<string> = new Array<string>();
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -95,6 +102,7 @@ export class AppHome implements OnInit {
         this.createVwColabDtAdmissaoQtdeChart();
         this.createVwColabDtDesligAreaQtdeChart();
         this.createVwColabGrupoQtdeChart();
+        this.createVwColabEntreGrupoQtdeChart();
     }
 
     ngOnInit() {
@@ -221,6 +229,19 @@ export class AppHome implements OnInit {
                     this.vwColabGrupoQtdeLabel.push(entry.grupo);
                 }
                 this.createVwColabGrupoQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabEntreGrupoQtde().subscribe(
+            vwColabEntreGrupoQtdeList => this.vwColabEntreGrupoQtdeList = vwColabEntreGrupoQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabEntreGrupoQtdeList) {
+                    this.vwColabEntreGrupoQtdeAmount.push(entry.quantidade);
+                    this.vwColabEntreGrupoQtdeLabel.push(entry.id.entreGrupo);
+                    this.vwColabEntreGrupoQtdeGrupo.push(entry.id.grupo);
+                    console.log(entry.quantidade + ' ' + entry.id.grupo + entry.id.entreGrupo + ' ');
+                }
+                this.createVwColabEntreGrupoQtdeChart();
             }
         );
     }
@@ -363,11 +384,20 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabEntreGrupoQtdeChart() {
+        this.vwColabEntreGrupoQtdeChart = {
+            labels: this.vwColabEntreGrupoQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabEntreGrupoQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }
+            ]
+        }
+    }
+
     selectData(event) {
         console.log(event.element._model.label);
-        //event.dataset = Selected dataset
-        //event.element = Selected element
-        //event.element._datasetIndex = Index of the dataset in data
-        //event.element_index = Index of the data in dataset
     }
 }
