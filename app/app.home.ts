@@ -40,6 +40,10 @@ export class AppHome implements OnInit {
     optionsStaff: any;
     optionsTotal: any;
 
+    displayOperChart: boolean = false;
+    displayStaffChart: boolean = false;
+    displayTotalChart: boolean = false;
+
     constructor(
         private vwColabSituacaoQtdeService: VwColabSituacaoQtdeService) {
         this.createVwColabSituacaoQtdeOperChart();
@@ -88,16 +92,6 @@ export class AppHome implements OnInit {
     }
 
     createVwColabSituacaoQtdeOperChart() {
-        this.optionsOper = {
-            title: {
-                display: true,
-                text: 'Operadores',
-                fontSize: 16
-            },
-            legend: {
-                position: 'bottom'
-            }
-        };
         this.vwColabSituacaoQtdeOperChart = {
             labels: this.vwColabSituacaoQtdeOperLabel,
             datasets: [
@@ -110,16 +104,6 @@ export class AppHome implements OnInit {
     }
 
     createVwColabSituacaoQtdeStaffChart() {
-        this.optionsStaff = {
-            title: {
-                display: true,
-                text: 'Staff',
-                fontSize: 16
-            },
-            legend: {
-                position: 'bottom'
-            }
-        };
         this.vwColabSituacaoQtdeStaffChart = {
             labels: this.vwColabSituacaoQtdeStaffLabel,
             datasets: [
@@ -132,16 +116,6 @@ export class AppHome implements OnInit {
     }
 
     createVwColabSituacaoQtdeTotalChart() {
-        this.optionsTotal = {
-            title: {
-                display: true,
-                text: 'Total',
-                fontSize: 16
-            },
-            legend: {
-                position: 'bottom'
-            }
-        };
         this.vwColabSituacaoQtdeTotalChart = {
             labels: this.vwColabSituacaoQtdeTotalLabel,
             datasets: [
@@ -151,6 +125,18 @@ export class AppHome implements OnInit {
                     hoverBackgroundColor: this.colorList
                 }]
         }
+    }
+
+    showOperDialog() {
+        this.displayOperChart = true;
+    }
+
+    showStaffDialog() {
+        this.displayStaffChart = true;
+    }
+
+    showTotalDialog() {
+        this.displayTotalChart = true;
     }
 
 }

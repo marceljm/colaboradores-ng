@@ -1,17 +1,21 @@
 <p-accordion>
     <p-accordionTab header="Situação">
 
-        <div class="ui-g">
-            <div class="ui-g-6">
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart" [options]="optionsOper"></p-chart>
-            </div>
-            <div class="ui-g-6">
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart" [options]="optionsStaff"></p-chart>
-            </div>
-            <div class="ui-g-6">
-                <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart" [options]="optionsTotal"></p-chart>
-            </div>
-        </div>
+        <p-dialog header="Operadores" [(visible)]="displayOperChart" [width]="800" [height]="500" modal=true>
+            <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart" [options]="optionsOper"></p-chart>
+        </p-dialog>
+
+        <p-dialog header="Staff" [(visible)]="displayStaffChart" [width]="800" [height]="500" modal=true>
+            <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart" [options]="optionsStaff"></p-chart>
+        </p-dialog>
+
+        <p-dialog header="Total" [(visible)]="displayTotalChart" [width]="800" [height]="500" modal=true>
+            <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart" [options]="optionsTotal"></p-chart>
+        </p-dialog>
+
+        <button type="text" (click)="showOperDialog()" pButton icon="fa-external-link-square" label="Operadores"></button>
+        <button type="text" (click)="showStaffDialog()" pButton icon="fa-external-link-square" label="Staff"></button>
+        <button type="text" (click)="showTotalDialog()" pButton icon="fa-external-link-square" label="Total"></button>
 
     </p-accordionTab>
     <p-accordionTab header="Header 2">
