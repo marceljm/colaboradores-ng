@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class VwColabSituacaoQtdeService {
+export class VwColabQtdeService {
 
     private urlOper = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabSituacaoQtdeOper';
     private urlStaff = 'http://sv2kprel2:7001/ColaboradoresWS/rest/vwColabSituacaoQtdeStaff';

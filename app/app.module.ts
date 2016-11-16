@@ -10,7 +10,7 @@ import {AppComponent} from './app.component';
 import {AppComponent2}  from './app.component2';
 
 import {CarService} from './cars/carservice';
-import {VwColabSituacaoQtdeService} from './charts/vwColabSituacaoQtdeService';
+import {VwColabQtdeService} from './charts/vwColabQtdeService';
 
 import {InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule} from 'primeng/primeng';
 
@@ -18,6 +18,6 @@ import {InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewMod
   imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule],
   declarations: [AppHeader, AppComponent, AppComponent2, AppHome],
   bootstrap: [AppHeader, AppComponent, AppComponent2, AppHome],
-  providers: [CarService, VwColabSituacaoQtdeService]
+  providers: [CarService, VwColabQtdeService]
 })
 export class AppModule { }

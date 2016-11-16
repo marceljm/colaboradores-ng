@@ -1,30 +1,28 @@
 <p-accordion>
     <p-accordionTab header="Situação">
-
-        <p-dialog header="Operadores" [(visible)]="displayOperChart" [width]="800" [height]="500" modal=true>
+        <p-dialog header="Operadores" [(visible)]="displayOperChart" width="800" height="500" modal=true [resizable]=false>
             <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart" [options]="optionsOper"></p-chart>
         </p-dialog>
 
-        <p-dialog header="Staff" [(visible)]="displayStaffChart" [width]="800" [height]="500" modal=true>
+        <p-dialog header="Staff" [(visible)]="displayStaffChart" width="800" height="500" modal=true [resizable]=false>
             <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart" [options]="optionsStaff"></p-chart>
         </p-dialog>
 
-        <p-dialog header="Total" [(visible)]="displayTotalChart" [width]="800" [height]="500" modal=true>
+        <p-dialog header="Total" [(visible)]="displayTotalChart" width="800" height="500" modal=true [resizable]=false>
             <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart" [options]="optionsTotal"></p-chart>
         </p-dialog>
 
         <button type="text" (click)="showOperDialog()" pButton icon="fa-external-link-square" label="Operadores"></button>
         <button type="text" (click)="showStaffDialog()" pButton icon="fa-external-link-square" label="Staff"></button>
         <button type="text" (click)="showTotalDialog()" pButton icon="fa-external-link-square" label="Total"></button>
+    </p-accordionTab>
+    <p-accordionTab header="Cargo">
 
     </p-accordionTab>
-    <p-accordionTab header="Header 2">
+    <p-accordionTab header="Header 3">
         <p-dataTable [value]="vwColabSituacaoQtdeOperList">
             <p-column field="quantidade" header="quantidade"></p-column>
             <p-column field="situacao" header="situacao"></p-column>
         </p-dataTable>
-    </p-accordionTab>
-    <p-accordionTab header="Header 3">
-        Content 3
     </p-accordionTab>
 </p-accordion>

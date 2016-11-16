@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
-import {VwColabSituacaoQtdeService} from './charts/vwColabSituacaoQtdeService';
+import {VwColabQtdeService} from './charts/vwColabQtdeService';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -45,7 +45,7 @@ export class AppHome implements OnInit {
     displayTotalChart: boolean = false;
 
     constructor(
-        private vwColabSituacaoQtdeService: VwColabSituacaoQtdeService) {
+        private vwColabQtdeService: VwColabQtdeService) {
         this.createVwColabSituacaoQtdeOperChart();
         this.createVwColabSituacaoQtdeStaffChart();
         this.createVwColabSituacaoQtdeTotalChart();
@@ -56,7 +56,7 @@ export class AppHome implements OnInit {
     }
 
     getVwColabSituacaoQtdeList() {
-        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeOper().subscribe(
+        this.vwColabQtdeService.getVwColabSituacaoQtdeOper().subscribe(
             vwColabSituacaoQtdeOperList => this.vwColabSituacaoQtdeOperList = vwColabSituacaoQtdeOperList,
             error => this.errorMessage = <any>error,
             () => {
@@ -67,7 +67,7 @@ export class AppHome implements OnInit {
                 this.createVwColabSituacaoQtdeOperChart();
             }
         );
-        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
+        this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
             vwColabSituacaoQtdeStaffList => this.vwColabSituacaoQtdeStaffList = vwColabSituacaoQtdeStaffList,
             error => this.errorMessage = <any>error,
             () => {
@@ -78,7 +78,7 @@ export class AppHome implements OnInit {
                 this.createVwColabSituacaoQtdeStaffChart();
             }
         );
-        this.vwColabSituacaoQtdeService.getVwColabSituacaoQtdeTotal().subscribe(
+        this.vwColabQtdeService.getVwColabSituacaoQtdeTotal().subscribe(
             vwColabSituacaoQtdeTotalList => this.vwColabSituacaoQtdeTotalList = vwColabSituacaoQtdeTotalList,
             error => this.errorMessage = <any>error,
             () => {
