@@ -1,37 +1,17 @@
-<p-accordion>
-    <p-accordionTab header="Situação">
-        <p-dialog header="Operadores" [(visible)]="displayOperChart" width="800" height="500" modal=true [resizable]=false>
-            <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
-        </p-dialog>
-
-        <p-dialog header="Staff" [(visible)]="displayStaffChart" width="800" height="500" modal=true [resizable]=false>
-            <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart"></p-chart>
-        </p-dialog>
-
-        <p-dialog header="Total" [(visible)]="displayTotalChart" width="800" height="500" modal=true [resizable]=false>
-            <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart"></p-chart>
-        </p-dialog>
-
-        <button type="text" (click)="showOperDialog()" pButton icon="fa-external-link-square" label="Operadores"></button>
-        <button type="text" (click)="showStaffDialog()" pButton icon="fa-external-link-square" label="Staff"></button>
-        <button type="text" (click)="showTotalDialog()" pButton icon="fa-external-link-square" label="Total"></button>
-    </p-accordionTab>
-    <p-accordionTab header="Cargo">
-        <p-dialog header="Cargo" [(visible)]="displayCargoChart" width="800" height="500" modal=true [resizable]=false>
-            <p-chart type="pie" [data]="vwColabCargoQtdeChart"></p-chart>
-        </p-dialog>
-        <button type="text" (click)="showCargoDialog()" pButton icon="fa-external-link-square" label="Cargo"></button>
-    </p-accordionTab>
-    <p-accordionTab header="Cidade">
-        <p-dialog header="Cidade" [(visible)]="displayCidadeChart" width="800" height="500" modal=true [resizable]=false>
-            <p-chart type="pie" [data]="vwColabCidadeQtdeChart"></p-chart>
-        </p-dialog>
-        <button type="text" (click)="showCidadeDialog()" pButton icon="fa-external-link-square" label="Cidade"></button>
-    </p-accordionTab>
-    <p-accordionTab header="Header 3">
-        <p-dataTable [value]="vwColabSituacaoQtdeOperList">
-            <p-column field="quantidade" header="quantidade"></p-column>
-            <p-column field="situacao" header="situacao"></p-column>
-        </p-dataTable>
-    </p-accordionTab>
-</p-accordion>
+<p-tabView orientation="left">
+    <p-tabPanel header="Situação: Operadores">
+        <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+    </p-tabPanel>
+    <p-tabPanel header="Situação: Staff">
+        <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart"></p-chart>
+    </p-tabPanel>
+    <p-tabPanel header="Situação: Total">
+        <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart"></p-chart>
+    </p-tabPanel>
+    <p-tabPanel header="Cargo">
+        <p-chart type="pie" [data]="vwColabCargoQtdeChart"></p-chart>
+    </p-tabPanel>
+    <p-tabPanel header="Cidade">
+        <p-chart type="pie" [data]="vwColabCidadeQtdeChart"></p-chart>
+    </p-tabPanel>
+</p-tabView>
