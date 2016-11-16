@@ -3,6 +3,7 @@ import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
 import {VwColabCargoQtde} from './charts/vwColabCargoQtde';
 import {VwColabCidadeQtde} from './charts/vwColabCidadeQtde';
 import {VwColabQtdeService} from './charts/vwColabQtdeService';
+import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -48,11 +49,17 @@ export class AppHome implements OnInit {
     private vwColabCidadeQtdeLabel: Array<string> = new Array<string>();
     private vwColabCidadeQtdeAmount: Array<number> = new Array<number>();
 
+    private vwColabGerenteQtdeList: VwColabGerenteQtde[];
+    vwColabGerenteQtdeChart: any;
+    private vwColabGerenteQtdeLabel: Array<string> = new Array<string>();
+    private vwColabGerenteQtdeAmount: Array<number> = new Array<number>();
+
     displayOperChart: boolean = false;
     displayStaffChart: boolean = false;
     displayTotalChart: boolean = false;
     displayCargoChart: boolean = false;
     displayCidadeChart: boolean = false;
+    displayGerenteChart: boolean = false;
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -61,6 +68,7 @@ export class AppHome implements OnInit {
         this.createVwColabSituacaoQtdeTotalChart();
         this.createVwColabCargoQtdeChart();
         this.createVwColabCidadeQtdeChart();
+        this.createVwColabGerenteQtdeChart();
     }
 
     ngOnInit() {
@@ -121,6 +129,17 @@ export class AppHome implements OnInit {
                     this.vwColabCidadeQtdeLabel.push(entry.cidade);
                 }
                 this.createVwColabCidadeQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabGerenteQtde().subscribe(
+            vwColabGerenteQtdeList => this.vwColabGerenteQtdeList = vwColabGerenteQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabGerenteQtdeList) {
+                    this.vwColabGerenteQtdeAmount.push(entry.quantidade);
+                    this.vwColabGerenteQtdeLabel.push(entry.gerente);
+                }
+                this.createVwColabGerenteQtdeChart();
             }
         );
     }
@@ -185,6 +204,18 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabGerenteQtdeChart() {
+        this.vwColabGerenteQtdeChart = {
+            labels: this.vwColabGerenteQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabGerenteQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
+        }
+    }
+
     showOperDialog() {
         this.displayOperChart = true;
     }
@@ -200,8 +231,12 @@ export class AppHome implements OnInit {
     showCargoDialog() {
         this.displayCargoChart = true;
     }
-    
+
     showCidadeDialog() {
         this.displayCidadeChart = true;
+    }
+
+    showGerenteDialog() {
+        this.displayGerenteChart = true;
     }
 }
