@@ -6,6 +6,7 @@ import {VwColabQtdeService} from './charts/vwColabQtdeService';
 import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
 import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
 import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
+import {VwColabDtAdmissaoQtde} from './charts/vwColabDtAdmissaoQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -66,14 +67,10 @@ export class AppHome implements OnInit {
     private vwColabDtAdmissaoAreaQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtAdmissaoAreaQtdeAmount: Array<number> = new Array<number>();
 
-    displayOperChart: boolean = false;
-    displayStaffChart: boolean = false;
-    displayTotalChart: boolean = false;
-    displayCargoChart: boolean = false;
-    displayCidadeChart: boolean = false;
-    displayGerenteChart: boolean = false;
-    displayCoordenadorChart: boolean = false;
-    displayDtAdmissaoAreaChart: boolean = false;
+    private vwColabDtAdmissaoQtdeList: VwColabDtAdmissaoQtde[];
+    vwColabDtAdmissaoQtdeChart: any;
+    private vwColabDtAdmissaoQtdeLabel: Array<string> = new Array<string>();
+    private vwColabDtAdmissaoQtdeAmount: Array<number> = new Array<number>();
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -84,7 +81,7 @@ export class AppHome implements OnInit {
         this.createVwColabCidadeQtdeChart();
         this.createVwColabGerenteQtdeChart();
         this.createVwColabCoordenadorQtdeChart();
-        this.createVwColabDtAdmissaoAreaQtdeChart();
+        this.createVwColabDtAdmissaoQtdeChart();
     }
 
     ngOnInit() {
@@ -178,7 +175,17 @@ export class AppHome implements OnInit {
                     this.vwColabDtAdmissaoAreaQtdeAmount.push(entry.quantidade);
                     this.vwColabDtAdmissaoAreaQtdeLabel.push(entry.dtAdmissaoArea);
                 }
-                this.createVwColabDtAdmissaoAreaQtdeChart();
+            }
+        );
+        this.vwColabQtdeService.getVwColabDtAdmissaoQtde().subscribe(
+            vwColabDtAdmissaoQtdeList => this.vwColabDtAdmissaoQtdeList = vwColabDtAdmissaoQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabDtAdmissaoQtdeList) {
+                    this.vwColabDtAdmissaoQtdeAmount.push(entry.quantidade);
+                    this.vwColabDtAdmissaoQtdeLabel.push(entry.dtAdmissao);
+                }
+                this.createVwColabDtAdmissaoQtdeChart();
             }
         );
     }
@@ -267,48 +274,23 @@ export class AppHome implements OnInit {
         }
     }
 
-    createVwColabDtAdmissaoAreaQtdeChart() {
-        this.vwColabDtAdmissaoAreaQtdeChart = {
-            labels: this.vwColabDtAdmissaoAreaQtdeLabel,
+    createVwColabDtAdmissaoQtdeChart() {
+        this.vwColabDtAdmissaoQtdeChart = {
+            labels: this.vwColabDtAdmissaoQtdeLabel,
             datasets: [
                 {
-                    label: 'Data Admissão Área',
+                    label: 'Área',
                     data: this.vwColabDtAdmissaoAreaQtdeAmount,
                     backgroundColor: "#4BB2C5",
                     hoverBackgroundColor: "#4BB2C5"
-                }]
+                },
+                {
+                    label: 'Empresa',
+                    data: this.vwColabDtAdmissaoQtdeAmount,
+                    backgroundColor: "#EAA228",
+                    hoverBackgroundColor: "#EAA228"
+                }
+            ]
         }
-    }
-
-    showOperDialog() {
-        this.displayOperChart = true;
-    }
-
-    showStaffDialog() {
-        this.displayStaffChart = true;
-    }
-
-    showTotalDialog() {
-        this.displayTotalChart = true;
-    }
-
-    showCargoDialog() {
-        this.displayCargoChart = true;
-    }
-
-    showCidadeDialog() {
-        this.displayCidadeChart = true;
-    }
-
-    showGerenteDialog() {
-        this.displayGerenteChart = true;
-    }
-
-    showCoordenadorDialog() {
-        this.displayCoordenadorChart = true;
-    }
-
-    showDtAdmissaoAreaDialog() {
-        this.displayDtAdmissaoAreaChart = true;
     }
 }
