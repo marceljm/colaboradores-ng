@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
+import {VwColabCargoQtde} from './charts/vwColabCargoQtde';
 import {VwColabQtdeService} from './charts/vwColabQtdeService';
 
 @Component({
@@ -7,8 +8,8 @@ import {VwColabQtdeService} from './charts/vwColabQtdeService';
     selector: 'home-app'
 })
 export class AppHome implements OnInit {
-    errorMessage: string;
-    colorList: string[] = [
+    private errorMessage: string;
+    private colorList: string[] = [
         "#4BB2C5",
         "#EAA228",
         "#C5B47F",
@@ -21,34 +22,37 @@ export class AppHome implements OnInit {
         "#FF5800",
     ]
 
-    vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
+    private vwColabSituacaoQtdeOperList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeOperChart: any;
-    vwColabSituacaoQtdeOperLabel: Array<string> = new Array<string>();
-    vwColabSituacaoQtdeOperAmount: Array<number> = new Array<number>();
+    private vwColabSituacaoQtdeOperLabel: Array<string> = new Array<string>();
+    private vwColabSituacaoQtdeOperAmount: Array<number> = new Array<number>();
 
-    vwColabSituacaoQtdeStaffList: VwColabSituacaoQtde[];
+    private vwColabSituacaoQtdeStaffList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeStaffChart: any;
-    vwColabSituacaoQtdeStaffLabel: Array<string> = new Array<string>();
-    vwColabSituacaoQtdeStaffAmount: Array<number> = new Array<number>();
+    private vwColabSituacaoQtdeStaffLabel: Array<string> = new Array<string>();
+    private vwColabSituacaoQtdeStaffAmount: Array<number> = new Array<number>();
 
-    vwColabSituacaoQtdeTotalList: VwColabSituacaoQtde[];
+    private vwColabSituacaoQtdeTotalList: VwColabSituacaoQtde[];
     vwColabSituacaoQtdeTotalChart: any;
-    vwColabSituacaoQtdeTotalLabel: Array<string> = new Array<string>();
-    vwColabSituacaoQtdeTotalAmount: Array<number> = new Array<number>();
+    private vwColabSituacaoQtdeTotalLabel: Array<string> = new Array<string>();
+    private vwColabSituacaoQtdeTotalAmount: Array<number> = new Array<number>();
 
-    optionsOper: any;
-    optionsStaff: any;
-    optionsTotal: any;
+    private vwColabCargoQtdeList: VwColabCargoQtde[];
+    vwColabCargoQtdeChart: any;
+    private vwColabCargoQtdeLabel: Array<string> = new Array<string>();
+    private vwColabCargoQtdeAmount: Array<number> = new Array<number>();
 
     displayOperChart: boolean = false;
     displayStaffChart: boolean = false;
     displayTotalChart: boolean = false;
+    displayCargoChart: boolean = false;
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
         this.createVwColabSituacaoQtdeOperChart();
         this.createVwColabSituacaoQtdeStaffChart();
         this.createVwColabSituacaoQtdeTotalChart();
+        this.createVwColabCargoQtdeChart();
     }
 
     ngOnInit() {
@@ -89,6 +93,17 @@ export class AppHome implements OnInit {
                 this.createVwColabSituacaoQtdeTotalChart();
             }
         );
+        this.vwColabQtdeService.getVwColabCargoQtde().subscribe(
+            vwColabCargoQtdeList => this.vwColabCargoQtdeList = vwColabCargoQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabCargoQtdeList) {
+                    this.vwColabCargoQtdeAmount.push(entry.quantidade);
+                    this.vwColabCargoQtdeLabel.push(entry.cargo);
+                }
+                this.createVwColabCargoQtdeChart();
+            }
+        );
     }
 
     createVwColabSituacaoQtdeOperChart() {
@@ -100,7 +115,7 @@ export class AppHome implements OnInit {
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
                 }]
-        };
+        }
     }
 
     createVwColabSituacaoQtdeStaffChart() {
@@ -127,6 +142,18 @@ export class AppHome implements OnInit {
         }
     }
 
+    createVwColabCargoQtdeChart() {
+        this.vwColabCargoQtdeChart = {
+            labels: this.vwColabCargoQtdeLabel,
+            datasets: [
+                {
+                    data: this.vwColabCargoQtdeAmount,
+                    backgroundColor: this.colorList,
+                    hoverBackgroundColor: this.colorList
+                }]
+        }
+    }
+
     showOperDialog() {
         this.displayOperChart = true;
     }
@@ -137,6 +164,10 @@ export class AppHome implements OnInit {
 
     showTotalDialog() {
         this.displayTotalChart = true;
+    }
+
+    showCargoDialog() {
+        this.displayCargoChart = true;
     }
 
 }
