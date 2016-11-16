@@ -7,6 +7,7 @@ import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
 import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
 import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
 import {VwColabDtAdmissaoQtde} from './charts/vwColabDtAdmissaoQtde';
+import {VwColabDtDesligAreaQtde} from './charts/vwColabDtDesligAreaQtde';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -63,7 +64,6 @@ export class AppHome implements OnInit {
     private vwColabCoordenadorQtdeAmount: Array<number> = new Array<number>();
 
     private vwColabDtAdmissaoAreaQtdeList: VwColabDtAdmissaoAreaQtde[];
-    vwColabDtAdmissaoAreaQtdeChart: any;
     private vwColabDtAdmissaoAreaQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtAdmissaoAreaQtdeAmount: Array<number> = new Array<number>();
 
@@ -71,6 +71,11 @@ export class AppHome implements OnInit {
     vwColabDtAdmissaoQtdeChart: any;
     private vwColabDtAdmissaoQtdeLabel: Array<string> = new Array<string>();
     private vwColabDtAdmissaoQtdeAmount: Array<number> = new Array<number>();
+
+    private vwColabDtDesligAreaQtdeList: VwColabDtDesligAreaQtde[];
+    vwColabDtDesligAreaQtdeChart: any;
+    private vwColabDtDesligAreaQtdeLabel: Array<string> = new Array<string>();
+    private vwColabDtDesligAreaQtdeAmount: Array<number> = new Array<number>();
 
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
@@ -82,6 +87,7 @@ export class AppHome implements OnInit {
         this.createVwColabGerenteQtdeChart();
         this.createVwColabCoordenadorQtdeChart();
         this.createVwColabDtAdmissaoQtdeChart();
+        this.createVwColabDtDesligAreaQtdeChart();
     }
 
     ngOnInit() {
@@ -188,6 +194,17 @@ export class AppHome implements OnInit {
                 this.createVwColabDtAdmissaoQtdeChart();
             }
         );
+        this.vwColabQtdeService.getVwColabDtDesligAreaQtde().subscribe(
+            vwColabDtDesligAreaQtdeList => this.vwColabDtDesligAreaQtdeList = vwColabDtDesligAreaQtdeList,
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.vwColabDtDesligAreaQtdeList) {
+                    this.vwColabDtDesligAreaQtdeAmount.push(entry.quantidade);
+                    this.vwColabDtDesligAreaQtdeLabel.push(entry.ddtdesligamentoarea);
+                }
+                this.createVwColabDtDesligAreaQtdeChart();
+            }
+        );
     }
 
     createVwColabSituacaoQtdeOperChart() {
@@ -198,7 +215,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabSituacaoQtdeOperAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -210,7 +228,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabSituacaoQtdeStaffAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -222,7 +241,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabSituacaoQtdeTotalAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -234,7 +254,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabCargoQtdeAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -246,7 +267,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabCidadeQtdeAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -258,7 +280,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabGerenteQtdeAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -270,7 +293,8 @@ export class AppHome implements OnInit {
                     data: this.vwColabCoordenadorQtdeAmount,
                     backgroundColor: this.colorList,
                     hoverBackgroundColor: this.colorList
-                }]
+                }
+            ]
         }
     }
 
@@ -289,6 +313,20 @@ export class AppHome implements OnInit {
                     data: this.vwColabDtAdmissaoQtdeAmount,
                     backgroundColor: "#EAA228",
                     hoverBackgroundColor: "#EAA228"
+                }
+            ]
+        }
+    }
+
+    createVwColabDtDesligAreaQtdeChart() {
+        this.vwColabDtDesligAreaQtdeChart = {
+            labels: this.vwColabDtDesligAreaQtdeLabel,
+            datasets: [
+                {
+                    label: 'Área',
+                    data: this.vwColabDtDesligAreaQtdeAmount,
+                    backgroundColor: "#4BB2C5",
+                    hoverBackgroundColor: "#4BB2C5"
                 }
             ]
         }
