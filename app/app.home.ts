@@ -124,7 +124,6 @@ export class AppHome implements OnInit {
                     this.vwColabSituacaoQtdeOperLabel.push(entry.situacao);
                 }
                 this.createVwColabSituacaoQtdeOperChart();
-                console.log(this.vwColabSituacaoQtdeOperList);
             }
         );
         this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
@@ -244,7 +243,6 @@ export class AppHome implements OnInit {
                     this.vwColabEntreGrupoQtdeAmount.push(entry.quantidade);
                     this.vwColabEntreGrupoQtdeLabel.push(entry.id.entreGrupo);
                     this.vwColabEntreGrupoQtdeGrupo.push(entry.id.grupo);
-                    console.log(entry.quantidade + ' ' + entry.id.grupo + entry.id.entreGrupo + ' ');
                 }
                 this.createVwColabEntreGrupoQtdeChart();
             }
