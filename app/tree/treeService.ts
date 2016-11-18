@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class TreeService {
 
-    private urlTree = 'http://localhost:8080/ColaboradoresWS/rest/tree';
+    private urlTree = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tree';
 
     constructor(private http: Http) { }
 
