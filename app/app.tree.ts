@@ -11,9 +11,13 @@ export class AppTree implements OnInit {
 
     tree: TreeNode[];
 
-    selectedFile: TreeNode;
+    selectedNode: TreeNode;
 
-    msgs: any;
+    display: boolean = false;
+
+    id: string;
+    name: string;
+    image: string;
 
     constructor(
         private treeService: TreeService) {
@@ -31,15 +35,16 @@ export class AppTree implements OnInit {
     }
 
     nodeSelect(event) {
-        console.log(event.node.label);
-        this.matricula = this.selectedFile.data;
+        this.id = this.selectedNode.data;
+        this.name = this.selectedNode.label;
+        this.image = "http://portalcolaboradores/idc/portalcolaboradores/userimages/" + this.id + ".jpg";
         this.display = true;
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Node Selected', detail: event.node.label });
     }
 
-    display: boolean = false;
-    matricula: string;
+    updateUrl(event) {
+        this.image = "app/resources/images/profile.png";
+    }
+
     showEntreGrupoDialog() {
         this.display = true;
     }
