@@ -6,6 +6,7 @@ import { Message } from 'primeng/primeng';
 @Component({
     templateUrl: 'app/app.config.html',
     selector: 'config-app',
+    providers: [ConfigService]
 })
 export class AppConfig implements OnInit {
     private errorMessage: string;

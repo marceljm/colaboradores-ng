@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {TreeService} from './tree/treeService';
-import {TreeNode} from 'primeng/primeng';
+import { Component, OnInit } from '@angular/core';
+import { TreeService } from './tree/treeService';
+import { TreeNode } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'app/app.tree.html',
-    selector: 'tree-app'
+    selector: 'tree-app',
+    providers: [TreeService]
 })
 export class AppTree implements OnInit {
     private errorMessage: string;

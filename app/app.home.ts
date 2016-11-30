@@ -1,19 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {VwColabSituacaoQtde} from './charts/vwColabSituacaoQtde';
-import {VwColabCargoQtde} from './charts/vwColabCargoQtde';
-import {VwColabCidadeQtde} from './charts/vwColabCidadeQtde';
-import {VwColabQtdeService} from './charts/vwColabQtdeService';
-import {VwColabGerenteQtde} from './charts/vwColabGerenteQtde';
-import {VwColabCoordenadorQtde} from './charts/vwColabCoordenadorQtde';
-import {VwColabDtAdmissaoAreaQtde} from './charts/vwColabDtAdmissaoAreaQtde';
-import {VwColabDtAdmissaoQtde} from './charts/vwColabDtAdmissaoQtde';
-import {VwColabDtDesligAreaQtde} from './charts/vwColabDtDesligAreaQtde';
-import {VwColabGrupoQtde} from './charts/vwColabGrupoQtde';
-import {VwColabEntreGrupoQtde} from './charts/vwColabEntreGrupoQtde';
+import { Component, OnInit } from '@angular/core';
+import { VwColabSituacaoQtde } from './charts/vwColabSituacaoQtde';
+import { VwColabCargoQtde } from './charts/vwColabCargoQtde';
+import { VwColabCidadeQtde } from './charts/vwColabCidadeQtde';
+import { VwColabQtdeService } from './charts/vwColabQtdeService';
+import { VwColabGerenteQtde } from './charts/vwColabGerenteQtde';
+import { VwColabCoordenadorQtde } from './charts/vwColabCoordenadorQtde';
+import { VwColabDtAdmissaoAreaQtde } from './charts/vwColabDtAdmissaoAreaQtde';
+import { VwColabDtAdmissaoQtde } from './charts/vwColabDtAdmissaoQtde';
+import { VwColabDtDesligAreaQtde } from './charts/vwColabDtDesligAreaQtde';
+import { VwColabGrupoQtde } from './charts/vwColabGrupoQtde';
+import { VwColabEntreGrupoQtde } from './charts/vwColabEntreGrupoQtde';
+import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, TreeNode, MessagesModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'app/app.home.html',
-    selector: 'home-app'
+    selector: 'home-app',
+    providers: [VwColabQtdeService]
 })
 export class AppHome implements OnInit {
     private errorMessage: string;

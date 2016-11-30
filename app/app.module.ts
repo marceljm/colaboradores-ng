@@ -11,10 +11,7 @@ import { AppTree } from './app.tree';
 import { AppComponent } from './app.component';
 import { AppComponent2 } from './app.component2';
 
-import { ConfigService } from './config/configService'
 import { CarService } from './cars/carservice';
-import { VwColabQtdeService } from './charts/vwColabQtdeService';
-import { TreeService } from './tree/treeService';
 
 import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, TreeNode, MessagesModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
 
@@ -22,6 +19,6 @@ import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewMo
   imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, MessagesModule, GrowlModule, InputSwitchModule],
   declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig],
   bootstrap: [AppHeader, AppComponent, AppHome, AppTree, AppConfig],
-  providers: [CarService, VwColabQtdeService, TreeService, ConfigService]
+  providers: [CarService]
 })
 export class AppModule { }
