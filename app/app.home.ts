@@ -10,7 +10,7 @@ import { VwColabDtAdmissaoQtde } from './charts/vwColabDtAdmissaoQtde';
 import { VwColabDtDesligAreaQtde } from './charts/vwColabDtDesligAreaQtde';
 import { VwColabGrupoQtde } from './charts/vwColabGrupoQtde';
 import { VwColabEntreGrupoQtde } from './charts/vwColabEntreGrupoQtde';
-import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, TreeNode, MessagesModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
+import { UIChart } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -423,5 +423,9 @@ export class AppHome implements OnInit {
 
     showEntreGrupoDialog() {
         this.displayEntreGrupo = true;
+    }
+
+    update(chart: UIChart) {
+        chart.refresh();
     }
 }
