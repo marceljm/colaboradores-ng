@@ -11,6 +11,7 @@ import { VwColabDtDesligAreaQtde } from './charts/vwColabDtDesligAreaQtde';
 import { VwColabGrupoQtde } from './charts/vwColabGrupoQtde';
 import { VwColabEntreGrupoQtde } from './charts/vwColabEntreGrupoQtde';
 import { UIChart } from 'primeng/primeng';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     templateUrl: 'app/app.home.html',
@@ -18,6 +19,7 @@ import { UIChart } from 'primeng/primeng';
     providers: [VwColabQtdeService]
 })
 export class AppHome implements OnInit {
+
     private errorMessage: string;
     private colorList: string[] = [
         "#4BB2C5",
@@ -126,6 +128,9 @@ export class AppHome implements OnInit {
                     this.vwColabSituacaoQtdeOperLabel.push(entry.situacao);
                 }
                 this.createVwColabSituacaoQtdeOperChart();
+                setTimeout(() => {
+                    document.getElementById("oper").setAttribute("style", "display:true");
+                }, 1000);
             }
         );
         this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(

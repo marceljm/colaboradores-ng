@@ -1,6 +1,6 @@
 <p-tabView orientation="left">
     <p-tabPanel header="Situação: Operadores">
-        <p-chart type="pie" [data]="vwColabSituacaoQtdeOperChart"></p-chart>
+        <p-chart id="oper" type="pie" [(data)]="vwColabSituacaoQtdeOperChart" style="display:none"></p-chart>
     </p-tabPanel>
     <p-tabPanel header="Situação: Staff">
         <p-chart type="pie" [data]="vwColabSituacaoQtdeStaffChart"></p-chart>
