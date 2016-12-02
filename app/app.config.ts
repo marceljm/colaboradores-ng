@@ -12,7 +12,6 @@ export class AppConfig implements OnInit {
     private errorMessage: string;
 
     tblColabAdminList: TblColabAdmin[];
-    tblColabAdminEnabledList: Array<number> = new Array<number>();
 
     msgs: Message[] = [];
 
@@ -28,12 +27,7 @@ export class AppConfig implements OnInit {
     getConfig() {
         this.configService.getTblColabAdmin().subscribe(
             tblColabAdminList => this.tblColabAdminList = tblColabAdminList,
-            error => this.errorMessage = <any>error,
-            () => {
-                for (let entry of this.tblColabAdminList) {
-                    this.tblColabAdminEnabledList.push(entry.nflativo);
-                }
-            }
+            error => this.errorMessage = <any>error
         );
     }
 

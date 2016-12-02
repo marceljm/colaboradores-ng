@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
-import {Car} from './cars/car';
-import {CarService} from './cars/carservice';
+import { Component } from '@angular/core';
+import { Car } from './cars/car';
+import { CarService } from './cars/carservice';
 
 class PrimeCar implements Car {
     constructor(public vin?, public year?, public brand?, public color?) { }
 }
 
 @Component({
-    templateUrl: 'app/app.component2.html',
-    selector: 'my-app2'
+    templateUrl: 'app/app.car.html',
+    selector: 'my-car'
 })
-export class AppComponent2 {
+export class AppCar {
 
     displayDialog: boolean;
 

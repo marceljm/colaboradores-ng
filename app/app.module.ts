@@ -9,15 +9,16 @@ import { AppHeader } from './app.header';
 import { AppHome } from './app.home';
 import { AppTree } from './app.tree';
 import { AppComponent } from './app.component';
-import { AppComponent2 } from './app.component2';
+import { AppCar } from './app.car';
 
 import { CarService } from './cars/carservice';
 
-import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, TreeNode, MessagesModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, AccordionModule, ChartModule, TreeModule, MessagesModule, GrowlModule, InputSwitchModule],
-  declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig],
-  bootstrap: [AppHeader, AppComponent, AppHome, AppTree, AppConfig]
+  imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule],
+  declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar],
+  bootstrap: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar],
+  providers: [CarService]
 })
 export class AppModule { }

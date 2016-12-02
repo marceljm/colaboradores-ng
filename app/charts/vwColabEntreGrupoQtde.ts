@@ -1,4 +1,4 @@
-import {VwColabEntreGrupoQtdePK} from './vwColabEntreGrupoQtdePK';
+import { VwColabEntreGrupoQtdePK } from './vwColabEntreGrupoQtdePK';
 
 export class VwColabEntreGrupoQtde {
     quantidade: number;
