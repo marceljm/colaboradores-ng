@@ -31,9 +31,14 @@ export class AppConfig implements OnInit {
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
+        var selectedAdmin: TblColabAdmin = new TblColabAdmin;
+        selectedAdmin.nflativo = tblColabAdmin.nflativo;
+        selectedAdmin.snomatrcompl = tblColabAdmin.snomatrcompl;
+
+        this.save(selectedAdmin);
+
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.nflativo ? 'Ativo' : 'Inativo') });
-        this.save(tblColabAdmin);
     }
 
     save(tblColabAdmin: TblColabAdmin) {
@@ -41,4 +46,5 @@ export class AppConfig implements OnInit {
             .put(tblColabAdmin)
             .subscribe();
     }
+
 }
