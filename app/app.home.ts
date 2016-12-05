@@ -130,7 +130,7 @@ export class AppHome implements OnInit {
                 this.createVwColabSituacaoQtdeOperChart();
                 setTimeout(() => {
                     document.getElementById("oper").setAttribute("style", "display:true");
-                }, 1500);
+                }, 2000);
             }
         );
         this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(

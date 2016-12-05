@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ConfigService } from './config/configService';
 import { TblColabAdmin } from './config/TblColabAdmin';
 import { Message } from 'primeng/primeng';
@@ -14,7 +14,6 @@ export class AppConfig implements OnInit {
     tblColabAdminList: TblColabAdmin[];
 
     msgs: Message[] = [];
-
 
     constructor(
         private configService: ConfigService) {
@@ -33,7 +32,13 @@ export class AppConfig implements OnInit {
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: 'Administrador selecionado', detail: 'Matrícula: ' + tblColabAdmin.snomatrcompl });
+        this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.nflativo ? 'Ativo' : 'Inativo') });
+        this.save(tblColabAdmin);
     }
 
+    save(tblColabAdmin: TblColabAdmin) {
+        this.configService
+            .put(tblColabAdmin)
+            .subscribe();
+    }
 }
