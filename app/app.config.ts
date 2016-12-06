@@ -4,6 +4,7 @@ import { TblColabAdmin } from './config/TblColabAdmin';
 import { TblColabCargo } from './config/TblColabCargo';
 import { TblColabCidade } from './config/TblColabCidade';
 import { TblColabEstado } from './config/TblColabEstado';
+import { TblColabGrupo } from './config/TblColabGrupo';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -18,6 +19,7 @@ export class AppConfig implements OnInit {
     tblColabCargoList: TblColabCargo[];
     tblColabCidadeList: TblColabCidade[];
     tblColabEstadoList: TblColabEstado[];
+    tblColabGrupoList: TblColabGrupo[];
 
     msgs: Message[] = [];
 
@@ -44,6 +46,10 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabEstado().subscribe(
             tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
+            error => this.errorMessage = <any>error
+        );
+        this.configService.getTblColabGrupo().subscribe(
+            tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
             error => this.errorMessage = <any>error
         );
     }
@@ -80,6 +86,14 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: (tblColabEstado.nflativo ? 'Ativo' : 'Inativo') });
     }
 
+    selectGrupo(tblColabGrupo: TblColabGrupo) {
+        var selectedGrupo: TblColabGrupo = Object.assign({}, tblColabGrupo);
+        this.saveGrupo(selectedGrupo);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: (tblColabGrupo.nflativo ? 'Ativo' : 'Inativo') });
+    }
+
     saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .putAdmin(tblColabAdmin)
@@ -101,6 +115,12 @@ export class AppConfig implements OnInit {
     saveEstado(tblColabEstado: TblColabEstado) {
         this.configService
             .putEstado(tblColabEstado)
+            .subscribe();
+    }
+
+    saveGrupo(tblColabGrupo: TblColabGrupo) {
+        this.configService
+            .putGrupo(tblColabGrupo)
             .subscribe();
     }
 }
