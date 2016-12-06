@@ -11,7 +11,7 @@ import 'rxjs/add/operator/catch';
 export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
-    private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
+    private urlTblColabCargo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
 
     constructor(private http: Http) { }
 
@@ -35,7 +35,7 @@ export class ConfigService {
         return Observable.throw(errMsg);
     }
 
-    put(tblColabAdmin: TblColabAdmin): Observable<TblColabAdmin> {
+    putAdmin(tblColabAdmin: TblColabAdmin): Observable<TblColabAdmin> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabAdmin}`;
 
@@ -43,6 +43,18 @@ export class ConfigService {
 
         return this.http
             .put(url, tblColabAdmin, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    putCargo(tblColabCargo: TblColabCargo): Observable<TblColabCargo> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabCargo}`;
+
+        tblColabCargo.nflativo = tblColabCargo.nflativo ? 1 : 0;
+
+        return this.http
+            .put(url, tblColabCargo, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }

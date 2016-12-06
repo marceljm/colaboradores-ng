@@ -37,25 +37,30 @@ export class AppConfig implements OnInit {
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
-        var selectedAdmin: TblColabAdmin = Object.assign({},tblColabAdmin);
-        this.save(selectedAdmin);
+        var selectedAdmin: TblColabAdmin = Object.assign({}, tblColabAdmin);
+        this.saveAdmin(selectedAdmin);
 
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.nflativo ? 'Ativo' : 'Inativo') });
     }
 
     selectCargo(tblColabCargo: TblColabCargo) {
-        var selectedCargo: TblColabCargo = Object.assign({},tblColabCargo);
-        //this.save(selectedCargo);
+        var selectedCargo: TblColabCargo = Object.assign({}, tblColabCargo);
+        this.saveCargo(selectedCargo);
 
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: (tblColabCargo.nflativo ? 'Ativo' : 'Inativo') });
-    }    
+    }
 
-    save(tblColabAdmin: TblColabAdmin) {
+    saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
-            .put(tblColabAdmin)
+            .putAdmin(tblColabAdmin)
             .subscribe();
     }
 
+    saveCargo(tblColabCargo: TblColabCargo) {
+        this.configService
+            .putCargo(tblColabCargo)
+            .subscribe();
+    }
 }
