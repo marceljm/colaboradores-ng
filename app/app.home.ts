@@ -99,14 +99,6 @@ export class AppHome implements OnInit {
     private selectedVwColabEntreGrupoLabel: Array<string> = new Array<string>();
     private selectedVwColabEntreGrupoAmount: Array<number> = new Array<number>();
 
-    private blockedDocument: boolean = false;
-    private blockDocument(time: number) {
-        this.blockedDocument = true;
-        setTimeout(() => {
-            this.blockedDocument = false;
-        }, time);
-    }
-
     constructor(
         private vwColabQtdeService: VwColabQtdeService) {
         this.createVwColabSituacaoQtdeOperChart();
@@ -123,7 +115,6 @@ export class AppHome implements OnInit {
     }
 
     ngOnInit() {
-        this.blockDocument(4000);
         this.getVwColabSituacaoQtdeList();
     }
 
@@ -139,7 +130,7 @@ export class AppHome implements OnInit {
                 this.createVwColabSituacaoQtdeOperChart();
                 setTimeout(() => {
                     document.getElementById("oper").setAttribute("style", "display:true");
-                }, 2000);
+                }, 7000);
             }
         );
         this.vwColabQtdeService.getVwColabSituacaoQtdeStaff().subscribe(
