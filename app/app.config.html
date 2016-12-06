@@ -1,11 +1,22 @@
+<p-growl [value]="msgs"></p-growl>
+
 <p-tabView orientation="left">
     <p-tabPanel header="Administrador">
-        <p-growl [value]="msgs"></p-growl>
         <p-dataTable [value]="tblColabAdminList">
             <p-column field="snomatrcompl" header="Matrícula"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabAdmin="rowData" pTemplate type="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectAdmin(tblColabAdmin)" [(ngModel)]="tblColabAdmin.nflativo"></p-inputSwitch>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </p-tabPanel>
+    <p-tabPanel header="Cargo">
+        <p-dataTable [value]="tblColabCargoList">
+            <p-column field="sdccargo" header="Cargo"></p-column>
+            <p-column field="nflativo" header="Status" styleClass="col-button">
+                <template let-tblColabCargo="rowData" pTemplate type="body">
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.nflativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>

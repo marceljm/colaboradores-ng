@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { TreeNode } from 'primeng/primeng';
 import { Observable } from 'rxjs/Observable';
 import { TblColabAdmin } from './tblColabAdmin';
+import { TblColabCargo } from './tblColabCargo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -10,11 +11,16 @@ import 'rxjs/add/operator/catch';
 export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
+    private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
 
     constructor(private http: Http) { }
 
     getTblColabAdmin(): Observable<TblColabAdmin[]> {
         return this.http.get(this.urlTblColabAdmin).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabCargo(): Observable<TblColabCargo[]> {
+        return this.http.get(this.urlTblColabCargo).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {

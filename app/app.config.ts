@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConfigService } from './config/configService';
 import { TblColabAdmin } from './config/TblColabAdmin';
+import { TblColabCargo } from './config/TblColabCargo';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -12,6 +13,7 @@ export class AppConfig implements OnInit {
     private errorMessage: string;
 
     tblColabAdminList: TblColabAdmin[];
+    tblColabCargoList: TblColabCargo[];
 
     msgs: Message[] = [];
 
@@ -28,18 +30,27 @@ export class AppConfig implements OnInit {
             tblColabAdminList => this.tblColabAdminList = tblColabAdminList,
             error => this.errorMessage = <any>error
         );
+        this.configService.getTblColabCargo().subscribe(
+            tblColabCargoList => this.tblColabCargoList = tblColabCargoList,
+            error => this.errorMessage = <any>error
+        );
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
-        var selectedAdmin: TblColabAdmin = new TblColabAdmin;
-        selectedAdmin.nflativo = tblColabAdmin.nflativo;
-        selectedAdmin.snomatrcompl = tblColabAdmin.snomatrcompl;
-
+        var selectedAdmin: TblColabAdmin = Object.assign({},tblColabAdmin);
         this.save(selectedAdmin);
 
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.nflativo ? 'Ativo' : 'Inativo') });
     }
+
+    selectCargo(tblColabCargo: TblColabCargo) {
+        var selectedCargo: TblColabCargo = Object.assign({},tblColabCargo);
+        //this.save(selectedCargo);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: (tblColabCargo.nflativo ? 'Ativo' : 'Inativo') });
+    }    
 
     save(tblColabAdmin: TblColabAdmin) {
         this.configService
