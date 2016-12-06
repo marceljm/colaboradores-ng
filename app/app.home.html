@@ -1,4 +1,5 @@
 <p-tabView orientation="left">
+    <p-blockUI [blocked]="blockedDocument"></p-blockUI>
     <p-tabPanel header="Situação: Operadores">
         <p-chart id="oper" type="pie" [(data)]="vwColabSituacaoQtdeOperChart" style="display:none"></p-chart>
     </p-tabPanel>
