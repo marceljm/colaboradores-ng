@@ -3,6 +3,7 @@ import { ConfigService } from './config/configService';
 import { TblColabAdmin } from './config/TblColabAdmin';
 import { TblColabCargo } from './config/TblColabCargo';
 import { TblColabCidade } from './config/TblColabCidade';
+import { TblColabEstado } from './config/TblColabEstado';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -16,6 +17,7 @@ export class AppConfig implements OnInit {
     tblColabAdminList: TblColabAdmin[];
     tblColabCargoList: TblColabCargo[];
     tblColabCidadeList: TblColabCidade[];
+    tblColabEstadoList: TblColabEstado[];
 
     msgs: Message[] = [];
 
@@ -38,6 +40,10 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabCidade().subscribe(
             tblColabCidadeList => this.tblColabCidadeList = tblColabCidadeList,
+            error => this.errorMessage = <any>error
+        );
+        this.configService.getTblColabEstado().subscribe(
+            tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
             error => this.errorMessage = <any>error
         );
     }
@@ -66,6 +72,14 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: (tblColabCidade.nflativo ? 'Ativo' : 'Inativo') });
     }
 
+    selectEstado(tblColabEstado: TblColabEstado) {
+        var selectedEstado: TblColabEstado = Object.assign({}, tblColabEstado);
+        this.saveEstado(selectedEstado);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: (tblColabEstado.nflativo ? 'Ativo' : 'Inativo') });
+    }
+
     saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .putAdmin(tblColabAdmin)
@@ -81,6 +95,12 @@ export class AppConfig implements OnInit {
     saveCidade(tblColabCidade: TblColabCidade) {
         this.configService
             .putCidade(tblColabCidade)
+            .subscribe();
+    }
+
+    saveEstado(tblColabEstado: TblColabEstado) {
+        this.configService
+            .putEstado(tblColabEstado)
             .subscribe();
     }
 }
