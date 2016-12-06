@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ConfigService } from './config/configService';
 import { TblColabAdmin } from './config/TblColabAdmin';
 import { TblColabCargo } from './config/TblColabCargo';
+import { TblColabCidade } from './config/TblColabCidade';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -14,6 +15,7 @@ export class AppConfig implements OnInit {
 
     tblColabAdminList: TblColabAdmin[];
     tblColabCargoList: TblColabCargo[];
+    tblColabCidadeList: TblColabCidade[];
 
     msgs: Message[] = [];
 
@@ -34,6 +36,10 @@ export class AppConfig implements OnInit {
             tblColabCargoList => this.tblColabCargoList = tblColabCargoList,
             error => this.errorMessage = <any>error
         );
+        this.configService.getTblColabCidade().subscribe(
+            tblColabCidadeList => this.tblColabCidadeList = tblColabCidadeList,
+            error => this.errorMessage = <any>error
+        );
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
@@ -52,6 +58,14 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: (tblColabCargo.nflativo ? 'Ativo' : 'Inativo') });
     }
 
+    selectCidade(tblColabCidade: TblColabCidade) {
+        var selectedCidade: TblColabCidade = Object.assign({}, tblColabCidade);
+        this.saveCidade(selectedCidade);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: (tblColabCidade.nflativo ? 'Ativo' : 'Inativo') });
+    }
+
     saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .putAdmin(tblColabAdmin)
@@ -61,6 +75,12 @@ export class AppConfig implements OnInit {
     saveCargo(tblColabCargo: TblColabCargo) {
         this.configService
             .putCargo(tblColabCargo)
+            .subscribe();
+    }
+
+    saveCidade(tblColabCidade: TblColabCidade) {
+        this.configService
+            .putCidade(tblColabCidade)
             .subscribe();
     }
 }

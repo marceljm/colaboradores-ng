@@ -4,6 +4,7 @@ import { TreeNode } from 'primeng/primeng';
 import { Observable } from 'rxjs/Observable';
 import { TblColabAdmin } from './tblColabAdmin';
 import { TblColabCargo } from './tblColabCargo';
+import { TblColabCidade } from './tblColabCidade';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,6 +13,7 @@ export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
     private urlTblColabCargo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
+    private urlTblColabCidade = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCidade';
 
     constructor(private http: Http) { }
 
@@ -22,6 +24,10 @@ export class ConfigService {
     getTblColabCargo(): Observable<TblColabCargo[]> {
         return this.http.get(this.urlTblColabCargo).map(this.extractData).catch(this.handleError);
     }
+
+    getTblColabCidade(): Observable<TblColabCidade[]> {
+        return this.http.get(this.urlTblColabCidade).map(this.extractData).catch(this.handleError);
+    }    
 
     private extractData(res: Response) {
         let body = res.json();
@@ -59,4 +65,15 @@ export class ConfigService {
             .catch(this.handleError);
     }
 
+    putCidade(tblColabCidade: TblColabCidade): Observable<TblColabCidade> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabCidade}`;
+
+        tblColabCidade.nflativo = tblColabCidade.nflativo ? 1 : 0;
+
+        return this.http
+            .put(url, tblColabCidade, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 }

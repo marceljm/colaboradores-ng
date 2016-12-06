@@ -123,7 +123,7 @@ export class AppHome implements OnInit {
     }
 
     ngOnInit() {
-        this.blockDocument(2500);
+        this.blockDocument(4000);
         this.getVwColabSituacaoQtdeList();
     }
 
