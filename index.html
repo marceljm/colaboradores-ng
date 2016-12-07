@@ -11,6 +11,25 @@
   <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" />
   <link rel="stylesheet" type="text/css" href="app/resources/css/font.css" />
 
+  <style>
+    #loader {
+      height: 100px;
+      background: #22bdca;
+      /* For browsers that do not support gradients */
+      background: -webkit-linear-gradient(45deg, #22bdca, #172f41);
+      /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(45deg, #22bdca, #172f41);
+      /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(45deg, #22bdca, #172f41);
+      /* For Firefox 3.6 to 15 */
+      background: linear-gradient(45deg, #22bdca, #172f41);
+      /* Standard syntax (must be last) */
+      height: 100%;
+      text-align: center;
+      background-color: #20272a;
+    }
+  </style>
+
   <!-- 1. Load libraries -->
   <!-- Polyfill(s) for older browsers -->
   <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -29,8 +48,19 @@
 <!-- 3. Display the application -->
 
 <body style="margin:0; padding:0;">
-  <header-app>Carregando...</header-app>
-  <my-app></my-app>
+  <div id="loader">
+    <div style="padding-top:250px">
+      <img src="app/resources/images/telefonica.png" />
+    </div>
+    <div style="margin-top:10px">
+      <img src="app/resources/images/loader5.gif" width="20px" />
+    </div>
+  </div>
+  <div id="app" style="display:none">
+    <header-app>
+    </header-app>
+    <my-app></my-app>
+  </div>
 </body>
 
 </html>

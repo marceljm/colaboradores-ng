@@ -6,16 +6,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-    display: boolean = true;
-
-    ngOnInit() {
-        this.hideDialog(8000);
-    }
-
-    hideDialog(time: number) {
-        setTimeout(() => {
-            this.display = false;
-        }, time);
-    }
-
 }
