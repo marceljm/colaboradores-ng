@@ -13,10 +13,10 @@ import { AppCar } from './app.car';
 
 import { CarService } from './cars/carservice';
 
-import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule } from 'primeng/primeng';
+import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule } from 'primeng/primeng';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule],
+    imports: [BrowserModule, FormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule],
     declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar],
     bootstrap: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar],
     providers: [CarService]

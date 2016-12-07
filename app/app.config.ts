@@ -27,6 +27,17 @@ export class AppConfig implements OnInit {
 
     msgs: Message[] = [];
 
+    display: boolean = false;
+
+    showDialog() {
+        this.display = true;
+    }
+
+    matrCompl: string;
+    upper() {
+        this.matrCompl = this.matrCompl.toUpperCase();
+    }
+
     constructor(
         private configService: ConfigService) {
     }

@@ -3,6 +3,9 @@
 <p-tabView orientation="left">
     <p-tabPanel header="Administrador">
         <p-dataTable [value]="tblColabAdminList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="snomatrcompl" header="Matrícula"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabAdmin="rowData" pTemplate type="body">
@@ -73,3 +76,16 @@
         </p-dataTable>
     </p-tabPanel>
 </p-tabView>
+
+<p-dialog header="Novo Administrador" [(visible)]="display" [resizable]=false [draggable]=false modal=true [width]=475>
+    <div class="ui-g">
+        <div class="ui-g-6">Matrícula Completa</div>
+        <div class="ui-g-6">
+            <p-inputMask [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()"></p-inputMask>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-6"></div>
+        <div class="ui-g-6"><button type="text" (click)="showDialog()" pButton icon="fa-save" label="Salvar" style="width:100%"></button></div>
+    </div>
+</p-dialog>
