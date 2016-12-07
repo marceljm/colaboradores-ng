@@ -8,23 +8,23 @@
     <p-tabPanel header="Situação: Total">
         <p-chart type="pie" [data]="vwColabSituacaoQtdeTotalChart"></p-chart>
     </p-tabPanel>
+    <p-tabPanel header="Admissão">
+        <p-chart type="bar" [data]="vwColabDtAdmissaoQtdeChart"></p-chart>
+    </p-tabPanel>
     <p-tabPanel header="Cargo">
         <p-chart type="pie" [data]="vwColabCargoQtdeChart"></p-chart>
     </p-tabPanel>
     <p-tabPanel header="Cidade">
         <p-chart type="pie" [data]="vwColabCidadeQtdeChart"></p-chart>
     </p-tabPanel>
-    <p-tabPanel header="Gerente">
-        <p-chart type="pie" [data]="vwColabGerenteQtdeChart"></p-chart>
-    </p-tabPanel>
     <p-tabPanel header="Coordenador">
         <p-chart type="pie" [data]="vwColabCoordenadorQtdeChart"></p-chart>
     </p-tabPanel>
-    <p-tabPanel header="Admissão">
-        <p-chart type="bar" [data]="vwColabDtAdmissaoQtdeChart"></p-chart>
-    </p-tabPanel>
     <p-tabPanel header="Desligamento">
         <p-chart type="bar" [data]="vwColabDtDesligAreaQtdeChart"></p-chart>
+    </p-tabPanel>
+    <p-tabPanel header="Gerente">
+        <p-chart type="pie" [data]="vwColabGerenteQtdeChart"></p-chart>
     </p-tabPanel>
     <p-tabPanel header="Grupo e Entre Grupo">
         <p-chart type="pie" [data]="vwColabGrupoQtdeChart" (onDataSelect)="selectData($event)" (click)="update(chart)"></p-chart>

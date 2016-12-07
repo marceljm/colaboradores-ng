@@ -31,6 +31,17 @@
             </p-column>
         </p-dataTable>
     </p-tabPanel>
+    <p-tabPanel header="Entre Grupo">
+        <p-dataTable [value]="tblColabEntreGrupoList">
+            <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
+            <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
+            <p-column field="nflativo" header="Status" styleClass="col-button">
+                <template let-tblColabEntreGrupo="rowData" pTemplate type="body">
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.nflativo"></p-inputSwitch>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </p-tabPanel>
     <p-tabPanel header="Estado">
         <p-dataTable [value]="tblColabEstadoList">
             <p-column field="sdcestado" header="Estado"></p-column>

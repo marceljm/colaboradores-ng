@@ -8,6 +8,7 @@ import { TblColabCidade } from './tblColabCidade';
 import { TblColabEstado } from './tblColabEstado';
 import { TblColabGrupo } from './tblColabGrupo';
 import { TblColabSituacao } from './tblColabSituacao';
+import { TblColabEntreGrupo } from './tblColabEntreGrupo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -15,11 +16,12 @@ import 'rxjs/add/operator/catch';
 export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
-    private urlTblColabCargo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
-    private urlTblColabCidade = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCidade';
-    private urlTblColabEstado = 'http://localhost:8080/ColaboradoresWS/rest/tblColabEstado';
-    private urlTblColabGrupo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabGrupo';
-    private urlTblColabSituacao = 'http://localhost:8080/ColaboradoresWS/rest/tblColabSituacao';
+    private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
+    private urlTblColabCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCidade';
+    private urlTblColabEstado = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEstado';
+    private urlTblColabGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabGrupo';
+    private urlTblColabSituacao = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabSituacao';
+    private urlTblColabEntreGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEntreGrupo';
 
     constructor(private http: Http) { }
 
@@ -45,6 +47,10 @@ export class ConfigService {
 
     getTblColabSituacao(): Observable<TblColabSituacao[]> {
         return this.http.get(this.urlTblColabSituacao).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabEntreGrupo(): Observable<TblColabEntreGrupo[]> {
+        return this.http.get(this.urlTblColabEntreGrupo).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
@@ -127,6 +133,18 @@ export class ConfigService {
 
         return this.http
             .put(url, tblColabSituacao, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    putEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo): Observable<TblColabEntreGrupo> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabEntreGrupo}`;
+
+        tblColabEntreGrupo.nflativo = tblColabEntreGrupo.nflativo ? 1 : 0;
+
+        return this.http
+            .put(url, tblColabEntreGrupo, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }

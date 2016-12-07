@@ -6,6 +6,7 @@ import { TblColabCidade } from './config/TblColabCidade';
 import { TblColabEstado } from './config/TblColabEstado';
 import { TblColabGrupo } from './config/TblColabGrupo';
 import { TblColabSituacao } from './config/TblColabSituacao';
+import { TblColabEntreGrupo } from './config/TblColabEntreGrupo';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppConfig implements OnInit {
     tblColabEstadoList: TblColabEstado[];
     tblColabGrupoList: TblColabGrupo[];
     tblColabSituacaoList: TblColabSituacao[];
+    tblColabEntreGrupoList: TblColabEntreGrupo[];
 
     msgs: Message[] = [];
 
@@ -56,6 +58,10 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabSituacao().subscribe(
             tblColabSituacaoList => this.tblColabSituacaoList = tblColabSituacaoList,
+            error => this.errorMessage = <any>error
+        );
+        this.configService.getTblColabEntreGrupo().subscribe(
+            tblColabEntreGrupoList => this.tblColabEntreGrupoList = tblColabEntreGrupoList,
             error => this.errorMessage = <any>error
         );
     }
@@ -108,6 +114,14 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: (tblColabSituacao.nflativo ? 'Ativo' : 'Inativo') });
     }
 
+    selectEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
+        var selectedEntreGrupo: TblColabEntreGrupo = Object.assign({}, tblColabEntreGrupo);
+        this.saveEntreGrupo(selectedEntreGrupo);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabEntreGrupo.sdcentregrupo, detail: (tblColabEntreGrupo.nflativo ? 'Ativo' : 'Inativo') });
+    }
+
     saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .putAdmin(tblColabAdmin)
@@ -141,6 +155,12 @@ export class AppConfig implements OnInit {
     saveSituacao(tblColabSituacao: TblColabSituacao) {
         this.configService
             .putSituacao(tblColabSituacao)
+            .subscribe();
+    }
+
+    saveEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
+        this.configService
+            .putEntreGrupo(tblColabEntreGrupo)
             .subscribe();
     }
 }
