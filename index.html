@@ -15,18 +15,44 @@
     #loader {
       height: 100px;
       background: #22bdca;
-      /* For browsers that do not support gradients */
-      background: -webkit-linear-gradient(45deg, #22bdca, #172f41);
-      /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(45deg, #22bdca, #172f41);
-      /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(45deg, #22bdca, #172f41);
-      /* For Firefox 3.6 to 15 */
-      background: linear-gradient(45deg, #22bdca, #172f41);
-      /* Standard syntax (must be last) */
+      background: -webkit-linear-gradient(-45deg, #22bdca, #172f41);
+      background: -o-linear-gradient(-45deg, #22bdca, #172f41);
+      background: -moz-linear-gradient(-45deg, #22bdca, #172f41);
+      background: linear-gradient(-45deg, #22bdca, #172f41);
       height: 100%;
-      text-align: center;
+      /*text-align: center;*/
       background-color: #20272a;
+    }
+    
+    #logo {
+      position: relative;
+      -webkit-animation-name: example;
+      -webkit-animation-duration: 9s;
+      animation-name: example;
+      animation-duration: 9s;
+    }
+    
+    @-webkit-keyframes example {
+      0% {
+        left: 0px;
+        top: 0px;
+      }
+      25% {
+        left: 200px;
+        top: 0px;
+      }
+      50% {
+        left: 200px;
+        top: 200px;
+      }
+      75% {
+        left: 0px;
+        top: 200px;
+      }
+      100% {
+        left: 0px;
+        top: 0px;
+      }
     }
   </style>
 
@@ -49,11 +75,8 @@
 
 <body style="margin:0; padding:0;">
   <div id="loader">
-    <div style="padding-top:250px">
-      <img src="app/resources/images/telefonica.png" />
-    </div>
-    <div style="margin-top:10px">
-      <img src="app/resources/images/loader5.gif" width="20px" />
+    <div style="padding-top:20px;padding-left:8px">
+      <img id="logo" src="app/resources/images/telefonica.png" />
     </div>
   </div>
   <div id="app" style="display:none">
