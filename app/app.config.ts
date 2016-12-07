@@ -5,6 +5,7 @@ import { TblColabCargo } from './config/TblColabCargo';
 import { TblColabCidade } from './config/TblColabCidade';
 import { TblColabEstado } from './config/TblColabEstado';
 import { TblColabGrupo } from './config/TblColabGrupo';
+import { TblColabSituacao } from './config/TblColabSituacao';
 import { Message } from 'primeng/primeng';
 
 @Component({
@@ -20,6 +21,7 @@ export class AppConfig implements OnInit {
     tblColabCidadeList: TblColabCidade[];
     tblColabEstadoList: TblColabEstado[];
     tblColabGrupoList: TblColabGrupo[];
+    tblColabSituacaoList: TblColabSituacao[];
 
     msgs: Message[] = [];
 
@@ -50,6 +52,10 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabGrupo().subscribe(
             tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
+            error => this.errorMessage = <any>error
+        );
+        this.configService.getTblColabSituacao().subscribe(
+            tblColabSituacaoList => this.tblColabSituacaoList = tblColabSituacaoList,
             error => this.errorMessage = <any>error
         );
     }
@@ -94,6 +100,14 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: (tblColabGrupo.nflativo ? 'Ativo' : 'Inativo') });
     }
 
+    selectSituacao(tblColabSituacao: TblColabSituacao) {
+        var selectedSituacao: TblColabSituacao = Object.assign({}, tblColabSituacao);
+        this.saveSituacao(selectedSituacao);
+
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: (tblColabSituacao.nflativo ? 'Ativo' : 'Inativo') });
+    }
+
     saveAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .putAdmin(tblColabAdmin)
@@ -121,6 +135,12 @@ export class AppConfig implements OnInit {
     saveGrupo(tblColabGrupo: TblColabGrupo) {
         this.configService
             .putGrupo(tblColabGrupo)
+            .subscribe();
+    }
+
+    saveSituacao(tblColabSituacao: TblColabSituacao) {
+        this.configService
+            .putSituacao(tblColabSituacao)
             .subscribe();
     }
 }

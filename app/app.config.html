@@ -51,4 +51,14 @@
             </p-column>
         </p-dataTable>
     </p-tabPanel>
+    <p-tabPanel header="Situação">
+        <p-dataTable [value]="tblColabSituacaoList">
+            <p-column field="sdcsituacao" header="Situação"></p-column>
+            <p-column field="nflativo" header="Status" styleClass="col-button">
+                <template let-tblColabSituacao="rowData" pTemplate type="body">
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.nflativo"></p-inputSwitch>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </p-tabPanel>
 </p-tabView>

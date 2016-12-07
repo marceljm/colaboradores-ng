@@ -7,6 +7,7 @@ import { TblColabCargo } from './tblColabCargo';
 import { TblColabCidade } from './tblColabCidade';
 import { TblColabEstado } from './tblColabEstado';
 import { TblColabGrupo } from './tblColabGrupo';
+import { TblColabSituacao } from './tblColabSituacao';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -18,6 +19,7 @@ export class ConfigService {
     private urlTblColabCidade = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCidade';
     private urlTblColabEstado = 'http://localhost:8080/ColaboradoresWS/rest/tblColabEstado';
     private urlTblColabGrupo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabGrupo';
+    private urlTblColabSituacao = 'http://localhost:8080/ColaboradoresWS/rest/tblColabSituacao';
 
     constructor(private http: Http) { }
 
@@ -39,6 +41,10 @@ export class ConfigService {
 
     getTblColabGrupo(): Observable<TblColabGrupo[]> {
         return this.http.get(this.urlTblColabGrupo).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabSituacao(): Observable<TblColabSituacao[]> {
+        return this.http.get(this.urlTblColabSituacao).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
@@ -109,6 +115,18 @@ export class ConfigService {
 
         return this.http
             .put(url, tblColabGrupo, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    putSituacao(tblColabSituacao: TblColabSituacao): Observable<TblColabSituacao> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabSituacao}`;
+
+        tblColabSituacao.nflativo = tblColabSituacao.nflativo ? 1 : 0;
+
+        return this.http
+            .put(url, tblColabSituacao, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
