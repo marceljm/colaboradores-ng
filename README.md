@@ -7,3 +7,7 @@ Execute the following commands to run the sample. A browser window pops up with 
 npm install
 npm start
 ```
+
+lite-server references:
+https://github.com/johnpapa/lite-server
+https://browsersync.io/docs/options/
