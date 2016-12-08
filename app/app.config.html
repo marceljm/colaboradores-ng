@@ -16,6 +16,9 @@
     </p-tabPanel>
     <p-tabPanel header="Cargo">
         <p-dataTable [value]="tblColabCargoList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="sdccargo" header="Cargo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCargo="rowData" pTemplate type="body">
@@ -26,6 +29,9 @@
     </p-tabPanel>
     <p-tabPanel header="Cidade">
         <p-dataTable [value]="tblColabCidadeList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="sdccidade" header="Cidade"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCidade="rowData" pTemplate type="body">
@@ -36,6 +42,9 @@
     </p-tabPanel>
     <p-tabPanel header="Entre Grupo">
         <p-dataTable [value]="tblColabEntreGrupoList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -47,6 +56,9 @@
     </p-tabPanel>
     <p-tabPanel header="Estado">
         <p-dataTable [value]="tblColabEstadoList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="sdcestado" header="Estado"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabEstado="rowData" pTemplate type="body">
@@ -57,6 +69,9 @@
     </p-tabPanel>
     <p-tabPanel header="Grupo">
         <p-dataTable [value]="tblColabGrupoList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="sdcgrupo" header="Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabGrupo="rowData" pTemplate type="body">
@@ -67,6 +82,9 @@
     </p-tabPanel>
     <p-tabPanel header="Situação">
         <p-dataTable [value]="tblColabSituacaoList">
+            <header style="text-align:right">
+                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+            </header>
             <p-column field="sdcsituacao" header="Situação"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabSituacao="rowData" pTemplate type="body">

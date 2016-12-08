@@ -10,7 +10,7 @@ export class AppHeader {
         setTimeout(() => {
             document.getElementById("loader").setAttribute("style", "display:none");
             document.getElementById("app").setAttribute("style", "display:true");
-        }, 8000);
+        }, 10000);
     }
 
 }
