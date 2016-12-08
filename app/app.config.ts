@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ConfigService } from './config/configService';
 import { TblColabAdmin } from './config/TblColabAdmin';
 import { TblColabCargo } from './config/TblColabCargo';
@@ -12,7 +13,7 @@ import { Message } from 'primeng/primeng';
 @Component({
     templateUrl: 'app/app.config.html',
     selector: 'config-app',
-    providers: [ConfigService]
+    providers: [ConfigService, FormBuilder]
 })
 export class AppConfig implements OnInit {
     private errorMessage: string;
@@ -29,17 +30,19 @@ export class AppConfig implements OnInit {
 
     display: boolean = false;
 
-    showDialog() {
-        this.display = true;
-    }
-
+    userform: FormGroup;
+    submitted: boolean;
     matrCompl: string;
     upper() {
         this.matrCompl = this.matrCompl.toUpperCase();
     }
 
+    showDialog() {
+        this.display = true;
+    }
+
     constructor(
-        private configService: ConfigService) {
+        private configService: ConfigService, private fb: FormBuilder) {
     }
 
     ngOnInit() {
