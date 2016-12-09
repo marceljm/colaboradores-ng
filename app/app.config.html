@@ -95,15 +95,23 @@
     </p-tabPanel>
 </p-tabView>
 
-<p-dialog header="Novo Administrador" [(visible)]="display" [resizable]=false [draggable]=false modal=true [width]=475>
-    <div class="ui-g">
-        <div class="ui-g-6">Matrícula Completa</div>
-        <div class="ui-g-6">
-            <p-inputMask [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()"></p-inputMask>
+<p-dialog header="Novo Administrador" [(visible)]="display" [resizable]=false [draggable]=false modal=true [width]=650>
+    <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Matrícula Completa</div>
+            <div class="ui-g-4">
+                <p-inputMask formControlName="matriculaCompleta" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()"></p-inputMask>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['matriculaCompleta'].valid&&userform.controls['matriculaCompleta'].dirty">
+                    <span *ngIf="userform.controls['matriculaCompleta'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="ui-g">
-        <div class="ui-g-6"></div>
-        <div class="ui-g-6"><button type="text" (click)="showDialog()" pButton icon="fa-save" label="Salvar" style="width:100%"></button></div>
-    </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!userform.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
 </p-dialog>

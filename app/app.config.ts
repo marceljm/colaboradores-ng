@@ -13,7 +13,7 @@ import { Message } from 'primeng/primeng';
 @Component({
     templateUrl: 'app/app.config.html',
     selector: 'config-app',
-    providers: [ConfigService, FormBuilder]
+    providers: [ConfigService]
 })
 export class AppConfig implements OnInit {
     private errorMessage: string;
@@ -31,7 +31,11 @@ export class AppConfig implements OnInit {
     display: boolean = false;
 
     userform: FormGroup;
+
     submitted: boolean;
+
+    description: string;
+
     matrCompl: string;
     upper() {
         this.matrCompl = this.matrCompl.toUpperCase();
@@ -47,7 +51,24 @@ export class AppConfig implements OnInit {
 
     ngOnInit() {
         this.getConfig();
+        this.validation();
     }
+
+    onSubmit(value: string) {
+        let tblColabAdmin: TblColabAdmin = new TblColabAdmin();
+        tblColabAdmin.nflativo = 1;
+        tblColabAdmin.snomatrcompl = value["matriculaCompleta"];
+        this.tblColabAdminList.push(tblColabAdmin);
+        this.selectAdmin(tblColabAdmin);
+
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: 'Criado com sucesso' });
+
+        this.display = false;
+    }
+
+    get diagnostic() { return JSON.stringify(this.userform.value); }
 
     getConfig() {
         this.configService.getTblColabAdmin().subscribe(
@@ -78,6 +99,12 @@ export class AppConfig implements OnInit {
             tblColabEntreGrupoList => this.tblColabEntreGrupoList = tblColabEntreGrupoList,
             error => this.errorMessage = <any>error
         );
+    }
+
+    validation() {
+        this.userform = this.fb.group({
+            'matriculaCompleta': new FormControl('', [Validators.required])
+        });
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
