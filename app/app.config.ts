@@ -57,9 +57,10 @@ export class AppConfig implements OnInit {
     onSubmit(value: string) {
         let tblColabAdmin: TblColabAdmin = new TblColabAdmin();
         tblColabAdmin.nflativo = 1;
+        tblColabAdmin.ativo = true;
         tblColabAdmin.snomatrcompl = value["matriculaCompleta"];
         this.tblColabAdminList.push(tblColabAdmin);
-        this.selectAdmin(tblColabAdmin);
+        this.addAdmin(tblColabAdmin);
 
         this.submitted = true;
         this.msgs = [];
@@ -73,7 +74,12 @@ export class AppConfig implements OnInit {
     getConfig() {
         this.configService.getTblColabAdmin().subscribe(
             tblColabAdminList => this.tblColabAdminList = tblColabAdminList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabAdminList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabCargo().subscribe(
             tblColabCargoList => this.tblColabCargoList = tblColabCargoList,
@@ -108,11 +114,11 @@ export class AppConfig implements OnInit {
     }
 
     selectAdmin(tblColabAdmin: TblColabAdmin) {
-        var selectedAdmin: TblColabAdmin = Object.assign({}, tblColabAdmin);
-        this.saveAdmin(selectedAdmin);
+        tblColabAdmin.nflativo = tblColabAdmin.ativo ? 1 : 0;
+        this.saveAdmin(tblColabAdmin);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: (tblColabAdmin.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectCargo(tblColabCargo: TblColabCargo) {
@@ -202,6 +208,12 @@ export class AppConfig implements OnInit {
     saveEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
         this.configService
             .putEntreGrupo(tblColabEntreGrupo)
+            .subscribe();
+    }
+
+    addAdmin(tblColabAdmin: TblColabAdmin) {
+        this.configService
+            .postAdmin(tblColabAdmin)
             .subscribe();
     }
 }

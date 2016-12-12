@@ -69,10 +69,13 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabAdmin}`;
 
-        tblColabAdmin.nflativo = tblColabAdmin.nflativo ? 1 : 0;
+        tblColabAdmin.nflativo = tblColabAdmin.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabAdmin, headers)
+            .put(url, {
+                snomatrcompl: tblColabAdmin.snomatrcompl,
+                nflativo: tblColabAdmin.nflativo
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -148,4 +151,20 @@ export class ConfigService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+    postAdmin(tblColabAdmin: TblColabAdmin): Observable<TblColabAdmin> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabAdmin}`;
+
+        tblColabAdmin.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                snomatrcompl: tblColabAdmin.snomatrcompl,
+                nflativo: tblColabAdmin.nflativo
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
 }
