@@ -4,7 +4,7 @@
     <p-tabPanel header="Administrador">
         <p-dataTable [value]="tblColabAdminList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="snomatrcompl" header="Matrícula"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -17,12 +17,12 @@
     <p-tabPanel header="Cargo">
         <p-dataTable [value]="tblColabCargoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogCargo()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdccargo" header="Cargo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCargo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -30,7 +30,7 @@
     <p-tabPanel header="Cidade">
         <p-dataTable [value]="tblColabCidadeList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdccidade" header="Cidade"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -43,7 +43,7 @@
     <p-tabPanel header="Entre Grupo">
         <p-dataTable [value]="tblColabEntreGrupoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
@@ -57,7 +57,7 @@
     <p-tabPanel header="Estado">
         <p-dataTable [value]="tblColabEstadoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcestado" header="Estado"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -70,7 +70,7 @@
     <p-tabPanel header="Grupo">
         <p-dataTable [value]="tblColabGrupoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcgrupo" header="Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -83,7 +83,7 @@
     <p-tabPanel header="Situação">
         <p-dataTable [value]="tblColabSituacaoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialog()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcsituacao" header="Situação"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
@@ -95,22 +95,43 @@
     </p-tabPanel>
 </p-tabView>
 
-<p-dialog header="Novo Administrador" [(visible)]="display" [resizable]=false [draggable]=false modal=true [width]=650>
-    <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+<p-dialog header="Novo Administrador" [(visible)]="displayAdmin" [resizable]=false [draggable]=false modal=true [width]=650>
+    <form [formGroup]="userform" (ngSubmit)="onSubmitAdmin(userform.value)">
         <div class="ui-g">
             <div class="ui-g-4">Matrícula Completa</div>
             <div class="ui-g-4">
-                <p-inputMask formControlName="matriculaCompleta" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()"></p-inputMask>
+                <p-inputMask formControlName="matriculaInputMask" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()" size=18></p-inputMask>
             </div>
             <div class="ui-g-4">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['matriculaCompleta'].valid&&userform.controls['matriculaCompleta'].dirty">
-                    <span *ngIf="userform.controls['matriculaCompleta'].errors['required']">Obrigatório</span>
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['matriculaInputMask'].valid&&userform.controls['matriculaInputMask'].dirty">
+                    <span *ngIf="userform.controls['matriculaInputMask'].errors['required']">Obrigatório</span>
                 </div>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4"></div>
             <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!userform.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog header="Novo Cargo" [(visible)]="displayCargo" [resizable]=false [draggable]=false modal=true [width]=650>
+    <form [formGroup]="cargoForm" (ngSubmit)="onSubmitCargo(cargoForm.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Cargo</div>
+            <div class="ui-g-4">
+                <input type="text" pInputText formControlName="cargoInput" [(ngModel)]="cargo" size=18/>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cargoForm.controls['cargoInput'].valid&&cargoForm.controls['cargoInput'].dirty">
+                    <span *ngIf="cargoForm.controls['cargoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!cargoForm.valid"></button></div>
             <div class="ui-g-4"></div>
         </div>
     </form>

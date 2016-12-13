@@ -28,21 +28,28 @@ export class AppConfig implements OnInit {
 
     msgs: Message[] = [];
 
-    display: boolean = false;
+    displayAdmin: boolean = false;
+    displayCargo: boolean = false;
 
     userform: FormGroup;
+    cargoForm: FormGroup;
 
     submitted: boolean;
 
-    description: string;
-
     matrCompl: string;
+    cargo: string;
     upper() {
         this.matrCompl = this.matrCompl.toUpperCase();
     }
 
-    showDialog() {
-        this.display = true;
+    showDialogAdmin() {
+        this.displayAdmin = true;
+        this.matrCompl = null;
+    }
+
+    showDialogCargo() {
+        this.displayCargo = true;
+        this.cargo = null;
     }
 
     constructor(
@@ -54,11 +61,11 @@ export class AppConfig implements OnInit {
         this.validation();
     }
 
-    onSubmit(value: string) {
+    onSubmitAdmin(value: string) {
         let tblColabAdmin: TblColabAdmin = new TblColabAdmin();
         tblColabAdmin.nflativo = 1;
         tblColabAdmin.ativo = true;
-        tblColabAdmin.snomatrcompl = value["matriculaCompleta"];
+        tblColabAdmin.snomatrcompl = value["matriculaInputMask"];
         this.tblColabAdminList.push(tblColabAdmin);
         this.addAdmin(tblColabAdmin);
 
@@ -66,7 +73,29 @@ export class AppConfig implements OnInit {
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabAdmin.snomatrcompl, detail: 'Criado com sucesso' });
 
-        this.display = false;
+        this.displayAdmin = false;
+    }
+
+    onSubmitCargo(value: string) {
+        let tblColabCargo: TblColabCargo = new TblColabCargo();
+        tblColabCargo.nflativo = 1;
+        tblColabCargo.ativo = true;
+        tblColabCargo.idcargo = 100;
+        tblColabCargo.sdccargo = value["cargoInput"];
+        tblColabCargo.sdccargo = tblColabCargo.sdccargo.toUpperCase();
+        this.configService.getTblColabCargoMax().subscribe(
+            tblColabCargoMax => {
+                tblColabCargo.idcargo = tblColabCargoMax + 1;
+                this.tblColabCargoList.push(tblColabCargo);
+                this.addCargo(tblColabCargo);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: 'Criado com sucesso' });
+
+        this.displayCargo = false;
     }
 
     get diagnostic() { return JSON.stringify(this.userform.value); }
@@ -83,7 +112,12 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabCargo().subscribe(
             tblColabCargoList => this.tblColabCargoList = tblColabCargoList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabCargoList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabCidade().subscribe(
             tblColabCidadeList => this.tblColabCidadeList = tblColabCidadeList,
@@ -109,7 +143,10 @@ export class AppConfig implements OnInit {
 
     validation() {
         this.userform = this.fb.group({
-            'matriculaCompleta': new FormControl('', [Validators.required])
+            'matriculaInputMask': new FormControl('', [Validators.required])
+        });
+        this.cargoForm = this.fb.group({
+            'cargoInput': new FormControl('', [Validators.required])
         });
     }
 
@@ -122,11 +159,11 @@ export class AppConfig implements OnInit {
     }
 
     selectCargo(tblColabCargo: TblColabCargo) {
-        var selectedCargo: TblColabCargo = Object.assign({}, tblColabCargo);
-        this.saveCargo(selectedCargo);
+        tblColabCargo.nflativo = tblColabCargo.ativo ? 1 : 0;
+        this.saveCargo(tblColabCargo);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: (tblColabCargo.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: (tblColabCargo.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectCidade(tblColabCidade: TblColabCidade) {
@@ -214,6 +251,12 @@ export class AppConfig implements OnInit {
     addAdmin(tblColabAdmin: TblColabAdmin) {
         this.configService
             .postAdmin(tblColabAdmin)
+            .subscribe();
+    }
+
+    addCargo(tblColabCargo: TblColabCargo) {
+        this.configService
+            .postCargo(tblColabCargo)
             .subscribe();
     }
 }

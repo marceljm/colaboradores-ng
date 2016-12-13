@@ -17,6 +17,7 @@ export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
     private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
+    private urlTblColabCargoMax = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
     private urlTblColabCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCidade';
     private urlTblColabEstado = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEstado';
     private urlTblColabGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabGrupo';
@@ -31,6 +32,10 @@ export class ConfigService {
 
     getTblColabCargo(): Observable<TblColabCargo[]> {
         return this.http.get(this.urlTblColabCargo).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabCargoMax(): Observable<number> {
+        return this.http.get(this.urlTblColabCargoMax + "/max").map(this.extractData).catch(this.handleError);
     }
 
     getTblColabCidade(): Observable<TblColabCidade[]> {
@@ -84,10 +89,14 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabCargo}`;
 
-        tblColabCargo.nflativo = tblColabCargo.nflativo ? 1 : 0;
+        tblColabCargo.nflativo = tblColabCargo.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabCargo, headers)
+            .put(url, {
+                idcargo: tblColabCargo.idcargo,
+                sdccargo: tblColabCargo.sdccargo,
+                nflativo: tblColabCargo.nflativo
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -162,6 +171,22 @@ export class ConfigService {
             .post(url, {
                 snomatrcompl: tblColabAdmin.snomatrcompl,
                 nflativo: tblColabAdmin.nflativo
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postCargo(tblColabCargo: TblColabCargo): Observable<TblColabCargo> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabCargo}`;
+
+        tblColabCargo.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                idcargo: tblColabCargo.idcargo,
+                sdccargo: tblColabCargo.sdccargo,
+                nflativo: tblColabCargo.nflativo
             }, headers)
             .map(this.extractData)
             .catch(this.handleError);
