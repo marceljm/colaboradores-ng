@@ -30,16 +30,41 @@ export class AppConfig implements OnInit {
 
     displayAdmin: boolean = false;
     displayCargo: boolean = false;
+    displayCidade: boolean = false;
+    displayEntreGrupo: boolean = false;
+    displayEstado: boolean = false;
+    displayGrupo: boolean = false;
+    displaySituacao: boolean = false;
 
     userform: FormGroup;
     cargoForm: FormGroup;
+    cidadeForm: FormGroup;
+    entreGrupoForm: FormGroup;
+    estadoForm: FormGroup;
+    grupoForm: FormGroup;
+    situacaoForm: FormGroup;
 
     submitted: boolean;
 
     matrCompl: string;
     cargo: string;
+    cidade: string;
+    estado: string;
+    entreGrupo: string;
+    grupo: string;
+    situacao: string;
+    tela: string;
+    data: string;
+    dtDesligArea: string;
+    dtDesligEmpresa: string;
+    dtAso: string;
+
     upper() {
         this.matrCompl = this.matrCompl.toUpperCase();
+    }
+
+    upperEstado() {
+        this.estado = this.estado.toUpperCase();
     }
 
     showDialogAdmin() {
@@ -50,6 +75,36 @@ export class AppConfig implements OnInit {
     showDialogCargo() {
         this.displayCargo = true;
         this.cargo = null;
+    }
+
+    showDialogCidade() {
+        this.displayCidade = true;
+        this.cidade = null;
+    }
+
+    showDialogEntreGrupo() {
+        this.displayEntreGrupo = true;
+        this.entreGrupo = null;
+    }
+
+    showDialogEstado() {
+        this.displayEstado = true;
+        this.estado = null;
+    }
+
+    showDialogGrupo() {
+        this.displayGrupo = true;
+        this.grupo = null;
+    }
+
+    showSituacao() {
+        this.displaySituacao = true;
+        this.situacao = null;
+        this.tela = null;
+        this.data = null;
+        this.dtDesligArea = null;
+        this.dtDesligEmpresa = null;
+        this.dtAso = null;
     }
 
     constructor(
@@ -80,7 +135,6 @@ export class AppConfig implements OnInit {
         let tblColabCargo: TblColabCargo = new TblColabCargo();
         tblColabCargo.nflativo = 1;
         tblColabCargo.ativo = true;
-        tblColabCargo.idcargo = 100;
         tblColabCargo.sdccargo = value["cargoInput"];
         tblColabCargo.sdccargo = tblColabCargo.sdccargo.toUpperCase();
         this.configService.getTblColabCargoMax().subscribe(
@@ -96,6 +150,48 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: 'Criado com sucesso' });
 
         this.displayCargo = false;
+    }
+
+    onSubmitCidade(value: string) {
+        let tblColabCidade: TblColabCidade = new TblColabCidade();
+        tblColabCidade.nflativo = 1;
+        tblColabCidade.ativo = true;
+        tblColabCidade.sdccidade = value["cidadeInput"];
+        tblColabCidade.sdccidade = tblColabCidade.sdccidade.toUpperCase();
+        this.configService.getTblColabCidadeMax().subscribe(
+            tblColabCidadeMax => {
+                tblColabCidade.idcidade = tblColabCidadeMax + 1;
+                this.tblColabCidadeList.push(tblColabCidade);
+                this.addCidade(tblColabCidade);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: 'Criado com sucesso' });
+
+        this.displayCidade = false;
+    }
+
+    onSubmitEstado(value: string) {
+        let tblColabEstado: TblColabEstado = new TblColabEstado();
+        tblColabEstado.nflativo = 1;
+        tblColabEstado.ativo = true;
+        tblColabEstado.sdcestado = value["estadoInput"];
+        tblColabEstado.sdcestado = tblColabEstado.sdcestado.toUpperCase();
+        this.configService.getTblColabEstadoMax().subscribe(
+            tblColabEstadoMax => {
+                tblColabEstado.idestado = tblColabEstadoMax + 1;
+                this.tblColabEstadoList.push(tblColabEstado);
+                this.addEstado(tblColabEstado);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: 'Criado com sucesso' });
+
+        this.displayEstado = false;
     }
 
     get diagnostic() { return JSON.stringify(this.userform.value); }
@@ -121,23 +217,48 @@ export class AppConfig implements OnInit {
         );
         this.configService.getTblColabCidade().subscribe(
             tblColabCidadeList => this.tblColabCidadeList = tblColabCidadeList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabCidadeList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabEstado().subscribe(
             tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabEstadoList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabGrupo().subscribe(
             tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabGrupoList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabSituacao().subscribe(
             tblColabSituacaoList => this.tblColabSituacaoList = tblColabSituacaoList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabSituacaoList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
         this.configService.getTblColabEntreGrupo().subscribe(
             tblColabEntreGrupoList => this.tblColabEntreGrupoList = tblColabEntreGrupoList,
-            error => this.errorMessage = <any>error
+            error => this.errorMessage = <any>error,
+            () => {
+                for (let entry of this.tblColabEntreGrupoList) {
+                    entry.ativo = entry.nflativo == 1;
+                }
+            }
         );
     }
 
@@ -147,6 +268,21 @@ export class AppConfig implements OnInit {
         });
         this.cargoForm = this.fb.group({
             'cargoInput': new FormControl('', [Validators.required])
+        });
+        this.cidadeForm = this.fb.group({
+            'cidadeInput': new FormControl('', [Validators.required])
+        });
+        this.estadoForm = this.fb.group({
+            'estadoInput': new FormControl('', [Validators.required])
+        });
+        this.entreGrupoForm = this.fb.group({
+            'entreGrupoInput': new FormControl('', [Validators.required])
+        });
+        this.grupoForm = this.fb.group({
+            'grupoInput': new FormControl('', [Validators.required])
+        });
+        this.situacaoForm = this.fb.group({
+            'situacaoInput': new FormControl('', [Validators.required])
         });
     }
 
@@ -167,43 +303,43 @@ export class AppConfig implements OnInit {
     }
 
     selectCidade(tblColabCidade: TblColabCidade) {
-        var selectedCidade: TblColabCidade = Object.assign({}, tblColabCidade);
-        this.saveCidade(selectedCidade);
+        tblColabCidade.nflativo = tblColabCidade.ativo ? 1 : 0;
+        this.saveCidade(tblColabCidade);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: (tblColabCidade.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: (tblColabCidade.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectEstado(tblColabEstado: TblColabEstado) {
-        var selectedEstado: TblColabEstado = Object.assign({}, tblColabEstado);
-        this.saveEstado(selectedEstado);
+        tblColabEstado.nflativo = tblColabEstado.ativo ? 1 : 0;
+        this.saveEstado(tblColabEstado);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: (tblColabEstado.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: (tblColabEstado.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectGrupo(tblColabGrupo: TblColabGrupo) {
-        var selectedGrupo: TblColabGrupo = Object.assign({}, tblColabGrupo);
-        this.saveGrupo(selectedGrupo);
+        tblColabGrupo.nflativo = tblColabGrupo.ativo ? 1 : 0;
+        this.saveGrupo(tblColabGrupo);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: (tblColabGrupo.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: (tblColabGrupo.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectSituacao(tblColabSituacao: TblColabSituacao) {
-        var selectedSituacao: TblColabSituacao = Object.assign({}, tblColabSituacao);
-        this.saveSituacao(selectedSituacao);
+        tblColabSituacao.nflativo = tblColabSituacao.ativo ? 1 : 0;
+        this.saveSituacao(tblColabSituacao);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: (tblColabSituacao.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: (tblColabSituacao.ativo ? 'Ativo' : 'Inativo') });
     }
 
     selectEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
-        var selectedEntreGrupo: TblColabEntreGrupo = Object.assign({}, tblColabEntreGrupo);
-        this.saveEntreGrupo(selectedEntreGrupo);
+        tblColabEntreGrupo.nflativo = tblColabEntreGrupo.ativo ? 1 : 0;
+        this.saveEntreGrupo(tblColabEntreGrupo);
 
         this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabEntreGrupo.sdcentregrupo, detail: (tblColabEntreGrupo.nflativo ? 'Ativo' : 'Inativo') });
+        this.msgs.push({ severity: 'info', summary: tblColabEntreGrupo.sdcentregrupo, detail: (tblColabEntreGrupo.ativo ? 'Ativo' : 'Inativo') });
     }
 
     saveAdmin(tblColabAdmin: TblColabAdmin) {
@@ -257,6 +393,36 @@ export class AppConfig implements OnInit {
     addCargo(tblColabCargo: TblColabCargo) {
         this.configService
             .postCargo(tblColabCargo)
+            .subscribe();
+    }
+
+    addCidade(tblColabCidade: TblColabCidade) {
+        this.configService
+            .postCidade(tblColabCidade)
+            .subscribe();
+    }
+
+    addEstado(tblColabEstado: TblColabEstado) {
+        this.configService
+            .postEstado(tblColabEstado)
+            .subscribe();
+    }
+
+    addEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
+        this.configService
+            .postEntreGrupo(tblColabEntreGrupo)
+            .subscribe();
+    }
+
+    addGrupo(tblColabGrupo: TblColabGrupo) {
+        this.configService
+            .postGrupo(tblColabGrupo)
+            .subscribe();
+    }
+
+    addSituacao(tblColabSituacao: TblColabSituacao) {
+        this.configService
+            .postSituacao(tblColabSituacao)
             .subscribe();
     }
 }

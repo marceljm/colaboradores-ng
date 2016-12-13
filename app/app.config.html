@@ -30,12 +30,12 @@
     <p-tabPanel header="Cidade">
         <p-dataTable [value]="tblColabCidadeList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogCidade()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdccidade" header="Cidade"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCidade="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCidade(tblColabCidade)" [(ngModel)]="tblColabCidade.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCidade(tblColabCidade)" [(ngModel)]="tblColabCidade.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -43,13 +43,13 @@
     <p-tabPanel header="Entre Grupo">
         <p-dataTable [value]="tblColabEntreGrupoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogGrupo()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabEntreGrupo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -57,12 +57,12 @@
     <p-tabPanel header="Estado">
         <p-dataTable [value]="tblColabEstadoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogEstado()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcestado" header="Estado"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabEstado="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEstado(tblColabEstado)" [(ngModel)]="tblColabEstado.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEstado(tblColabEstado)" [(ngModel)]="tblColabEstado.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -70,12 +70,12 @@
     <p-tabPanel header="Grupo">
         <p-dataTable [value]="tblColabGrupoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogGrupo()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcgrupo" header="Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabGrupo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectGrupo(tblColabGrupo)" [(ngModel)]="tblColabGrupo.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectGrupo(tblColabGrupo)" [(ngModel)]="tblColabGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -83,12 +83,12 @@
     <p-tabPanel header="Situação">
         <p-dataTable [value]="tblColabSituacaoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogAdmin()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogSituacao()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="sdcsituacao" header="Situação"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabSituacao="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.nflativo"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -132,6 +132,27 @@
         <div class="ui-g">
             <div class="ui-g-4"></div>
             <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!cargoForm.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog header="Novo Estado" [(visible)]="displayEstado" [resizable]=false [draggable]=false modal=true [width]=650>
+    <form [formGroup]="estadoForm" (ngSubmit)="onSubmitEstado(estadoForm.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Estado</div>
+            <div class="ui-g-4">
+                <p-inputMask formControlName="estadoInput" [(ngModel)]="estado" mask="aa" (onComplete)="upperEstado()" size=18></p-inputMask>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!estadoForm.controls['estadoInput'].valid&&estadoForm.controls['estadoInput'].dirty">
+                    <span *ngIf="estadoForm.controls['estadoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!estadoForm.valid"></button></div>
             <div class="ui-g-4"></div>
         </div>
     </form>
