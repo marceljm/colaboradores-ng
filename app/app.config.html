@@ -157,3 +157,24 @@
         </div>
     </form>
 </p-dialog>
+
+<p-dialog header="Novo Grupo" [(visible)]="displayGrupo" [resizable]=false [draggable]=false modal=true [width]=650>
+    <form [formGroup]="grupoForm" (ngSubmit)="onSubmitGrupo(grupoForm.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Grupo</div>
+            <div class="ui-g-4">
+                <input type="text" pInputText formControlName="grupoInput" [(ngModel)]="grupo" size=18/>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!grupoForm.controls['grupoInput'].valid&&grupoForm.controls['grupoInput'].dirty">
+                    <span *ngIf="grupoForm.controls['grupoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!grupoForm.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
+</p-dialog>

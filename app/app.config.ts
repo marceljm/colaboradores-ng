@@ -194,6 +194,27 @@ export class AppConfig implements OnInit {
         this.displayEstado = false;
     }
 
+    onSubmitGrupo(value: string) {
+        let tblColabGrupo: TblColabGrupo = new TblColabGrupo();
+        tblColabGrupo.nflativo = 1;
+        tblColabGrupo.ativo = true;
+        tblColabGrupo.sdcgrupo = value["grupoInput"];
+        tblColabGrupo.sdcgrupo = tblColabGrupo.sdcgrupo.toUpperCase();
+        this.configService.getTblColabGrupoMax().subscribe(
+            tblColabGrupoMax => {
+                tblColabGrupo.idgrupo = tblColabGrupoMax + 1;
+                this.tblColabGrupoList.push(tblColabGrupo);
+                this.addGrupo(tblColabGrupo);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: 'Criado com sucesso' });
+
+        this.displayGrupo = false;
+    }
+
     get diagnostic() { return JSON.stringify(this.userform.value); }
 
     getConfig() {
