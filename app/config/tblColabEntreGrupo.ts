@@ -5,4 +5,5 @@ export class TblColabEntreGrupo {
     nflativo: number;
     sdcentregrupo: string;
     tblColabGrupo: TblColabGrupo;
+    ativo: boolean;
 }

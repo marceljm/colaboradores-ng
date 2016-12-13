@@ -5,4 +5,5 @@ export class TblColabCidade {
     nflativo: number;
     sdccidade: string;
     tblColabEstado: TblColabEstado;
+    ativo: boolean;
 }

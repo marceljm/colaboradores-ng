@@ -17,7 +17,6 @@ export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
     private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
-    private urlTblColabCargoMax = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
     private urlTblColabCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCidade';
     private urlTblColabEstado = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEstado';
     private urlTblColabGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabGrupo';
@@ -35,27 +34,47 @@ export class ConfigService {
     }
 
     getTblColabCargoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabCargoMax + "/max").map(this.extractData).catch(this.handleError);
+        return this.http.get(this.urlTblColabCargo + "/max").map(this.extractData).catch(this.handleError);
     }
 
     getTblColabCidade(): Observable<TblColabCidade[]> {
         return this.http.get(this.urlTblColabCidade).map(this.extractData).catch(this.handleError);
     }
 
+    getTblColabCidadeMax(): Observable<number> {
+        return this.http.get(this.urlTblColabCidade + "/max").map(this.extractData).catch(this.handleError);
+    }
+
     getTblColabEstado(): Observable<TblColabEstado[]> {
         return this.http.get(this.urlTblColabEstado).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabEstadoMax(): Observable<number> {
+        return this.http.get(this.urlTblColabEstado + "/max").map(this.extractData).catch(this.handleError);
     }
 
     getTblColabGrupo(): Observable<TblColabGrupo[]> {
         return this.http.get(this.urlTblColabGrupo).map(this.extractData).catch(this.handleError);
     }
 
+    getTblColabGrupoMax(): Observable<number> {
+        return this.http.get(this.urlTblColabGrupo + "/max").map(this.extractData).catch(this.handleError);
+    }
+
     getTblColabSituacao(): Observable<TblColabSituacao[]> {
         return this.http.get(this.urlTblColabSituacao).map(this.extractData).catch(this.handleError);
     }
 
+    getTblColabSituacaoMax(): Observable<number> {
+        return this.http.get(this.urlTblColabSituacao + "/max").map(this.extractData).catch(this.handleError);
+    }
+
     getTblColabEntreGrupo(): Observable<TblColabEntreGrupo[]> {
         return this.http.get(this.urlTblColabEntreGrupo).map(this.extractData).catch(this.handleError);
+    }
+
+    getTblColabEntreGrupoMax(): Observable<number> {
+        return this.http.get(this.urlTblColabEntreGrupo + "/max").map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
@@ -105,10 +124,15 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabCidade}`;
 
-        tblColabCidade.nflativo = tblColabCidade.nflativo ? 1 : 0;
+        tblColabCidade.nflativo = tblColabCidade.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabCidade, headers)
+            .put(url, {
+                idcidade: tblColabCidade.idcidade,
+                nflativo: tblColabCidade.nflativo,
+                sdccidade: tblColabCidade.sdccidade,
+                tblColabEstado: tblColabCidade.tblColabEstado
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -117,10 +141,14 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabEstado}`;
 
-        tblColabEstado.nflativo = tblColabEstado.nflativo ? 1 : 0;
+        tblColabEstado.nflativo = tblColabEstado.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabEstado, headers)
+            .put(url, {
+                idestado: tblColabEstado.idestado,
+                nflativo: tblColabEstado.nflativo,
+                sdcestado: tblColabEstado.sdcestado
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -129,10 +157,14 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabGrupo}`;
 
-        tblColabGrupo.nflativo = tblColabGrupo.nflativo ? 1 : 0;
+        tblColabGrupo.nflativo = tblColabGrupo.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabGrupo, headers)
+            .put(url, {
+                idgrupo: tblColabGrupo.idgrupo,
+                nflativo: tblColabGrupo.nflativo,
+                sdcgrupo: tblColabGrupo.sdcgrupo
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -141,10 +173,19 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabSituacao}`;
 
-        tblColabSituacao.nflativo = tblColabSituacao.nflativo ? 1 : 0;
+        tblColabSituacao.nflativo = tblColabSituacao.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabSituacao, headers)
+            .put(url, {
+                idsituacao: tblColabSituacao.idsituacao,
+                idiniciofim: tblColabSituacao.idiniciofim,
+                idtela: tblColabSituacao.idtela,
+                nflaso: tblColabSituacao.nflaso,
+                nflativo: tblColabSituacao.nflativo,
+                nfldesligamentoarea: tblColabSituacao.nfldesligamentoarea,
+                nfldesligamentoempresa: tblColabSituacao.nfldesligamentoempresa,
+                sdcsituacao: tblColabSituacao.sdcsituacao
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -153,10 +194,15 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabEntreGrupo}`;
 
-        tblColabEntreGrupo.nflativo = tblColabEntreGrupo.nflativo ? 1 : 0;
+        tblColabEntreGrupo.nflativo = tblColabEntreGrupo.ativo ? 1 : 0;
 
         return this.http
-            .put(url, tblColabEntreGrupo, headers)
+            .put(url, {
+                identregrupo: tblColabEntreGrupo.identregrupo,
+                nflativo: tblColabEntreGrupo.nflativo,
+                sdcentregrupo: tblColabEntreGrupo.sdcentregrupo,
+                tblColabGrupo: tblColabEntreGrupo.tblColabGrupo
+            }, headers)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -192,4 +238,90 @@ export class ConfigService {
             .catch(this.handleError);
     }
 
+    postCidade(tblColabCidade: TblColabCidade): Observable<TblColabCidade> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabCidade}`;
+
+        tblColabCidade.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                idcidade: tblColabCidade.idcidade,
+                nflativo: tblColabCidade.nflativo,
+                sdccidade: tblColabCidade.sdccidade,
+                tblColabEstado: tblColabCidade.tblColabEstado
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo): Observable<TblColabEntreGrupo> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabEntreGrupo}`;
+
+        tblColabEntreGrupo.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                identregrupo: tblColabEntreGrupo.identregrupo,
+                nflativo: tblColabEntreGrupo.nflativo,
+                sdcentregrupo: tblColabEntreGrupo.sdcentregrupo,
+                tblColabGrupo: tblColabEntreGrupo.tblColabGrupo
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postEstado(tblColabEstado: TblColabEstado): Observable<TblColabEstado> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabEstado}`;
+
+        tblColabEstado.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                idestado: tblColabEstado.idestado,
+                nflativo: tblColabEstado.nflativo,
+                sdcestado: tblColabEstado.sdcestado
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postGrupo(tblColabGrupo: TblColabGrupo): Observable<TblColabGrupo> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabGrupo}`;
+
+        tblColabGrupo.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                idgrupo: tblColabGrupo.idgrupo,
+                nflativo: tblColabGrupo.nflativo,
+                sdcgrupo: tblColabGrupo.sdcgrupo
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    postSituacao(tblColabSituacao: TblColabSituacao): Observable<TblColabSituacao> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let url = `${this.urlTblColabSituacao}`;
+
+        tblColabSituacao.nflativo = 1;
+
+        return this.http
+            .post(url, {
+                idsituacao: tblColabSituacao.idsituacao,
+                idiniciofim: tblColabSituacao.idiniciofim,
+                idtela: tblColabSituacao.idtela,
+                nflaso: tblColabSituacao.nflaso,
+                nflativo: tblColabSituacao.nflativo,
+                nfldesligamentoarea: tblColabSituacao.nfldesligamentoarea,
+                nfldesligamentoempresa: tblColabSituacao.nfldesligamentoempresa,
+                sdcsituacao: tblColabSituacao.sdcsituacao
+            }, headers)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 }

@@ -7,4 +7,5 @@ export class TblColabSituacao {
     nfldesligamentoarea: number;
     nfldesligamentoempresa: number;
     sdcsituacao: string;
+    ativo: boolean;
 }
