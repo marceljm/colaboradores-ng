@@ -84,6 +84,7 @@ export class AppConfig implements OnInit {
     showDialogCidade() {
         this.displayCidade = true;
         this.cidade = null;
+        this.selectedEstado = '';
     }
 
     showDialogEntreGrupo() {
@@ -174,7 +175,10 @@ export class AppConfig implements OnInit {
             tblColabEstadoMax => {
                 tblColabEstado.idestado = tblColabEstadoMax + 1;
                 this.tblColabEstadoList.push(tblColabEstado);
+                this.tblColabEstadoList.sort((a, b) => a.sdcestado.localeCompare(b.sdcestado));
                 this.addEstado(tblColabEstado);
+                this.estados.push({ label: tblColabEstado.sdcestado, value: tblColabEstado.idestado });
+                this.estados.sort((a, b) => a.label.localeCompare(b.label));
             },
             error => this.errorMessage = <any>error,
         );
@@ -207,6 +211,7 @@ export class AppConfig implements OnInit {
     }
 
     onSubmitCidade(value: string) {
+        console.log(value);
         let tblColabCidade: TblColabCidade = new TblColabCidade();
         tblColabCidade.nflativo = 1;
         tblColabCidade.ativo = true;
@@ -225,6 +230,7 @@ export class AppConfig implements OnInit {
         this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: 'Criado com sucesso' });
 
         this.displayCidade = false;
+        document.getElementById('body').style.overflow = 'scroll';
     }
 
     get diagnostic() { return JSON.stringify(this.userform.value); }
@@ -261,6 +267,7 @@ export class AppConfig implements OnInit {
             tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
             error => this.errorMessage = <any>error,
             () => {
+                this.estados.push({ label: '', value: '' });
                 for (let entry of this.tblColabEstadoList) {
                     entry.ativo = entry.nflativo == 1;
                     this.estados.push({ label: entry.sdcestado, value: entry.idestado });
@@ -304,7 +311,8 @@ export class AppConfig implements OnInit {
             'cargoInput': new FormControl('', [Validators.required])
         });
         this.cidadeForm = this.fb.group({
-            'cidadeInput': new FormControl('', [Validators.required])
+            'cidadeInput': new FormControl('', [Validators.required]),
+            'estadoInput': new FormControl('', [Validators.required]),
         });
         this.estadoForm = this.fb.group({
             'estadoInput': new FormControl('', [Validators.required])

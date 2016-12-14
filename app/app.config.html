@@ -179,7 +179,7 @@
     </form>
 </p-dialog>
 
-<p-dialog header="Novo Cidade" [(visible)]="displayCidade" [resizable]=false [draggable]=false modal=true [width]=650 (onBeforeShow)="removeScroll($event)"
+<p-dialog header="Nova Cidade" [(visible)]="displayCidade" [resizable]=false [draggable]=false modal=true [width]=650 (onBeforeShow)="removeScroll($event)"
     (onBeforeHide)="addScroll($event)">
     <form [formGroup]="cidadeForm" (ngSubmit)="onSubmitCidade(cidadeForm.value)">
         <div class="ui-g">
@@ -194,8 +194,13 @@
             </div>
             <div class="ui-g-4">Estado</div>
             <div class="ui-g-4">
-                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="cidadeInput" appendTo="body"></p-dropdown>
+                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="estadoInput" appendTo="body"></p-dropdown>
             </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cidadeForm.controls['estadoInput'].valid&&cidadeForm.controls['estadoInput'].dirty">
+                    <span *ngIf="cidadeForm.controls['estadoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>            
         </div>
         <div class="ui-g">
             <div class="ui-g-4"></div>
