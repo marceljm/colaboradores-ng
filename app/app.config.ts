@@ -8,7 +8,7 @@ import { TblColabEstado } from './config/TblColabEstado';
 import { TblColabGrupo } from './config/TblColabGrupo';
 import { TblColabSituacao } from './config/TblColabSituacao';
 import { TblColabEntreGrupo } from './config/TblColabEntreGrupo';
-import { Message } from 'primeng/primeng';
+import { Message, SelectItem } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'app/app.config.html',
@@ -59,6 +59,10 @@ export class AppConfig implements OnInit {
     dtDesligEmpresa: string;
     dtAso: string;
 
+    selectedEstado: string;
+
+    estados: SelectItem[] = [];
+
     upper() {
         this.matrCompl = this.matrCompl.toUpperCase();
     }
@@ -107,6 +111,14 @@ export class AppConfig implements OnInit {
         this.dtAso = null;
     }
 
+    removeScroll(e) {
+        document.getElementById('body').style.overflow = 'hidden';
+    }
+
+    addScroll(e) {
+        document.getElementById('body').style.overflow = 'scroll';
+    }
+
     constructor(
         private configService: ConfigService, private fb: FormBuilder) {
     }
@@ -152,27 +164,6 @@ export class AppConfig implements OnInit {
         this.displayCargo = false;
     }
 
-    onSubmitCidade(value: string) {
-        let tblColabCidade: TblColabCidade = new TblColabCidade();
-        tblColabCidade.nflativo = 1;
-        tblColabCidade.ativo = true;
-        tblColabCidade.sdccidade = value["cidadeInput"];
-        tblColabCidade.sdccidade = tblColabCidade.sdccidade.toUpperCase();
-        this.configService.getTblColabCidadeMax().subscribe(
-            tblColabCidadeMax => {
-                tblColabCidade.idcidade = tblColabCidadeMax + 1;
-                this.tblColabCidadeList.push(tblColabCidade);
-                this.addCidade(tblColabCidade);
-            },
-            error => this.errorMessage = <any>error,
-        );
-        this.submitted = true;
-        this.msgs = [];
-        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: 'Criado com sucesso' });
-
-        this.displayCidade = false;
-    }
-
     onSubmitEstado(value: string) {
         let tblColabEstado: TblColabEstado = new TblColabEstado();
         tblColabEstado.nflativo = 1;
@@ -215,6 +206,27 @@ export class AppConfig implements OnInit {
         this.displayGrupo = false;
     }
 
+    onSubmitCidade(value: string) {
+        let tblColabCidade: TblColabCidade = new TblColabCidade();
+        tblColabCidade.nflativo = 1;
+        tblColabCidade.ativo = true;
+        tblColabCidade.sdccidade = value["cidadeInput"];
+        tblColabCidade.sdccidade = tblColabCidade.sdccidade.toUpperCase();
+        this.configService.getTblColabCidadeMax().subscribe(
+            tblColabCidadeMax => {
+                tblColabCidade.idcidade = tblColabCidadeMax + 1;
+                this.tblColabCidadeList.push(tblColabCidade);
+                this.addCidade(tblColabCidade);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: 'Criado com sucesso' });
+
+        this.displayCidade = false;
+    }
+
     get diagnostic() { return JSON.stringify(this.userform.value); }
 
     getConfig() {
@@ -251,6 +263,7 @@ export class AppConfig implements OnInit {
             () => {
                 for (let entry of this.tblColabEstadoList) {
                     entry.ativo = entry.nflativo == 1;
+                    this.estados.push({ label: entry.sdcestado, value: entry.idestado });
                 }
             }
         );
