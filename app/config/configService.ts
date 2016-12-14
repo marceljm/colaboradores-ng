@@ -201,7 +201,11 @@ export class ConfigService {
                 identregrupo: tblColabEntreGrupo.identregrupo,
                 nflativo: tblColabEntreGrupo.nflativo,
                 sdcentregrupo: tblColabEntreGrupo.sdcentregrupo,
-                tblColabGrupo: tblColabEntreGrupo.tblColabGrupo
+                tblColabGrupo: {
+                    idgrupo: tblColabEntreGrupo.tblColabGrupo.idgrupo,
+                    nflativo: tblColabEntreGrupo.tblColabGrupo.nflativo,
+                    sdcgrupo: tblColabEntreGrupo.tblColabGrupo.sdcgrupo
+                }
             }, headers)
             .map(this.extractData)
             .catch(this.handleError);
@@ -261,14 +265,16 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabEntreGrupo}`;
 
-        tblColabEntreGrupo.nflativo = 1;
-
         return this.http
             .post(url, {
                 identregrupo: tblColabEntreGrupo.identregrupo,
                 nflativo: tblColabEntreGrupo.nflativo,
                 sdcentregrupo: tblColabEntreGrupo.sdcentregrupo,
-                tblColabGrupo: tblColabEntreGrupo.tblColabGrupo
+                tblColabGrupo: {
+                    idgrupo: tblColabEntreGrupo.tblColabGrupo.idgrupo,
+                    nflativo: tblColabEntreGrupo.tblColabGrupo.nflativo,
+                    sdcgrupo: tblColabEntreGrupo.tblColabGrupo.sdcgrupo
+                }
             }, headers)
             .map(this.extractData)
             .catch(this.handleError);

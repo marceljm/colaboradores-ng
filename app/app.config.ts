@@ -21,10 +21,10 @@ export class AppConfig implements OnInit {
     tblColabAdminList: TblColabAdmin[];
     tblColabCargoList: TblColabCargo[];
     tblColabCidadeList: TblColabCidade[];
+    tblColabEntreGrupoList: TblColabEntreGrupo[];
     tblColabEstadoList: TblColabEstado[];
     tblColabGrupoList: TblColabGrupo[];
     tblColabSituacaoList: TblColabSituacao[];
-    tblColabEntreGrupoList: TblColabEntreGrupo[];
 
     msgs: Message[] = [];
 
@@ -36,7 +36,7 @@ export class AppConfig implements OnInit {
     displayGrupo: boolean = false;
     displaySituacao: boolean = false;
 
-    userform: FormGroup;
+    adminForm: FormGroup;
     cargoForm: FormGroup;
     cidadeForm: FormGroup;
     entreGrupoForm: FormGroup;
@@ -60,10 +60,12 @@ export class AppConfig implements OnInit {
     dtAso: string;
 
     selectedEstado: string;
+    selectedGrupo: string;
 
     estados: SelectItem[] = [];
+    grupos: SelectItem[] = [];
 
-    upper() {
+    upperMatrCompl() {
         this.matrCompl = this.matrCompl.toUpperCase();
     }
 
@@ -90,6 +92,7 @@ export class AppConfig implements OnInit {
     showDialogEntreGrupo() {
         this.displayEntreGrupo = true;
         this.entreGrupo = null;
+        this.selectedGrupo = '';
     }
 
     showDialogEstado() {
@@ -241,7 +244,33 @@ export class AppConfig implements OnInit {
         document.getElementById('body').style.overflow = 'scroll';
     }
 
-    get diagnostic() { return JSON.stringify(this.userform.value); }
+    onSubmitEntreGrupo(value: string) {
+        let tblColabGrupo: TblColabGrupo = new TblColabGrupo();
+        let index = value["grupoInput"] - 1;
+        tblColabGrupo = this.tblColabGrupoList[index];
+
+        let tblColabEntreGrupo: TblColabEntreGrupo = new TblColabEntreGrupo();
+        tblColabEntreGrupo.tblColabGrupo = tblColabGrupo;
+        tblColabEntreGrupo.nflativo = 1;
+        tblColabEntreGrupo.ativo = true;
+        tblColabEntreGrupo.sdcentregrupo = value["entreGrupoInput"];
+        tblColabEntreGrupo.sdcentregrupo = tblColabEntreGrupo.sdcentregrupo.toUpperCase();
+        this.configService.getTblColabEntreGrupoMax().subscribe(
+            tblColabEntreGrupoMax => {
+                tblColabEntreGrupo.identregrupo = tblColabEntreGrupoMax + 1;
+                this.tblColabEntreGrupoList.push(tblColabEntreGrupo);
+                this.tblColabEntreGrupoList.sort((a, b) => (a.tblColabGrupo.sdcgrupo + "|" + a.sdcentregrupo).localeCompare(b.tblColabGrupo.sdcgrupo + "|" + b.sdcentregrupo));
+                this.addEntreGrupo(tblColabEntreGrupo);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabEntreGrupo.sdcentregrupo, detail: 'Criado com sucesso' });
+
+        this.displayEntreGrupo = false;
+        document.getElementById('body').style.overflow = 'scroll';
+    }
 
     getConfig() {
         this.configService.getTblColabAdmin().subscribe(
@@ -288,8 +317,12 @@ export class AppConfig implements OnInit {
             tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
             error => this.errorMessage = <any>error,
             () => {
+                this.grupos.push({ label: '', value: '' });
+                let i: number = 1;
                 for (let entry of this.tblColabGrupoList) {
                     entry.ativo = entry.nflativo == 1;
+                    this.grupos.push({ label: entry.sdcgrupo, value: i });
+                    i++;
                 }
             }
         );
@@ -314,7 +347,7 @@ export class AppConfig implements OnInit {
     }
 
     validation() {
-        this.userform = this.fb.group({
+        this.adminForm = this.fb.group({
             'matriculaInputMask': new FormControl('', [Validators.required])
         });
         this.cargoForm = this.fb.group({
@@ -322,13 +355,14 @@ export class AppConfig implements OnInit {
         });
         this.cidadeForm = this.fb.group({
             'cidadeInput': new FormControl('', [Validators.required]),
-            'estadoInput': new FormControl('', [Validators.required]),
+            'estadoInput': new FormControl('', [Validators.required])
         });
         this.estadoForm = this.fb.group({
             'estadoInput': new FormControl('', [Validators.required])
         });
         this.entreGrupoForm = this.fb.group({
-            'entreGrupoInput': new FormControl('', [Validators.required])
+            'entreGrupoInput': new FormControl('', [Validators.required]),
+            'grupoInput': new FormControl('', [Validators.required])
         });
         this.grupoForm = this.fb.group({
             'grupoInput': new FormControl('', [Validators.required])

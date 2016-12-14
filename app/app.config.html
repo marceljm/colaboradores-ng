@@ -43,7 +43,7 @@
     <p-tabPanel header="Entre Grupo">
         <p-dataTable [value]="tblColabEntreGrupoList">
             <header style="text-align:right">
-                <button type="text" (click)="showDialogGrupo()" pButton icon="fa-plus" label="Novo"></button>
+                <button type="text" (click)="showDialogEntreGrupo()" pButton icon="fa-plus" label="Novo"></button>
             </header>
             <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
@@ -96,21 +96,22 @@
 </p-tabView>
 
 <p-dialog header="Novo Administrador" [(visible)]="displayAdmin" [resizable]=false [draggable]=false modal=true [width]=650>
-    <form [formGroup]="userform" (ngSubmit)="onSubmitAdmin(userform.value)">
+    <form [formGroup]="adminForm" (ngSubmit)="onSubmitAdmin(adminForm.value)">
         <div class="ui-g">
             <div class="ui-g-4">Matrícula Completa</div>
             <div class="ui-g-4">
-                <p-inputMask formControlName="matriculaInputMask" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upper()" size=18></p-inputMask>
+                <p-inputMask formControlName="matriculaInputMask" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upperMatrCompl()"
+                    size=18></p-inputMask>
             </div>
             <div class="ui-g-4">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['matriculaInputMask'].valid&&userform.controls['matriculaInputMask'].dirty">
-                    <span *ngIf="userform.controls['matriculaInputMask'].errors['required']">Obrigatório</span>
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!adminForm.controls['matriculaInputMask'].valid&&adminForm.controls['matriculaInputMask'].dirty">
+                    <span *ngIf="adminForm.controls['matriculaInputMask'].errors['required']">Obrigatório</span>
                 </div>
             </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4"></div>
-            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!userform.valid"></button></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!adminForm.valid"></button></div>
             <div class="ui-g-4"></div>
         </div>
     </form>
@@ -194,17 +195,48 @@
             </div>
             <div class="ui-g-4">Estado</div>
             <div class="ui-g-4">
-                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="estadoInput" appendTo="body"></p-dropdown>
+                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="estadoInput" appendTo="body" [style]="{'width':'82%'}"></p-dropdown>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cidadeForm.controls['estadoInput'].valid&&cidadeForm.controls['estadoInput'].dirty">
                     <span *ngIf="cidadeForm.controls['estadoInput'].errors['required']">Obrigatório</span>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="ui-g">
             <div class="ui-g-4"></div>
             <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!cidadeForm.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog header="Nova Entre Grupo" [(visible)]="displayEntreGrupo" [resizable]=false [draggable]=false modal=true [width]=650
+    (onBeforeShow)="removeScroll($event)" (onBeforeHide)="addScroll($event)">
+    <form [formGroup]="entreGrupoForm" (ngSubmit)="onSubmitEntreGrupo(entreGrupoForm.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Entre Grupo</div>
+            <div class="ui-g-4">
+                <input type="text" pInputText formControlName="entreGrupoInput" [(ngModel)]="entreGrupo" size=18/>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!entreGrupoForm.controls['entreGrupoInput'].valid&&entreGrupoForm.controls['entreGrupoInput'].dirty">
+                    <span *ngIf="entreGrupoForm.controls['entreGrupoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Grupo</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="grupos" [(ngModel)]="selectedGrupo" formControlName="grupoInput" appendTo="body" [style]="{'width':'82%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!entreGrupoForm.controls['grupoInput'].valid&&entreGrupoForm.controls['grupoInput'].dirty">
+                    <span *ngIf="entreGrupoForm.controls['grupoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!entreGrupoForm.valid"></button></div>
             <div class="ui-g-4"></div>
         </div>
     </form>
