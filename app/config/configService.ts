@@ -242,14 +242,16 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabCidade}`;
 
-        tblColabCidade.nflativo = 1;
-
         return this.http
             .post(url, {
                 idcidade: tblColabCidade.idcidade,
                 nflativo: tblColabCidade.nflativo,
                 sdccidade: tblColabCidade.sdccidade,
-                tblColabEstado: tblColabCidade.tblColabEstado
+                tblColabEstado: {
+                    idestado: tblColabCidade.tblColabEstado.idestado,
+                    nflativo: tblColabCidade.tblColabEstado.nflativo,
+                    sdcestado: tblColabCidade.tblColabEstado.sdcestado
+                }
             }, headers)
             .map(this.extractData)
             .catch(this.handleError);

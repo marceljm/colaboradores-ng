@@ -135,6 +135,7 @@ export class AppConfig implements OnInit {
         tblColabAdmin.ativo = true;
         tblColabAdmin.snomatrcompl = value["matriculaInputMask"];
         this.tblColabAdminList.push(tblColabAdmin);
+        this.tblColabAdminList.sort((a, b) => a.snomatrcompl.localeCompare(b.snomatrcompl));
         this.addAdmin(tblColabAdmin);
 
         this.submitted = true;
@@ -154,6 +155,7 @@ export class AppConfig implements OnInit {
             tblColabCargoMax => {
                 tblColabCargo.idcargo = tblColabCargoMax + 1;
                 this.tblColabCargoList.push(tblColabCargo);
+                this.tblColabCargoList.sort((a, b) => a.sdccargo.localeCompare(b.sdccargo));
                 this.addCargo(tblColabCargo);
             },
             error => this.errorMessage = <any>error,
@@ -199,6 +201,7 @@ export class AppConfig implements OnInit {
             tblColabGrupoMax => {
                 tblColabGrupo.idgrupo = tblColabGrupoMax + 1;
                 this.tblColabGrupoList.push(tblColabGrupo);
+                this.tblColabGrupoList.sort((a, b) => a.sdcgrupo.localeCompare(b.sdcgrupo));
                 this.addGrupo(tblColabGrupo);
             },
             error => this.errorMessage = <any>error,
@@ -211,8 +214,12 @@ export class AppConfig implements OnInit {
     }
 
     onSubmitCidade(value: string) {
-        console.log(value);
+        let tblColabEstado: TblColabEstado = new TblColabEstado();
+        let index = value["estadoInput"] - 1;
+        tblColabEstado = this.tblColabEstadoList[index];
+
         let tblColabCidade: TblColabCidade = new TblColabCidade();
+        tblColabCidade.tblColabEstado = tblColabEstado;
         tblColabCidade.nflativo = 1;
         tblColabCidade.ativo = true;
         tblColabCidade.sdccidade = value["cidadeInput"];
@@ -221,6 +228,7 @@ export class AppConfig implements OnInit {
             tblColabCidadeMax => {
                 tblColabCidade.idcidade = tblColabCidadeMax + 1;
                 this.tblColabCidadeList.push(tblColabCidade);
+                this.tblColabCidadeList.sort((a, b) => a.sdccidade.localeCompare(b.sdccidade));
                 this.addCidade(tblColabCidade);
             },
             error => this.errorMessage = <any>error,
@@ -268,9 +276,11 @@ export class AppConfig implements OnInit {
             error => this.errorMessage = <any>error,
             () => {
                 this.estados.push({ label: '', value: '' });
+                let i: number = 1;
                 for (let entry of this.tblColabEstadoList) {
                     entry.ativo = entry.nflativo == 1;
-                    this.estados.push({ label: entry.sdcestado, value: entry.idestado });
+                    this.estados.push({ label: entry.sdcestado, value: i });
+                    i++;
                 }
             }
         );
