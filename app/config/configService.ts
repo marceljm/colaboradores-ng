@@ -215,8 +215,6 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabAdmin}`;
 
-        tblColabAdmin.nflativo = 1;
-
         return this.http
             .post(url, {
                 snomatrcompl: tblColabAdmin.snomatrcompl,
@@ -229,8 +227,6 @@ export class ConfigService {
     postCargo(tblColabCargo: TblColabCargo): Observable<TblColabCargo> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabCargo}`;
-
-        tblColabCargo.nflativo = 1;
 
         return this.http
             .post(url, {
@@ -284,8 +280,6 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabEstado}`;
 
-        tblColabEstado.nflativo = 1;
-
         return this.http
             .post(url, {
                 idestado: tblColabEstado.idestado,
@@ -300,8 +294,6 @@ export class ConfigService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabGrupo}`;
 
-        tblColabGrupo.nflativo = 1;
-
         return this.http
             .post(url, {
                 idgrupo: tblColabGrupo.idgrupo,
@@ -315,8 +307,6 @@ export class ConfigService {
     postSituacao(tblColabSituacao: TblColabSituacao): Observable<TblColabSituacao> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let url = `${this.urlTblColabSituacao}`;
-
-        tblColabSituacao.nflativo = 1;
 
         return this.http
             .post(url, {

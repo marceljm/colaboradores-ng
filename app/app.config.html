@@ -101,7 +101,7 @@
             <div class="ui-g-4">Matrícula Completa</div>
             <div class="ui-g-4">
                 <p-inputMask formControlName="matriculaInputMask" [(ngModel)]="matrCompl" mask="a9999999" (onComplete)="upperMatrCompl()"
-                    size=18></p-inputMask>
+                    size=17></p-inputMask>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!adminForm.controls['matriculaInputMask'].valid&&adminForm.controls['matriculaInputMask'].dirty">
@@ -122,7 +122,7 @@
         <div class="ui-g">
             <div class="ui-g-4">Cargo</div>
             <div class="ui-g-4">
-                <input type="text" pInputText formControlName="cargoInput" [(ngModel)]="cargo" size=18/>
+                <input type="text" pInputText formControlName="cargoInput" [(ngModel)]="cargo" size=17/>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cargoForm.controls['cargoInput'].valid&&cargoForm.controls['cargoInput'].dirty">
@@ -143,7 +143,7 @@
         <div class="ui-g">
             <div class="ui-g-4">Estado</div>
             <div class="ui-g-4">
-                <p-inputMask formControlName="estadoInput" [(ngModel)]="estado" mask="aa" (onComplete)="upperEstado()" size=18></p-inputMask>
+                <p-inputMask formControlName="estadoInput" [(ngModel)]="estado" mask="aa" (onComplete)="upperEstado()" size=17></p-inputMask>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!estadoForm.controls['estadoInput'].valid&&estadoForm.controls['estadoInput'].dirty">
@@ -164,7 +164,7 @@
         <div class="ui-g">
             <div class="ui-g-4">Grupo</div>
             <div class="ui-g-4">
-                <input type="text" pInputText formControlName="grupoInput" [(ngModel)]="grupo" size=18/>
+                <input type="text" pInputText formControlName="grupoInput" [(ngModel)]="grupo" size=17/>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!grupoForm.controls['grupoInput'].valid&&grupoForm.controls['grupoInput'].dirty">
@@ -186,7 +186,7 @@
         <div class="ui-g">
             <div class="ui-g-4">Cidade</div>
             <div class="ui-g-4">
-                <input type="text" pInputText formControlName="cidadeInput" [(ngModel)]="cidade" size=18/>
+                <input type="text" pInputText formControlName="cidadeInput" [(ngModel)]="cidade" size=17/>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cidadeForm.controls['cidadeInput'].valid&&cidadeForm.controls['cidadeInput'].dirty">
@@ -195,7 +195,7 @@
             </div>
             <div class="ui-g-4">Estado</div>
             <div class="ui-g-4">
-                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="estadoInput" appendTo="body" [style]="{'width':'82%'}"></p-dropdown>
+                <p-dropdown [options]="estados" [(ngModel)]="selectedEstado" formControlName="estadoInput" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!cidadeForm.controls['estadoInput'].valid&&cidadeForm.controls['estadoInput'].dirty">
@@ -211,13 +211,13 @@
     </form>
 </p-dialog>
 
-<p-dialog header="Nova Entre Grupo" [(visible)]="displayEntreGrupo" [resizable]=false [draggable]=false modal=true [width]=650
+<p-dialog header="Novo Entre Grupo" [(visible)]="displayEntreGrupo" [resizable]=false [draggable]=false modal=true [width]=650
     (onBeforeShow)="removeScroll($event)" (onBeforeHide)="addScroll($event)">
     <form [formGroup]="entreGrupoForm" (ngSubmit)="onSubmitEntreGrupo(entreGrupoForm.value)">
         <div class="ui-g">
             <div class="ui-g-4">Entre Grupo</div>
             <div class="ui-g-4">
-                <input type="text" pInputText formControlName="entreGrupoInput" [(ngModel)]="entreGrupo" size=18/>
+                <input type="text" pInputText formControlName="entreGrupoInput" [(ngModel)]="entreGrupo" size=17/>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!entreGrupoForm.controls['entreGrupoInput'].valid&&entreGrupoForm.controls['entreGrupoInput'].dirty">
@@ -226,7 +226,7 @@
             </div>
             <div class="ui-g-4">Grupo</div>
             <div class="ui-g-4">
-                <p-dropdown [options]="grupos" [(ngModel)]="selectedGrupo" formControlName="grupoInput" appendTo="body" [style]="{'width':'82%'}"></p-dropdown>
+                <p-dropdown [options]="grupos" [(ngModel)]="selectedGrupo" formControlName="grupoInput" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
             </div>
             <div class="ui-g-4">
                 <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!entreGrupoForm.controls['grupoInput'].valid&&entreGrupoForm.controls['grupoInput'].dirty">
@@ -237,6 +237,75 @@
         <div class="ui-g">
             <div class="ui-g-4"></div>
             <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!entreGrupoForm.valid"></button></div>
+            <div class="ui-g-4"></div>
+        </div>
+    </form>
+</p-dialog>
+
+<p-dialog header="Nova Situação" [(visible)]="displaySituacao" [resizable]=false [draggable]=false modal=true [width]=650
+    (onBeforeShow)="removeScroll($event)" (onBeforeHide)="addScroll($event)">
+    <form [formGroup]="situacaoForm" (ngSubmit)="onSubmitSituacao(situacaoForm.value)">
+        <div class="ui-g">
+            <div class="ui-g-4">Situação</div>
+            <div class="ui-g-4">
+                <input type="text" pInputText formControlName="situacaoInput" [(ngModel)]="situacao" size=17/>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['situacaoInput'].valid&&situacaoForm.controls['situacaoInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['situacaoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Tela</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="tela" [(ngModel)]="selectedTela" formControlName="telaInput" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['telaInput'].valid&&situacaoForm.controls['telaInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['telaInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Data</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="data" [(ngModel)]="selectedData" formControlName="dataInput" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['dataInput'].valid&&situacaoForm.controls['dataInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['dataInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Data Desligamento Área</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="dtDesligArea" [(ngModel)]="selectedDtDesligArea" formControlName="dtDesligAreaInput" appendTo="body"
+                    [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['dtDesligAreaInput'].valid&&situacaoForm.controls['dtDesligAreaInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['dtDesligAreaInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Data Desligamento Empresa</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="dtDesligEmpresa" [(ngModel)]="selectedDtDesligEmpresa" formControlName="dtDesligEmpresaInput" appendTo="body"
+                    [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['dtDesligEmpresaInput'].valid&&situacaoForm.controls['dtDesligEmpresaInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['dtDesligEmpresaInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+            <div class="ui-g-4">Data ASO</div>
+            <div class="ui-g-4">
+                <p-dropdown [options]="dataAso" [(ngModel)]="selectedDataAso" formControlName="dataAsoInput" appendTo="body" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+            <div class="ui-g-4">
+                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!situacaoForm.controls['dataAsoInput'].valid&&situacaoForm.controls['dataAsoInput'].dirty">
+                    <span *ngIf="situacaoForm.controls['dataAsoInput'].errors['required']">Obrigatório</span>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-4"></div>
+            <div class="ui-g-4"><button pButton type="submit" pButton icon="fa-save" label="Salvar" style="width:100%" [disabled]="!situacaoForm.valid"></button></div>
             <div class="ui-g-4"></div>
         </div>
     </form>

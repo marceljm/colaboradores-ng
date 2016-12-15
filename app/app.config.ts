@@ -53,17 +53,22 @@ export class AppConfig implements OnInit {
     entreGrupo: string;
     grupo: string;
     situacao: string;
-    tela: string;
-    data: string;
-    dtDesligArea: string;
-    dtDesligEmpresa: string;
-    dtAso: string;
 
     selectedEstado: string;
     selectedGrupo: string;
+    selectedTela: number;
+    selectedData: number;
+    selectedDtDesligArea: number;
+    selectedDtDesligEmpresa: number;
+    selectedDataAso: number;
 
     estados: SelectItem[] = [];
     grupos: SelectItem[] = [];
+    tela: SelectItem[] = [];
+    data: SelectItem[] = [];
+    dtDesligArea: SelectItem[] = [];
+    dtDesligEmpresa: SelectItem[] = [];
+    dataAso: SelectItem[] = [];
 
     upperMatrCompl() {
         this.matrCompl = this.matrCompl.toUpperCase();
@@ -105,14 +110,14 @@ export class AppConfig implements OnInit {
         this.grupo = null;
     }
 
-    showSituacao() {
+    showDialogSituacao() {
         this.displaySituacao = true;
         this.situacao = null;
-        this.tela = null;
-        this.data = null;
-        this.dtDesligArea = null;
-        this.dtDesligEmpresa = null;
-        this.dtAso = null;
+        this.selectedTela = null;
+        this.selectedData = null;
+        this.selectedDtDesligArea = null;
+        this.selectedDtDesligEmpresa = null;
+        this.selectedDataAso = null;
     }
 
     removeScroll(e) {
@@ -272,6 +277,34 @@ export class AppConfig implements OnInit {
         document.getElementById('body').style.overflow = 'scroll';
     }
 
+    onSubmitSituacao(value: string) {
+        let tblColabSituacao: TblColabSituacao = new TblColabSituacao();
+        tblColabSituacao.nflativo = 1;
+        tblColabSituacao.idtela = this.selectedTela;
+        tblColabSituacao.idiniciofim = this.selectedData;
+        tblColabSituacao.nfldesligamentoarea = this.selectedDtDesligArea;
+        tblColabSituacao.nfldesligamentoempresa = this.selectedDtDesligEmpresa;
+        tblColabSituacao.nflaso = this.selectedDataAso;
+        tblColabSituacao.ativo = true;
+        tblColabSituacao.sdcsituacao = value["situacaoInput"];
+        tblColabSituacao.sdcsituacao = tblColabSituacao.sdcsituacao.toUpperCase();
+        this.configService.getTblColabSituacaoMax().subscribe(
+            tblColabSituacaoMax => {
+                tblColabSituacao.idsituacao = tblColabSituacaoMax + 1;
+                this.tblColabSituacaoList.push(tblColabSituacao);
+                this.tblColabSituacaoList.sort((a, b) => (a.sdcsituacao).localeCompare(b.sdcsituacao));
+                this.addSituacao(tblColabSituacao);
+            },
+            error => this.errorMessage = <any>error,
+        );
+        this.submitted = true;
+        this.msgs = [];
+        this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: 'Criado com sucesso' });
+
+        this.displaySituacao = false;
+        document.getElementById('body').style.overflow = 'scroll';
+    }
+
     getConfig() {
         this.configService.getTblColabAdmin().subscribe(
             tblColabAdminList => this.tblColabAdminList = tblColabAdminList,
@@ -333,6 +366,25 @@ export class AppConfig implements OnInit {
                 for (let entry of this.tblColabSituacaoList) {
                     entry.ativo = entry.nflativo == 1;
                 }
+                this.tela.push({ label: '', value: '' });
+                this.tela.push({ label: 'NOVO COLABORADOR', value: 1 });
+                this.tela.push({ label: 'SITUAÇÃO', value: 2 });
+
+                this.data.push({ label: '', value: '' });
+                this.data.push({ label: 'INÍCIO', value: 1 });
+                this.data.push({ label: 'INÍCIO E FIM', value: 2 });
+
+                this.dtDesligArea.push({ label: '', value: '' });
+                this.dtDesligArea.push({ label: 'NÃO', value: 0 });
+                this.dtDesligArea.push({ label: 'SIM', value: 1 });
+
+                this.dtDesligEmpresa.push({ label: '', value: '' });
+                this.dtDesligEmpresa.push({ label: 'NÃO', value: 0 });
+                this.dtDesligEmpresa.push({ label: 'SIM', value: 1 });
+
+                this.dataAso.push({ label: '', value: '' });
+                this.dataAso.push({ label: 'NÃO', value: 0 });
+                this.dataAso.push({ label: 'SIM', value: 1 });
             }
         );
         this.configService.getTblColabEntreGrupo().subscribe(
@@ -368,7 +420,12 @@ export class AppConfig implements OnInit {
             'grupoInput': new FormControl('', [Validators.required])
         });
         this.situacaoForm = this.fb.group({
-            'situacaoInput': new FormControl('', [Validators.required])
+            'situacaoInput': new FormControl('', [Validators.required]),
+            'telaInput': new FormControl('', [Validators.required]),
+            'dataInput': new FormControl('', [Validators.required]),
+            'dtDesligAreaInput': new FormControl('', [Validators.required]),
+            'dtDesligEmpresaInput': new FormControl('', [Validators.required]),
+            'dataAsoInput': new FormControl('', [Validators.required]),
         });
     }
 
