@@ -14,12 +14,14 @@ import { ValidationDemo } from './ValidationDemo';
 
 import { CarService } from './cars/carservice';
 
+import { AppRoutingModule, routedComponents } from './app.route';
+
 import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule, DropdownModule } from 'primeng/primeng';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule, DropdownModule],
-    declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar, ValidationDemo],
-    bootstrap: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar, ValidationDemo],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRoutingModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule, DropdownModule],
+    declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar, ValidationDemo, routedComponents],
+    bootstrap: [AppHeader, AppComponent],
     providers: [CarService]
 })
 export class AppModule { }
