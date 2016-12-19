@@ -33,48 +33,24 @@ export class ConfigService {
         return this.http.get(this.urlTblColabCargo).map(this.extractData).catch(this.handleError);
     }
 
-    getTblColabCargoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabCargo + "/max").map(this.extractData).catch(this.handleError);
-    }
-
     getTblColabCidade(): Observable<TblColabCidade[]> {
         return this.http.get(this.urlTblColabCidade).map(this.extractData).catch(this.handleError);
-    }
-
-    getTblColabCidadeMax(): Observable<number> {
-        return this.http.get(this.urlTblColabCidade + "/max").map(this.extractData).catch(this.handleError);
     }
 
     getTblColabEstado(): Observable<TblColabEstado[]> {
         return this.http.get(this.urlTblColabEstado).map(this.extractData).catch(this.handleError);
     }
 
-    getTblColabEstadoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabEstado + "/max").map(this.extractData).catch(this.handleError);
-    }
-
     getTblColabGrupo(): Observable<TblColabGrupo[]> {
         return this.http.get(this.urlTblColabGrupo).map(this.extractData).catch(this.handleError);
-    }
-
-    getTblColabGrupoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabGrupo + "/max").map(this.extractData).catch(this.handleError);
     }
 
     getTblColabSituacao(): Observable<TblColabSituacao[]> {
         return this.http.get(this.urlTblColabSituacao).map(this.extractData).catch(this.handleError);
     }
 
-    getTblColabSituacaoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabSituacao + "/max").map(this.extractData).catch(this.handleError);
-    }
-
     getTblColabEntreGrupo(): Observable<TblColabEntreGrupo[]> {
         return this.http.get(this.urlTblColabEntreGrupo).map(this.extractData).catch(this.handleError);
-    }
-
-    getTblColabEntreGrupoMax(): Observable<number> {
-        return this.http.get(this.urlTblColabEntreGrupo + "/max").map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {

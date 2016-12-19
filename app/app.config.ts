@@ -159,15 +159,10 @@ export class AppConfig implements OnInit {
         tblColabCargo.ativo = true;
         tblColabCargo.sdccargo = value["cargoInput"];
         tblColabCargo.sdccargo = tblColabCargo.sdccargo.toUpperCase();
-        this.configService.getTblColabCargoMax().subscribe(
-            tblColabCargoMax => {
-                tblColabCargo.idcargo = tblColabCargoMax + 1;
-                this.tblColabCargoList.push(tblColabCargo);
-                this.tblColabCargoList.sort((a, b) => a.sdccargo.localeCompare(b.sdccargo));
-                this.addCargo(tblColabCargo);
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabCargoList.push(tblColabCargo);
+        this.tblColabCargoList.sort((a, b) => a.sdccargo.localeCompare(b.sdccargo));
+        this.addCargo(tblColabCargo);
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabCargo.sdccargo, detail: 'Criado com sucesso' });
@@ -181,17 +176,12 @@ export class AppConfig implements OnInit {
         tblColabEstado.ativo = true;
         tblColabEstado.sdcestado = value["estadoInput"];
         tblColabEstado.sdcestado = tblColabEstado.sdcestado.toUpperCase();
-        this.configService.getTblColabEstadoMax().subscribe(
-            tblColabEstadoMax => {
-                tblColabEstado.idestado = tblColabEstadoMax + 1;
-                this.tblColabEstadoList.push(tblColabEstado);
-                this.tblColabEstadoList.sort((a, b) => a.sdcestado.localeCompare(b.sdcestado));
-                this.addEstado(tblColabEstado);
-                this.estados.push({ label: tblColabEstado.sdcestado, value: tblColabEstado.idestado });
-                this.estados.sort((a, b) => a.label.localeCompare(b.label));
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabEstadoList.push(tblColabEstado);
+        this.tblColabEstadoList.sort((a, b) => a.sdcestado.localeCompare(b.sdcestado));
+        this.addEstado(tblColabEstado);
+        this.estados.push({ label: tblColabEstado.sdcestado, value: tblColabEstado.idestado });
+        this.estados.sort((a, b) => a.label.localeCompare(b.label));
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabEstado.sdcestado, detail: 'Criado com sucesso' });
@@ -205,15 +195,10 @@ export class AppConfig implements OnInit {
         tblColabGrupo.ativo = true;
         tblColabGrupo.sdcgrupo = value["grupoInput"];
         tblColabGrupo.sdcgrupo = tblColabGrupo.sdcgrupo.toUpperCase();
-        this.configService.getTblColabGrupoMax().subscribe(
-            tblColabGrupoMax => {
-                tblColabGrupo.idgrupo = tblColabGrupoMax + 1;
-                this.tblColabGrupoList.push(tblColabGrupo);
-                this.tblColabGrupoList.sort((a, b) => a.sdcgrupo.localeCompare(b.sdcgrupo));
-                this.addGrupo(tblColabGrupo);
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabGrupoList.push(tblColabGrupo);
+        this.tblColabGrupoList.sort((a, b) => a.sdcgrupo.localeCompare(b.sdcgrupo));
+        this.addGrupo(tblColabGrupo);
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabGrupo.sdcgrupo, detail: 'Criado com sucesso' });
@@ -232,15 +217,10 @@ export class AppConfig implements OnInit {
         tblColabCidade.ativo = true;
         tblColabCidade.sdccidade = value["cidadeInput"];
         tblColabCidade.sdccidade = tblColabCidade.sdccidade.toUpperCase();
-        this.configService.getTblColabCidadeMax().subscribe(
-            tblColabCidadeMax => {
-                tblColabCidade.idcidade = tblColabCidadeMax + 1;
-                this.tblColabCidadeList.push(tblColabCidade);
-                this.tblColabCidadeList.sort((a, b) => a.sdccidade.localeCompare(b.sdccidade));
-                this.addCidade(tblColabCidade);
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabCidadeList.push(tblColabCidade);
+        this.tblColabCidadeList.sort((a, b) => a.sdccidade.localeCompare(b.sdccidade));
+        this.addCidade(tblColabCidade);
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabCidade.sdccidade, detail: 'Criado com sucesso' });
@@ -260,15 +240,10 @@ export class AppConfig implements OnInit {
         tblColabEntreGrupo.ativo = true;
         tblColabEntreGrupo.sdcentregrupo = value["entreGrupoInput"];
         tblColabEntreGrupo.sdcentregrupo = tblColabEntreGrupo.sdcentregrupo.toUpperCase();
-        this.configService.getTblColabEntreGrupoMax().subscribe(
-            tblColabEntreGrupoMax => {
-                tblColabEntreGrupo.identregrupo = tblColabEntreGrupoMax + 1;
-                this.tblColabEntreGrupoList.push(tblColabEntreGrupo);
-                this.tblColabEntreGrupoList.sort((a, b) => (a.tblColabGrupo.sdcgrupo + "|" + a.sdcentregrupo).localeCompare(b.tblColabGrupo.sdcgrupo + "|" + b.sdcentregrupo));
-                this.addEntreGrupo(tblColabEntreGrupo);
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabEntreGrupoList.push(tblColabEntreGrupo);
+        this.tblColabEntreGrupoList.sort((a, b) => (a.tblColabGrupo.sdcgrupo + "|" + a.sdcentregrupo).localeCompare(b.tblColabGrupo.sdcgrupo + "|" + b.sdcentregrupo));
+        this.addEntreGrupo(tblColabEntreGrupo);
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabEntreGrupo.sdcentregrupo, detail: 'Criado com sucesso' });
@@ -288,15 +263,10 @@ export class AppConfig implements OnInit {
         tblColabSituacao.ativo = true;
         tblColabSituacao.sdcsituacao = value["situacaoInput"];
         tblColabSituacao.sdcsituacao = tblColabSituacao.sdcsituacao.toUpperCase();
-        this.configService.getTblColabSituacaoMax().subscribe(
-            tblColabSituacaoMax => {
-                tblColabSituacao.idsituacao = tblColabSituacaoMax + 1;
-                this.tblColabSituacaoList.push(tblColabSituacao);
-                this.tblColabSituacaoList.sort((a, b) => (a.sdcsituacao).localeCompare(b.sdcsituacao));
-                this.addSituacao(tblColabSituacao);
-            },
-            error => this.errorMessage = <any>error,
-        );
+        this.tblColabSituacaoList.push(tblColabSituacao);
+        this.tblColabSituacaoList.sort((a, b) => (a.sdcsituacao).localeCompare(b.sdcsituacao));
+        this.addSituacao(tblColabSituacao);
+
         this.submitted = true;
         this.msgs = [];
         this.msgs.push({ severity: 'info', summary: tblColabSituacao.sdcsituacao, detail: 'Criado com sucesso' });
