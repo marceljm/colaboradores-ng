@@ -16,12 +16,12 @@ import 'rxjs/add/operator/catch';
 export class ConfigService {
 
     private urlTblColabAdmin = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabAdmin';
-    private urlTblColabCargo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCargo';
-    private urlTblColabCidade = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabCidade';
-    private urlTblColabEstado = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEstado';
-    private urlTblColabGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabGrupo';
-    private urlTblColabSituacao = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabSituacao';
-    private urlTblColabEntreGrupo = 'http://sv2kprel2:7001/ColaboradoresWS/rest/tblColabEntreGrupo';
+    private urlTblColabCargo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCargo';
+    private urlTblColabCidade = 'http://localhost:8080/ColaboradoresWS/rest/tblColabCidade';
+    private urlTblColabEstado = 'http://localhost:8080/ColaboradoresWS/rest/tblColabEstado';
+    private urlTblColabGrupo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabGrupo';
+    private urlTblColabSituacao = 'http://localhost:8080/ColaboradoresWS/rest/tblColabSituacao';
+    private urlTblColabEntreGrupo = 'http://localhost:8080/ColaboradoresWS/rest/tblColabEntreGrupo';
 
     constructor(private http: Http) { }
 
@@ -107,7 +107,11 @@ export class ConfigService {
                 idcidade: tblColabCidade.idcidade,
                 nflativo: tblColabCidade.nflativo,
                 sdccidade: tblColabCidade.sdccidade,
-                tblColabEstado: tblColabCidade.tblColabEstado
+                tblColabEstado: {
+                    idestado: tblColabCidade.tblColabEstado.idestado,
+                    nflativo: tblColabCidade.tblColabEstado.nflativo,
+                    sdcestado: tblColabCidade.tblColabEstado.sdcestado
+                }
             }, headers)
             .map(this.extractData)
             .catch(this.handleError);

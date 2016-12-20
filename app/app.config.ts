@@ -53,6 +53,7 @@ export class AppConfig implements OnInit {
     entreGrupo: string;
     grupo: string;
     situacao: string;
+    extractData: any;
 
     selectedEstado: string;
     selectedGrupo: string;
@@ -506,36 +507,36 @@ export class AppConfig implements OnInit {
     addCargo(tblColabCargo: TblColabCargo) {
         this.configService
             .postCargo(tblColabCargo)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabCargo.idcargo = this.extractData.message });
     }
 
     addCidade(tblColabCidade: TblColabCidade) {
         this.configService
             .postCidade(tblColabCidade)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabCidade.idcidade = this.extractData.message });
     }
 
     addEstado(tblColabEstado: TblColabEstado) {
         this.configService
             .postEstado(tblColabEstado)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabEstado.idestado = this.extractData.message });
     }
 
     addEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
         this.configService
             .postEntreGrupo(tblColabEntreGrupo)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabEntreGrupo.identregrupo = this.extractData.message });
     }
 
     addGrupo(tblColabGrupo: TblColabGrupo) {
         this.configService
             .postGrupo(tblColabGrupo)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabGrupo.idgrupo = this.extractData.message });
     }
 
     addSituacao(tblColabSituacao: TblColabSituacao) {
         this.configService
             .postSituacao(tblColabSituacao)
-            .subscribe();
+            .subscribe((extracData) => { this.extractData = extracData; tblColabSituacao.idsituacao = this.extractData.message });
     }
 }
