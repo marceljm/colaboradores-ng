@@ -177,11 +177,7 @@ export class AppConfig implements OnInit {
         tblColabEstado.ativo = true;
         tblColabEstado.sdcestado = value["estadoInput"];
         tblColabEstado.sdcestado = tblColabEstado.sdcestado.toUpperCase();
-        this.tblColabEstadoList.push(tblColabEstado);
-        this.tblColabEstadoList.sort((a, b) => a.sdcestado.localeCompare(b.sdcestado));
         this.addEstado(tblColabEstado);
-        this.estados.push({ label: tblColabEstado.sdcestado, value: tblColabEstado.idestado });
-        this.estados.sort((a, b) => a.label.localeCompare(b.label));
 
         this.submitted = true;
         this.msgs = [];
@@ -196,8 +192,6 @@ export class AppConfig implements OnInit {
         tblColabGrupo.ativo = true;
         tblColabGrupo.sdcgrupo = value["grupoInput"];
         tblColabGrupo.sdcgrupo = tblColabGrupo.sdcgrupo.toUpperCase();
-        this.tblColabGrupoList.push(tblColabGrupo);
-        this.tblColabGrupoList.sort((a, b) => a.sdcgrupo.localeCompare(b.sdcgrupo));
         this.addGrupo(tblColabGrupo);
 
         this.submitted = true;
@@ -304,32 +298,8 @@ export class AppConfig implements OnInit {
                 }
             }
         );
-        this.configService.getTblColabEstado().subscribe(
-            tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
-            error => this.errorMessage = <any>error,
-            () => {
-                this.estados.push({ label: '', value: '' });
-                let i: number = 1;
-                for (let entry of this.tblColabEstadoList) {
-                    entry.ativo = entry.nflativo == 1;
-                    this.estados.push({ label: entry.sdcestado, value: i });
-                    i++;
-                }
-            }
-        );
-        this.configService.getTblColabGrupo().subscribe(
-            tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
-            error => this.errorMessage = <any>error,
-            () => {
-                this.grupos.push({ label: '', value: '' });
-                let i: number = 1;
-                for (let entry of this.tblColabGrupoList) {
-                    entry.ativo = entry.nflativo == 1;
-                    this.grupos.push({ label: entry.sdcgrupo, value: i });
-                    i++;
-                }
-            }
-        );
+        this.getEstado();
+        this.getGrupo();
         this.configService.getTblColabSituacao().subscribe(
             tblColabSituacaoList => this.tblColabSituacaoList = tblColabSituacaoList,
             error => this.errorMessage = <any>error,
@@ -519,7 +489,11 @@ export class AppConfig implements OnInit {
     addEstado(tblColabEstado: TblColabEstado) {
         this.configService
             .postEstado(tblColabEstado)
-            .subscribe((extracData) => { this.extractData = extracData; tblColabEstado.idestado = this.extractData.message });
+            .subscribe((extracData) => {
+                this.extractData = extracData;
+                tblColabEstado.idestado = this.extractData.message;
+                this.getEstado()
+            });
     }
 
     addEntreGrupo(tblColabEntreGrupo: TblColabEntreGrupo) {
@@ -531,12 +505,50 @@ export class AppConfig implements OnInit {
     addGrupo(tblColabGrupo: TblColabGrupo) {
         this.configService
             .postGrupo(tblColabGrupo)
-            .subscribe((extracData) => { this.extractData = extracData; tblColabGrupo.idgrupo = this.extractData.message });
+            .subscribe((extracData) => {
+                this.extractData = extracData;
+                tblColabGrupo.idgrupo = this.extractData.message;
+                this.getGrupo();
+            });
     }
 
     addSituacao(tblColabSituacao: TblColabSituacao) {
         this.configService
             .postSituacao(tblColabSituacao)
             .subscribe((extracData) => { this.extractData = extracData; tblColabSituacao.idsituacao = this.extractData.message });
+    }
+
+    getEstado() {
+        this.configService.getTblColabEstado().subscribe(
+            tblColabEstadoList => this.tblColabEstadoList = tblColabEstadoList,
+            error => this.errorMessage = <any>error,
+            () => {
+                this.estados = [];
+                this.estados.push({ label: '', value: '' });
+                let i: number = 1;
+                for (let entry of this.tblColabEstadoList) {
+                    entry.ativo = entry.nflativo == 1;
+                    this.estados.push({ label: entry.sdcestado, value: i });
+                    i++;
+                }
+            }
+        );
+    }
+
+    getGrupo() {
+        this.configService.getTblColabGrupo().subscribe(
+            tblColabGrupoList => this.tblColabGrupoList = tblColabGrupoList,
+            error => this.errorMessage = <any>error,
+            () => {
+                this.grupos = [];
+                this.grupos.push({ label: '', value: '' });
+                let i: number = 1;
+                for (let entry of this.tblColabGrupoList) {
+                    entry.ativo = entry.nflativo == 1;
+                    this.grupos.push({ label: entry.sdcgrupo, value: i });
+                    i++;
+                }
+            }
+        );
     }
 }

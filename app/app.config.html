@@ -8,7 +8,7 @@
             </header>
             <p-column field="snomatrcompl" header="Matrícula"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabAdmin="rowData" pTemplate type="body">
+                <template let-tblColabAdmin="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectAdmin(tblColabAdmin)" [(ngModel)]="tblColabAdmin.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -21,7 +21,7 @@
             </header>
             <p-column field="sdccargo" header="Cargo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabCargo="rowData" pTemplate type="body">
+                <template let-tblColabCargo="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -34,7 +34,7 @@
             </header>
             <p-column field="sdccidade" header="Cidade"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabCidade="rowData" pTemplate type="body">
+                <template let-tblColabCidade="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCidade(tblColabCidade)" [(ngModel)]="tblColabCidade.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -48,7 +48,7 @@
             <p-column field="tblColabGrupo.sdcgrupo" header="Grupo"></p-column>
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabEntreGrupo="rowData" pTemplate type="body">
+                <template let-tblColabEntreGrupo="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -61,7 +61,7 @@
             </header>
             <p-column field="sdcestado" header="Estado"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabEstado="rowData" pTemplate type="body">
+                <template let-tblColabEstado="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEstado(tblColabEstado)" [(ngModel)]="tblColabEstado.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -74,7 +74,7 @@
             </header>
             <p-column field="sdcgrupo" header="Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabGrupo="rowData" pTemplate type="body">
+                <template let-tblColabGrupo="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectGrupo(tblColabGrupo)" [(ngModel)]="tblColabGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
@@ -87,7 +87,7 @@
             </header>
             <p-column field="sdcsituacao" header="Situação"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
-                <template let-tblColabSituacao="rowData" pTemplate type="body">
+                <template let-tblColabSituacao="rowData" pTemplate="body">
                     <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.ativo"></p-inputSwitch>
                 </template>
             </p-column>
