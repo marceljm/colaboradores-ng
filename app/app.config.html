@@ -22,12 +22,7 @@
             <p-column field="sdccargo" header="Cargo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCargo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.ativo"
-                        *ngIf="tblColabCargo.idcargo!=0"></p-inputSwitch>
-
-                    <div *ngIf="tblColabCargo.idcargo==0">
-                        <div>{{tblColabCargo.ativo?"ativo":"inativo"}}</div>
-                    </div>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCargo(tblColabCargo)" [(ngModel)]="tblColabCargo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -40,12 +35,7 @@
             <p-column field="sdccidade" header="Cidade"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabCidade="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCidade(tblColabCidade)" [(ngModel)]="tblColabCidade.ativo"
-                        *ngIf="tblColabCidade.idcidade!=0"></p-inputSwitch>
-
-                    <div *ngIf="tblColabCidade.idcidade==0">
-                        <div>{{tblColabCidade.ativo?"ativo":"inativo"}}</div>
-                    </div>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectCidade(tblColabCidade)" [(ngModel)]="tblColabCidade.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -59,8 +49,7 @@
             <p-column field="sdcentregrupo" header="Entre Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabEntreGrupo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.ativo"
-                        *ngIf="tblColabEntreGrupo.identregrupo!=0"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEntreGrupo(tblColabEntreGrupo)" [(ngModel)]="tblColabEntreGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -73,12 +62,7 @@
             <p-column field="sdcestado" header="Estado"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabEstado="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEstado(tblColabEstado)" [(ngModel)]="tblColabEstado.ativo"
-                        *ngIf="tblColabEstado.idestado!=0"></p-inputSwitch>
-
-                    <div *ngIf="tblColabEstado.idestado==0">
-                        <div>{{tblColabEstado.ativo?"ativo":"inativo"}}</div>
-                    </div>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectEstado(tblColabEstado)" [(ngModel)]="tblColabEstado.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -91,8 +75,7 @@
             <p-column field="sdcgrupo" header="Grupo"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabGrupo="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectGrupo(tblColabGrupo)" [(ngModel)]="tblColabGrupo.ativo"
-                        *ngIf="tblColabGrupo.idgrupo!=0"></p-inputSwitch>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectGrupo(tblColabGrupo)" [(ngModel)]="tblColabGrupo.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
@@ -105,12 +88,7 @@
             <p-column field="sdcsituacao" header="Situação"></p-column>
             <p-column field="nflativo" header="Status" styleClass="col-button">
                 <template let-tblColabSituacao="rowData" pTemplate type="body">
-                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.ativo"
-                        *ngIf="tblColabSituacao.idsituacao!=0"></p-inputSwitch>
-
-                    <div *ngIf="tblColabSituacao.idsituacao==0">
-                        <div>{{tblColabSituacao.ativo?"ativo":"inativo"}}</div>
-                    </div>
+                    <p-inputSwitch onLabel="ativo" offLabel="inativo" (click)="selectSituacao(tblColabSituacao)" [(ngModel)]="tblColabSituacao.ativo"></p-inputSwitch>
                 </template>
             </p-column>
         </p-dataTable>
