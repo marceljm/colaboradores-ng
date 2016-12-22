@@ -46,7 +46,9 @@ export class AppEmployee {
 
     validation() {
         this.employeeForm = this.fb.group({
-            'colaboradorInput': new FormControl('', [Validators.required])
+            'colaboradorInput': new FormControl('', [Validators.required]),
+            'matriculaInput': new FormControl('', [Validators.required]),
+            'matrComplInput': new FormControl('', [Validators.required]),
         });
     }
 
