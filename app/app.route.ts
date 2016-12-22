@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppHome } from './app.home';
 import { AppTree } from './app.tree';
+import { AppEmployee } from './app.employee';
 import { AppConfig } from './app.config';
 import { AppCar } from './app.car';
 import { ValidationDemo } from './validationdemo';
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'hierarquia',
         component: AppTree
+    },
+    {
+        path: 'novo',
+        component: AppEmployee
     },
     {
         path: 'config',
@@ -41,4 +46,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-export const routedComponents = [AppHome, AppTree, AppConfig, AppCar, ValidationDemo];
+export const routedComponents = [AppHome, AppTree, AppEmployee, AppConfig, AppCar, ValidationDemo];

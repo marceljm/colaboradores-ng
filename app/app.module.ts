@@ -8,6 +8,7 @@ import { AppConfig } from './app.config';
 import { AppHeader } from './app.header';
 import { AppHome } from './app.home';
 import { AppTree } from './app.tree';
+import { AppEmployee } from './app.employee';
 import { AppComponent } from './app.component';
 import { AppCar } from './app.car';
 import { ValidationDemo } from './ValidationDemo';
@@ -20,7 +21,7 @@ import { InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewMo
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRoutingModule, InputTextModule, DataTableModule, ButtonModule, DialogModule, TabViewModule, ChartModule, TreeModule, GrowlModule, InputSwitchModule, BlockUIModule, InputMaskModule, DropdownModule],
-    declarations: [AppHeader, AppComponent, AppHome, AppTree, AppConfig, AppCar, ValidationDemo, routedComponents],
+    declarations: [AppHeader, AppComponent, AppHome, AppTree, AppEmployee, AppConfig, AppCar, ValidationDemo, routedComponents],
     bootstrap: [AppHeader, AppComponent],
     providers: [CarService]
 })
