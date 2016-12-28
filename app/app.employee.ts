@@ -313,4 +313,24 @@ export class AppEmployee {
             }
         );
     }
+
+    colaboradorValidation(event: KeyboardEvent) {
+        this.colaborador = (<HTMLInputElement>event.target).value.replace(/[^ a-zA-Z\u00C0-\u017F]/g, "");
+    }
+
+    matriculaValidation(event: KeyboardEvent) {
+        this.matricula = (<HTMLInputElement>event.target).value.replace(/[^\d]/g, "");
+    }
+
+    loginTelValidation(event: KeyboardEvent) {
+        this.loginTel = (<HTMLInputElement>event.target).value.replace(/[^\d]/g, "");
+    }
+
+    dtNascValidation() {
+        let dateParts = this.dtNasc.split("/");
+        let dateString = dateParts[1] + '/' + dateParts[0] + '/' + Number(dateParts[2]);
+        let timestamp = Date.parse(dateString)
+        if (isNaN(timestamp))
+            this.dtNasc = "";
+    }
 }
