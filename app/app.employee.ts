@@ -62,6 +62,7 @@ export class AppEmployee {
 
     vwColabEstadoList: VwColabEstado[];
     vwColabCidadeList: VwColabCidade[];
+    vwColabCidadeMap = new Map();
     vwColabCargoList: VwColabCargo[];
     vwColabCargaHorariaList: VwColabCargaHoraria[];
     vwColabSitucaoNovoList: VwColabSituacaoNovo[];
@@ -72,6 +73,8 @@ export class AppEmployee {
     vwColabSupervisorList: VwColabSupervisor[];
     vwColabGrupoList: VwColabGrupo[];
     vwColabEntreGrupoList: VwColabEntreGrupo[];
+
+    cidadeMap: { [key: number]: VwColabCidade[]; } = {};
 
     employeeForm: FormGroup;
 
@@ -128,11 +131,9 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.estadoSelectItem = [];
-                this.estadoSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
+                this.estadoSelectItem.push({ label: null, value: -1 });
                 for (let entry of this.vwColabEstadoList) {
-                    this.estadoSelectItem.push({ label: entry.estado, value: i });
-                    i++;
+                    this.estadoSelectItem.push({ label: entry.estado, value: entry.idEstado });
                 }
             }
         );
@@ -143,12 +144,11 @@ export class AppEmployee {
             vwColabCidadeList => this.vwColabCidadeList = vwColabCidadeList,
             error => this.errorMessage = <any>error,
             () => {
-                this.cidadeSelectItem = [];
-                this.cidadeSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
                 for (let entry of this.vwColabCidadeList) {
-                    this.cidadeSelectItem.push({ label: entry.cidade, value: i });
-                    i++;
+                    if (this.cidadeMap[entry.idEstado] != null)
+                        this.cidadeMap[entry.idEstado].push(entry);
+                    else
+                        this.cidadeMap[entry.idEstado] = [entry];
                 }
             }
         );
@@ -160,11 +160,9 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargoSelectItem = [];
-                this.cargoSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
+                this.cargoSelectItem.push({ label: null, value: -1 });
                 for (let entry of this.vwColabCargoList) {
-                    this.cargoSelectItem.push({ label: entry.cargo, value: i });
-                    i++;
+                    this.cargoSelectItem.push({ label: entry.cargo, value: entry.idCargo });
                 }
             }
         );
@@ -176,7 +174,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargaHorariaSelectItem = [];
-                this.cargaHorariaSelectItem.push({ label: '...', value: '' });
+                this.cargaHorariaSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabCargaHorariaList) {
                     this.cargaHorariaSelectItem.push({ label: entry.cargaHoraria, value: i });
@@ -192,11 +190,9 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.situacaoNovoSelectItem = [];
-                this.situacaoNovoSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
+                this.situacaoNovoSelectItem.push({ label: null, value: -1 });
                 for (let entry of this.vwColabSitucaoNovoList) {
-                    this.situacaoNovoSelectItem.push({ label: entry.situacao, value: i });
-                    i++;
+                    this.situacaoNovoSelectItem.push({ label: entry.situacao, value: entry.idSituacao });
                 }
             }
         );
@@ -208,7 +204,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.diretorSelectItem = [];
-                this.diretorSelectItem.push({ label: '...', value: '' });
+                this.diretorSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabDiretorList) {
                     this.diretorSelectItem.push({ label: entry.diretor, value: i });
@@ -224,7 +220,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSrSelectItem = [];
-                this.gerenteSrSelectItem.push({ label: '...', value: '' });
+                this.gerenteSrSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteSrList) {
                     this.gerenteSrSelectItem.push({ label: entry.gerenteSr, value: i });
@@ -240,7 +236,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSelectItem = [];
-                this.gerenteSelectItem.push({ label: '...', value: '' });
+                this.gerenteSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteList) {
                     this.gerenteSelectItem.push({ label: entry.gerente, value: i });
@@ -256,7 +252,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.coordenadorSelectItem = [];
-                this.coordenadorSelectItem.push({ label: '...', value: '' });
+                this.coordenadorSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabCoordenadorList) {
                     this.coordenadorSelectItem.push({ label: entry.coordenador, value: i });
@@ -272,7 +268,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.supervisorSelectItem = [];
-                this.supervisorSelectItem.push({ label: '...', value: '' });
+                this.supervisorSelectItem.push({ label: null, value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabSupervisorList) {
                     this.supervisorSelectItem.push({ label: entry.supervisor, value: i });
@@ -288,11 +284,9 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.grupoSelectItem = [];
-                this.grupoSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
+                this.grupoSelectItem.push({ label: null, value: -1 });
                 for (let entry of this.vwColabGrupoList) {
-                    this.grupoSelectItem.push({ label: entry.grupo, value: i });
-                    i++;
+                    this.grupoSelectItem.push({ label: entry.grupo, value: entry.idGrupo });
                 }
             }
         );
@@ -304,11 +298,9 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.entreGrupoSelectItem = [];
-                this.entreGrupoSelectItem.push({ label: '...', value: '' });
-                let i: number = 1;
+                this.entreGrupoSelectItem.push({ label: null, value: -1 });
                 for (let entry of this.vwColabEntreGrupoList) {
-                    this.entreGrupoSelectItem.push({ label: entry.entreGrupo, value: i });
-                    i++;
+                    this.entreGrupoSelectItem.push({ label: entry.entreGrupo, value: entry.idEntreGrupo });
                 }
             }
         );
@@ -366,5 +358,14 @@ export class AppEmployee {
         let hrPart = this.hrEntrada.split(":");
         if (Number(hrPart[0]) > 23 || Number(hrPart[1]) > 59)
             this.hrEntrada = "";
+    }
+
+    estadoChange() {
+        this.cidadeSelectItem = [];
+        if (Number(this.estado) > 0) {
+            for (let entry of this.cidadeMap[this.estado]) {
+                this.cidadeSelectItem.push({ label: entry.cidade, value: entry.idCidade });
+            }
+        }
     }
 }

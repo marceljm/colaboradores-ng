@@ -40,7 +40,8 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Estado</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-dropdown [options]="estadoSelectItem" [(ngModel)]="estado" formControlName="estadoInput" [filter]="true" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-dropdown>
+                <p-dropdown [options]="estadoSelectItem" (onChange)="estadoChange()" [(ngModel)]="estado" formControlName="estadoInput" [filter]="true"
+                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Cidade</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
