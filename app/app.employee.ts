@@ -29,16 +29,16 @@ export class AppEmployee {
     matricula: string;
     matrCompleta: string;
     loginTel: string;
-    dtAdmEmpresa: Date;
-    dtAdmArea: Date;
+    dtAdmEmpresa: string;
+    dtAdmArea: string;
     estado: string;
     cidade: string;
     cargo: string;
     cargaHoraria: string;
-    hrEntrada: Date;
-    hrSaida: Date;
+    hrEntrada: string;
+    hrSaida: string;
     situacao: string;
-    dtFinal: Date;
+    dtFinal: string;
     diretor: string;
     gerenteSr: string;
     gerente: string;
@@ -327,10 +327,44 @@ export class AppEmployee {
     }
 
     dtNascValidation() {
-        let dateParts = this.dtNasc.split("/");
-        let dateString = dateParts[1] + '/' + dateParts[0] + '/' + Number(dateParts[2]);
-        let timestamp = Date.parse(dateString)
-        if (isNaN(timestamp))
+        let datePart = this.dtNasc.split("/");
+        let dateString = datePart[1] + '/' + datePart[0] + '/' + Number(datePart[2]);
+        let timestamp = Date.parse(dateString);
+        let day = new Date(timestamp).getDate();
+        if (isNaN(timestamp) || day != Number(datePart[0]))
             this.dtNasc = "";
+    }
+
+    dtAdmAreaValidation() {
+        let datePart = this.dtAdmArea.split("/");
+        let dateString = datePart[1] + '/' + datePart[0] + '/' + Number(datePart[2]);
+        let timestamp = Date.parse(dateString);
+        let day = new Date(timestamp).getDate();
+        if (isNaN(timestamp) || day != Number(datePart[0]))
+            this.dtAdmArea = "";
+    }
+
+    dtAdmEmpresaValidation() {
+        let datePart = this.dtAdmEmpresa.split("/");
+        let dateString = datePart[1] + '/' + datePart[0] + '/' + Number(datePart[2]);
+        let timestamp = Date.parse(dateString);
+        let day = new Date(timestamp).getDate();
+        if (isNaN(timestamp) || day != Number(datePart[0]))
+            this.dtAdmEmpresa = "";
+    }
+
+    dtFinalValidation() {
+        let datePart = this.dtFinal.split("/");
+        let dateString = datePart[1] + '/' + datePart[0] + '/' + Number(datePart[2]);
+        let timestamp = Date.parse(dateString);
+        let day = new Date(timestamp).getDate();
+        if (isNaN(timestamp) || day != Number(datePart[0]))
+            this.dtFinal = "";
+    }
+
+    dtHrEntradaValidation() {
+        let hrPart = this.hrEntrada.split(":");
+        if (Number(hrPart[0]) > 23 || Number(hrPart[1]) > 59)
+            this.hrEntrada = "";
     }
 }

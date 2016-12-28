@@ -30,11 +30,13 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Data Admissão Empresa</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-inputMask mask="99/99/9999" formControlName="dtAdmEmpresaInput" [(ngModel)]="dtAdmEmpresa" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
+                <p-inputMask mask="99/99/9999" (onComplete)="dtAdmEmpresaValidation()" formControlName="dtAdmEmpresaInput" [(ngModel)]="dtAdmEmpresa"
+                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Data Admissão Área</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-inputMask mask="99/99/9999" formControlName="dtAdmAreaInput" [(ngModel)]="dtAdmArea" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
+                <p-inputMask mask="99/99/9999" (onComplete)="dtAdmAreaValidation()" formControlName="dtAdmAreaInput" [(ngModel)]="dtAdmArea"
+                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Estado</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
@@ -57,7 +59,8 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Horário de Entrada</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-inputMask mask="99:99" formControlName="hrEntradaInput" [(ngModel)]="hrEntrada" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
+                <p-inputMask mask="99:99" (onComplete)="dtHrEntradaValidation()" formControlName="hrEntradaInput" [(ngModel)]="hrEntrada"
+                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Situação</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
@@ -66,7 +69,7 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Data Final</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-inputMask mask="99/99/9999" formControlName="dtFinalInput" [(ngModel)]="dtFinal" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
+                <p-inputMask mask="99/99/9999" (onComplete)="dtFinalValidation()" formControlName="dtFinalInput" [(ngModel)]="dtFinal" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Diretor</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
