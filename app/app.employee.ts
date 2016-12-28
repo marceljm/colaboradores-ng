@@ -75,6 +75,7 @@ export class AppEmployee {
     vwColabEntreGrupoList: VwColabEntreGrupo[];
 
     cidadeMap: { [key: number]: VwColabCidade[]; } = {};
+    entreGrupoMap: { [key: number]: VwColabEntreGrupo[]; } = {};
 
     employeeForm: FormGroup;
 
@@ -131,7 +132,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.estadoSelectItem = [];
-                this.estadoSelectItem.push({ label: null, value: -1 });
+                this.estadoSelectItem.push({ label: "", value: -1 });
                 for (let entry of this.vwColabEstadoList) {
                     this.estadoSelectItem.push({ label: entry.estado, value: entry.idEstado });
                 }
@@ -160,7 +161,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargoSelectItem = [];
-                this.cargoSelectItem.push({ label: null, value: -1 });
+                this.cargoSelectItem.push({ label: "", value: -1 });
                 for (let entry of this.vwColabCargoList) {
                     this.cargoSelectItem.push({ label: entry.cargo, value: entry.idCargo });
                 }
@@ -174,7 +175,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargaHorariaSelectItem = [];
-                this.cargaHorariaSelectItem.push({ label: null, value: -1 });
+                this.cargaHorariaSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabCargaHorariaList) {
                     this.cargaHorariaSelectItem.push({ label: entry.cargaHoraria, value: i });
@@ -190,7 +191,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.situacaoNovoSelectItem = [];
-                this.situacaoNovoSelectItem.push({ label: null, value: -1 });
+                this.situacaoNovoSelectItem.push({ label: "", value: -1 });
                 for (let entry of this.vwColabSitucaoNovoList) {
                     this.situacaoNovoSelectItem.push({ label: entry.situacao, value: entry.idSituacao });
                 }
@@ -204,7 +205,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.diretorSelectItem = [];
-                this.diretorSelectItem.push({ label: null, value: -1 });
+                this.diretorSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabDiretorList) {
                     this.diretorSelectItem.push({ label: entry.diretor, value: i });
@@ -220,7 +221,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSrSelectItem = [];
-                this.gerenteSrSelectItem.push({ label: null, value: -1 });
+                this.gerenteSrSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteSrList) {
                     this.gerenteSrSelectItem.push({ label: entry.gerenteSr, value: i });
@@ -236,7 +237,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSelectItem = [];
-                this.gerenteSelectItem.push({ label: null, value: -1 });
+                this.gerenteSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteList) {
                     this.gerenteSelectItem.push({ label: entry.gerente, value: i });
@@ -252,7 +253,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.coordenadorSelectItem = [];
-                this.coordenadorSelectItem.push({ label: null, value: -1 });
+                this.coordenadorSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabCoordenadorList) {
                     this.coordenadorSelectItem.push({ label: entry.coordenador, value: i });
@@ -268,7 +269,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.supervisorSelectItem = [];
-                this.supervisorSelectItem.push({ label: null, value: -1 });
+                this.supervisorSelectItem.push({ label: "", value: -1 });
                 let i: number = 1;
                 for (let entry of this.vwColabSupervisorList) {
                     this.supervisorSelectItem.push({ label: entry.supervisor, value: i });
@@ -284,7 +285,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.grupoSelectItem = [];
-                this.grupoSelectItem.push({ label: null, value: -1 });
+                this.grupoSelectItem.push({ label: "", value: -1 });
                 for (let entry of this.vwColabGrupoList) {
                     this.grupoSelectItem.push({ label: entry.grupo, value: entry.idGrupo });
                 }
@@ -298,9 +299,12 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.entreGrupoSelectItem = [];
-                this.entreGrupoSelectItem.push({ label: null, value: -1 });
+                this.entreGrupoSelectItem.push({ label: "", value: -1 });
                 for (let entry of this.vwColabEntreGrupoList) {
-                    this.entreGrupoSelectItem.push({ label: entry.entreGrupo, value: entry.idEntreGrupo });
+                    if (this.entreGrupoMap[entry.idGrupo] != null)
+                        this.entreGrupoMap[entry.idGrupo].push(entry);
+                    else
+                        this.entreGrupoMap[entry.idGrupo] = [entry];
                 }
             }
         );
@@ -365,6 +369,15 @@ export class AppEmployee {
         if (Number(this.estado) > 0) {
             for (let entry of this.cidadeMap[this.estado]) {
                 this.cidadeSelectItem.push({ label: entry.cidade, value: entry.idCidade });
+            }
+        }
+    }
+
+    grupoChange() {
+        this.entreGrupoSelectItem = [];
+        if (Number(this.grupo) > 0) {
+            for (let entry of this.entreGrupoMap[this.grupo]) {
+                this.entreGrupoSelectItem.push({ label: entry.entreGrupo, value: entry.idEntreGrupo });
             }
         }
     }
