@@ -105,7 +105,7 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6"></div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <button pButton type="submit" pButton icon="fa-save" label="Cadastrar" style="width:100%"></button>
+                <button pButton type="submit" icon="fa-save" label="Cadastrar" style="width:100%" [disabled]="!employeeForm.valid"></button>
             </div>
         </div>
     </div>

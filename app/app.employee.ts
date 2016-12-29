@@ -105,15 +105,15 @@ export class AppEmployee {
     validation() {
         this.employeeForm = this.fb.group({
             'colaboradorInput': new FormControl('', [Validators.required]),
-            'cpfInput': new FormControl('', [Validators.required]),
             'dtNascInput': new FormControl('', [Validators.required]),
+            'cpfInput': new FormControl('', [Validators.required]),
             'matriculaInput': new FormControl('', [Validators.required]),
             'matrComplInput': new FormControl('', [Validators.required]),
             'loginTelInput': new FormControl('', []),
             'dtAdmEmpresaInput': new FormControl('', [Validators.required]),
             'dtAdmAreaInput': new FormControl('', [Validators.required]),
             'estadoInput': new FormControl('', [Validators.required]),
-            'cidadeInput': new FormControl('', [Validators.required]),
+            'cidadeInput': new FormControl('', []),
             'cargoInput': new FormControl('', [Validators.required]),
             'cargaHorariaInput': new FormControl('', []),
             'hrEntradaInput': new FormControl('', []),
@@ -125,7 +125,7 @@ export class AppEmployee {
             'coordenadorInput': new FormControl('', [Validators.required]),
             'supervisorInput': new FormControl('', [Validators.required]),
             'grupoInput': new FormControl('', [Validators.required]),
-            'entreGrupoInput': new FormControl('', [Validators.required]),
+            'entreGrupoInput': new FormControl('', []),
         });
     }
 
@@ -135,7 +135,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.estadoSelectItem = [];
-                this.estadoSelectItem.push({ label: "", value: "" });
+                this.estadoSelectItem.push({ label: "", value: null });
                 for (let entry of this.vwColabEstadoList) {
                     this.estadoSelectItem.push({ label: entry.estado, value: entry.idEstado });
                 }
@@ -164,7 +164,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargoSelectItem = [];
-                this.cargoSelectItem.push({ label: "", value: "" });
+                this.cargoSelectItem.push({ label: "", value: null });
                 for (let entry of this.vwColabCargoList) {
                     this.cargoSelectItem.push({ label: entry.cargo, value: entry.idCargo });
                 }
@@ -178,7 +178,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargaHorariaSelectItem = [];
-                this.cargaHorariaSelectItem.push({ label: "", value: "" });
+                this.cargaHorariaSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabCargaHorariaList) {
                     this.cargaHorariaSelectItem.push({ label: entry.cargaHoraria, value: i });
@@ -194,7 +194,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.situacaoNovoSelectItem = [];
-                this.situacaoNovoSelectItem.push({ label: "", value: "" });
+                this.situacaoNovoSelectItem.push({ label: "", value: null });
                 for (let entry of this.vwColabSitucaoNovoList) {
                     this.situacaoNovoSelectItem.push({ label: entry.situacao, value: entry.idSituacao });
                     this.situacaoNovoMap[entry.idSituacao] = entry;
@@ -209,7 +209,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.diretorSelectItem = [];
-                this.diretorSelectItem.push({ label: "", value: "" });
+                this.diretorSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabDiretorList) {
                     this.diretorSelectItem.push({ label: entry.diretor, value: i });
@@ -225,7 +225,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSrSelectItem = [];
-                this.gerenteSrSelectItem.push({ label: "", value: "" });
+                this.gerenteSrSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteSrList) {
                     this.gerenteSrSelectItem.push({ label: entry.gerenteSr, value: i });
@@ -241,7 +241,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSelectItem = [];
-                this.gerenteSelectItem.push({ label: "", value: "" });
+                this.gerenteSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteList) {
                     this.gerenteSelectItem.push({ label: entry.gerente, value: i });
@@ -257,7 +257,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.coordenadorSelectItem = [];
-                this.coordenadorSelectItem.push({ label: "", value: "" });
+                this.coordenadorSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabCoordenadorList) {
                     this.coordenadorSelectItem.push({ label: entry.coordenador, value: i });
@@ -273,7 +273,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.supervisorSelectItem = [];
-                this.supervisorSelectItem.push({ label: "", value: "" });
+                this.supervisorSelectItem.push({ label: "", value: null });
                 let i: number = 1;
                 for (let entry of this.vwColabSupervisorList) {
                     this.supervisorSelectItem.push({ label: entry.supervisor, value: i });
@@ -289,7 +289,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.grupoSelectItem = [];
-                this.grupoSelectItem.push({ label: "", value: "" });
+                this.grupoSelectItem.push({ label: "", value: null });
                 for (let entry of this.vwColabGrupoList) {
                     this.grupoSelectItem.push({ label: entry.grupo, value: entry.idGrupo });
                 }
@@ -303,7 +303,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.entreGrupoSelectItem = [];
-                this.entreGrupoSelectItem.push({ label: "", value: "" });
+                this.entreGrupoSelectItem.push({ label: "", value: null });
                 for (let entry of this.vwColabEntreGrupoList) {
                     if (this.entreGrupoMap[entry.idGrupo] != null)
                         this.entreGrupoMap[entry.idGrupo].push(entry);
@@ -397,4 +397,7 @@ export class AppEmployee {
         }
     }
 
+    onSubmitEmployee(value: string) {
+        console.log("OK");
+    }
 }
