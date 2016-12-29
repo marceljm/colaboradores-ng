@@ -65,12 +65,13 @@
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Situação</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-dropdown [options]="situacaoNovoSelectItem" [(ngModel)]="situacaoNovo" formControlName="situacaoNovoInput" [filter]="true"
-                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-dropdown>
+                <p-dropdown [options]="situacaoNovoSelectItem" (onChange)="situacaoChange()" [(ngModel)]="situacaoNovo" formControlName="situacaoNovoInput"
+                    [filter]="true" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-dropdown>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Data Final</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">
-                <p-inputMask mask="99/99/9999" (onComplete)="dtFinalValidation()" formControlName="dtFinalInput" [(ngModel)]="dtFinal" [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
+                <p-inputMask mask="99/99/9999" (onComplete)="dtFinalValidation()" formControlName="dtFinalInput" [(ngModel)]="dtFinal" [disabled]="dtFinalDisabled"
+                    [style]="{'text-transform':'uppercase', 'width':'100%'}"></p-inputMask>
             </div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">Diretor</div>
             <div class="ui-g-12 ui-md-6 ui-lg-6">

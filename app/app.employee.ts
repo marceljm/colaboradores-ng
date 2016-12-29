@@ -37,7 +37,7 @@ export class AppEmployee {
     cargaHoraria: string;
     hrEntrada: string;
     hrSaida: string;
-    situacao: string;
+    situacaoNovo: string;
     dtFinal: string;
     diretor: string;
     gerenteSr: string;
@@ -76,6 +76,9 @@ export class AppEmployee {
 
     cidadeMap: { [key: number]: VwColabCidade[]; } = {};
     entreGrupoMap: { [key: number]: VwColabEntreGrupo[]; } = {};
+    situacaoNovoMap: { [key: number]: VwColabSituacaoNovo; } = {};
+
+    dtFinalDisabled = true;
 
     employeeForm: FormGroup;
 
@@ -106,16 +109,16 @@ export class AppEmployee {
             'dtNascInput': new FormControl('', [Validators.required]),
             'matriculaInput': new FormControl('', [Validators.required]),
             'matrComplInput': new FormControl('', [Validators.required]),
-            'loginTelInput': new FormControl('', [Validators.required]),
+            'loginTelInput': new FormControl('', []),
             'dtAdmEmpresaInput': new FormControl('', [Validators.required]),
             'dtAdmAreaInput': new FormControl('', [Validators.required]),
             'estadoInput': new FormControl('', [Validators.required]),
             'cidadeInput': new FormControl('', [Validators.required]),
             'cargoInput': new FormControl('', [Validators.required]),
-            'cargaHorariaInput': new FormControl('', [Validators.required]),
-            'hrEntradaInput': new FormControl('', [Validators.required]),
+            'cargaHorariaInput': new FormControl('', []),
+            'hrEntradaInput': new FormControl('', []),
             'situacaoNovoInput': new FormControl('', [Validators.required]),
-            'dtFinalInput': new FormControl('', [Validators.required]),
+            'dtFinalInput': new FormControl('', []),
             'diretorInput': new FormControl('', [Validators.required]),
             'gerenteSrInput': new FormControl('', [Validators.required]),
             'gerenteInput': new FormControl('', [Validators.required]),
@@ -132,7 +135,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.estadoSelectItem = [];
-                this.estadoSelectItem.push({ label: "", value: -1 });
+                this.estadoSelectItem.push({ label: "", value: "" });
                 for (let entry of this.vwColabEstadoList) {
                     this.estadoSelectItem.push({ label: entry.estado, value: entry.idEstado });
                 }
@@ -161,7 +164,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargoSelectItem = [];
-                this.cargoSelectItem.push({ label: "", value: -1 });
+                this.cargoSelectItem.push({ label: "", value: "" });
                 for (let entry of this.vwColabCargoList) {
                     this.cargoSelectItem.push({ label: entry.cargo, value: entry.idCargo });
                 }
@@ -175,7 +178,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.cargaHorariaSelectItem = [];
-                this.cargaHorariaSelectItem.push({ label: "", value: -1 });
+                this.cargaHorariaSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabCargaHorariaList) {
                     this.cargaHorariaSelectItem.push({ label: entry.cargaHoraria, value: i });
@@ -191,9 +194,10 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.situacaoNovoSelectItem = [];
-                this.situacaoNovoSelectItem.push({ label: "", value: -1 });
+                this.situacaoNovoSelectItem.push({ label: "", value: "" });
                 for (let entry of this.vwColabSitucaoNovoList) {
                     this.situacaoNovoSelectItem.push({ label: entry.situacao, value: entry.idSituacao });
+                    this.situacaoNovoMap[entry.idSituacao] = entry;
                 }
             }
         );
@@ -205,7 +209,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.diretorSelectItem = [];
-                this.diretorSelectItem.push({ label: "", value: -1 });
+                this.diretorSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabDiretorList) {
                     this.diretorSelectItem.push({ label: entry.diretor, value: i });
@@ -221,7 +225,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSrSelectItem = [];
-                this.gerenteSrSelectItem.push({ label: "", value: -1 });
+                this.gerenteSrSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteSrList) {
                     this.gerenteSrSelectItem.push({ label: entry.gerenteSr, value: i });
@@ -237,7 +241,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.gerenteSelectItem = [];
-                this.gerenteSelectItem.push({ label: "", value: -1 });
+                this.gerenteSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabGerenteList) {
                     this.gerenteSelectItem.push({ label: entry.gerente, value: i });
@@ -253,7 +257,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.coordenadorSelectItem = [];
-                this.coordenadorSelectItem.push({ label: "", value: -1 });
+                this.coordenadorSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabCoordenadorList) {
                     this.coordenadorSelectItem.push({ label: entry.coordenador, value: i });
@@ -269,7 +273,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.supervisorSelectItem = [];
-                this.supervisorSelectItem.push({ label: "", value: -1 });
+                this.supervisorSelectItem.push({ label: "", value: "" });
                 let i: number = 1;
                 for (let entry of this.vwColabSupervisorList) {
                     this.supervisorSelectItem.push({ label: entry.supervisor, value: i });
@@ -285,7 +289,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.grupoSelectItem = [];
-                this.grupoSelectItem.push({ label: "", value: -1 });
+                this.grupoSelectItem.push({ label: "", value: "" });
                 for (let entry of this.vwColabGrupoList) {
                     this.grupoSelectItem.push({ label: entry.grupo, value: entry.idGrupo });
                 }
@@ -299,7 +303,7 @@ export class AppEmployee {
             error => this.errorMessage = <any>error,
             () => {
                 this.entreGrupoSelectItem = [];
-                this.entreGrupoSelectItem.push({ label: "", value: -1 });
+                this.entreGrupoSelectItem.push({ label: "", value: "" });
                 for (let entry of this.vwColabEntreGrupoList) {
                     if (this.entreGrupoMap[entry.idGrupo] != null)
                         this.entreGrupoMap[entry.idGrupo].push(entry);
@@ -381,4 +385,16 @@ export class AppEmployee {
             }
         }
     }
+
+    situacaoChange() {
+        if (this.situacaoNovoMap[Number(this.situacaoNovo)] && this.situacaoNovoMap[Number(this.situacaoNovo)].situacao.startsWith("TREINAMENTO")) {
+            this.dtFinalDisabled = false;
+            this.employeeForm.setControl("dtFinalInput", new FormControl('', [Validators.required]));
+        }
+        else {
+            this.dtFinalDisabled = true;
+            this.employeeForm.setControl("dtFinalInput", new FormControl('', []));
+        }
+    }
+
 }
